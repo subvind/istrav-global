@@ -7,8 +7,6 @@ on:
         description: 'Choose an environment to deploy to: <dev|staging|prod>'
         required: true
         default: ${{ secrets.GH_PRIVATE_ACCESS_TOKEN }}
-
-on:
   push:
     branches:
       - master
