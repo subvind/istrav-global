@@ -29,7 +29,9 @@ $ cd todos
 ```
 
 ### deploy
+This project uses GitHub Actions where the master branch is production.
 ```bash
-$ cd projects
-$ wrangler publish
+$ git add .
+$ git commit -m "anything"
+$ git push
 ```
