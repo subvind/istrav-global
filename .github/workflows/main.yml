@@ -16,7 +16,9 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
-          command: echo "${{ secrets.GH_PRIVATE_ACCESS_TOKEN }}" | wrangler secret put GH_PRIVATE_ACCESS_TOKEN
+          command:  --help | echo "${{ secrets.GH_PRIVATE_ACCESS_TOKEN }}" | wrangler secret put GH_PRIVATE_ACCESS_TOKEN
+          # we need --help because GHA places "wrangler" infront of each command
+          # so it cancels that out
           
       - name: Publish
         uses: cloudflare/wrangler-action@2.0.0
