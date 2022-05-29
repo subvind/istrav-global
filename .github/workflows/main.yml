@@ -17,10 +17,16 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
-      - name: Publish
+      - name: Secrets
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
           command: echo "${{ github.event.inputs.GH_PRIVATE_ACCESS_TOKEN }}" | wrangler secret put GH_PRIVATE_ACCESS_TOKEN
+          
+      - name: Publish
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'projects'
           command: wrangler publish
