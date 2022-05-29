@@ -8,5 +8,4 @@ zone_id = ""
 compatibility_date = "2022-05-25"
 
 [vars]
-GITHUB_PAT = "ghp_L8MgOVHKvmKcM"
-GITHUB_PAT2 = "prutwhjYDtPPUSIXI1iNxxT"
+GIT_PRIVATE_ACCESS_TOKEN = "null"
