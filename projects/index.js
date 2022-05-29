@@ -8,7 +8,7 @@ addEventListener('fetch', event => {
  */
 async function handleRequest(request) {
   // personal access token
-  let token = GIT_PRIVATE_ACCESS_TOKEN
+  let token = GH_PRIVATE_ACCESS_TOKEN
   let org = 'trabur'
   let endpoint = `https://api.github.com/users/${org}/repos`;
   const init = {

@@ -1,6 +1,14 @@
 name: Deploy
 
 on:
+  workflow_dispatch:
+    inputs:
+      GH_PRIVATE_ACCESS_TOKEN:
+        description: 'Choose an environment to deploy to: <dev|staging|prod>'
+        required: true
+        default: ${{ secrets.GH_PRIVATE_ACCESS_TOKEN }}
+
+on:
   push:
     branches:
       - master
@@ -16,5 +24,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
-        env:
-          GIT_PRIVATE_ACCESS_TOKEN: ${{ secrets.GIT_PRIVATE_ACCESS_TOKEN }}
+          command: echo "${{ github.event.inputs.GH_PRIVATE_ACCESS_TOKEN }}" | wrangler secret put GH_PRIVATE_ACCESS_TOKEN
+          command: wrangler publish
