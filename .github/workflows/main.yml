@@ -17,4 +17,4 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          GIT_PRIVATE_ACCESS_TOKEN: ${{ secrets.GIT_PRIVATE_ACCESS_TOKEN }}
