@@ -23,4 +23,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
-          command: wrangler publish
+          command: publish
