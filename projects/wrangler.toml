@@ -1,4 +1,5 @@
 name = "projects"
+main = "./index.js"
 type = "webpack"
 
 account_id = ""
