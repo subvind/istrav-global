@@ -20,6 +20,8 @@ async function handleRequest(body, init) {
 const encoder = new TextEncoder();
 const passwordKeyData = encoder.encode(PASSWORD || 'worker only password symmetric key data');
 const secret = SECRET || 'between worker and backend'
+console.log('passwordKeyData', passwordKeyData)
+console.log('secret', secret)
 
 // Convert a ByteString (a string whose code units are all in the range
 // [0, 255]), to a Uint8Array. If you pass in a string with code units larger
@@ -100,12 +102,12 @@ async function verifyAndFetch(request) {
 
   // you have verified the MAC and expiration time; you can now pass the request
   // through.
-  let body = {
+  let res = {
     genuine: dataToAuthenticate,
     valid: true
   }
 
-  return handleRequest(body);
+  return handleRequest(res);
 }
 
 async function generateSignedData(request) {
@@ -142,7 +144,7 @@ async function generateSignedData(request) {
   const dataToAuthenticate = toData(url.searchParams.get('licenseKey'), expiry);
 
   // only sign if the secret between this worker and the server match
-  if (url.searchParams.get('secret') === secret) {
+  if (url.searchParams.get('secret') !== secret) {
     return handleRequest('Invalid "secret" query parameter', { status: 401 });
   }
 
@@ -153,12 +155,14 @@ async function generateSignedData(request) {
   // it into a ByteString, and then a Base64-encoded string.
   const base64Mac = btoa(String.fromCharCode(...new Uint8Array(mac)));
 
-  let body = {
+  let res = {
+    genuine: dataToAuthenticate,
+    valid: true,
     mac: base64Mac,
     expiry: expiry
   }
 
-  return handleRequest(body);
+  return handleRequest(res);
 }
 
 addEventListener('fetch', event => {
