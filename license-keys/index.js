@@ -28,9 +28,7 @@ console.log('secret', secret)
 function byteStringToUint8Array(byteString) {
   console.log('byteString', byteString)
   const decoder = new TextDecoder("utf-8");
-  const arr = new Uint8Array(byteString)
-  console.log('Uint8Array', arr)
-  return decoder.decode(arr)
+  return decoder.decode(byteString)
 }
 
 // It is crucial to pad the input data, for example, by adding a symbol
