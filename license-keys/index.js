@@ -120,7 +120,9 @@ addEventListener('fetch', event => {
     // use in the first example to recognize authenticated paths.
     url.pathname = `/verify/${url.pathname.slice(prefix.length)}`;
     event.respondWith(generateSignedUrl(url));
-  } else {
+  } else if (url.pathname.startsWith('verify')) {
     event.respondWith(verifyAndFetch(event.request));
+  } else {
+    event.respondWith(fetch(event.request));
   }
 });
