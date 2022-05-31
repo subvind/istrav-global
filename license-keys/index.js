@@ -45,8 +45,8 @@ async function verifyAndFetch(request) {
   const url = new URL(request.url);
 
   // Make sure you have the minimum necessary query parameters.
-  if (!url.searchParams.has('licenseKey')) {
-    return handleRequest('Missing "licenseKey" query parameter', { status: 403 });
+  if (!url.searchParams.has('id')) {
+    return handleRequest('Missing "id" query parameter', { status: 403 });
   }
   if (!url.searchParams.has('mac')) {
     return handleRequest('Missing "mac" query parameter', { status: 403 });
@@ -70,7 +70,7 @@ async function verifyAndFetch(request) {
   // in-between the two fields that can never occur on the right side. In this
   // case, use the @ symbol to separate the fields.
   const expiry = Number(url.searchParams.get('expiry'));
-  const dataToAuthenticate = toData(url.searchParams.get('licenseKey'), expiry);
+  const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
 
   // The received MAC is Base64-encoded, so you have to go to some trouble to
   // get it into a buffer type that crypto.subtle.verify() can read.
@@ -103,8 +103,13 @@ async function verifyAndFetch(request) {
   // you have verified the MAC and expiration time; you can now pass the request
   // through.
   let res = {
+    id: url.searchParams.get('id'),
     genuine: dataToAuthenticate,
-    valid: true
+    valid: true,
+    crypto: {
+      mac: receivedMacBase64,
+      expiry: expiry
+    }
   }
 
   return handleRequest(res);
@@ -114,8 +119,8 @@ async function generateSignedData(request) {
   const url = new URL(request.url);
 
   // Make sure you have the minimum necessary query parameters.
-  if (!url.searchParams.has('licenseKey')) {
-    return handleRequest('Missing "licenseKey" query parameter', { status: 403 });
+  if (!url.searchParams.has('id')) {
+    return handleRequest('Missing "id" query parameter', { status: 403 });
   }
   if (!url.searchParams.has('secret')) {
     return handleRequest('Missing "secret" query parameter', { status: 403 });
@@ -141,7 +146,7 @@ async function generateSignedData(request) {
   // number, so you can safely use it as a separator here. When combining more
   // fields, consider JSON.stringify-ing an array of the fields instead of
   // concatenating the values.
-  const dataToAuthenticate = toData(url.searchParams.get('licenseKey'), expiry);
+  const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
 
   // only sign if the secret between this worker and the server match
   if (url.searchParams.get('secret') !== secret) {
@@ -156,10 +161,14 @@ async function generateSignedData(request) {
   const base64Mac = btoa(String.fromCharCode(...new Uint8Array(mac)));
 
   let res = {
+    id: url.searchParams.get('id'),
     genuine: dataToAuthenticate,
     valid: true,
-    mac: base64Mac,
-    expiry: expiry
+    crypto: {
+      mac: base64Mac,
+      expiry: expiry
+    },
+    verifyUrl: `https://license-keys.trabur.workers.dev/verify?`
   }
 
   return handleRequest(res);
