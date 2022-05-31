@@ -16,7 +16,7 @@ async function handleRequest(body, init) {
 }
 
 // You will need some super-secret data to use as a symmetric key.
-const encoder = new TextEncoder(("utf-8");
+const encoder = new TextEncoder("utf-8");
 const passwordKeyData = encoder.encode(PASSWORD || 'worker only password symmetric key data');
 const secret = SECRET || 'between worker and backend'
 console.log('passwordKeyData', passwordKeyData)
