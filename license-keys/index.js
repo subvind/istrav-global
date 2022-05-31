@@ -16,8 +16,8 @@ async function handleRequest(body, init) {
 }
 
 // You will need some super-secret data to use as a symmetric key.
-const encoder = new TextEncoder();
-const passwordKeyData = encoder.encode(PASSWORD || 'worker only password symmetric key data');
+const te = new TextEncoder();
+const passwordKeyData = te.encode(PASSWORD || 'worker only password symmetric key data');
 const secret = SECRET || 'between worker and backend'
 console.log('passwordKeyData', passwordKeyData)
 console.log('secret', secret)
@@ -80,7 +80,7 @@ async function verifyLicenseKey(request) {
 
   // The received MAC is Base64-encoded, so you have to go to some trouble to
   // get it into a buffer type that crypto.subtle.verify() can read.
-  const receivedMacBase64 = url.searchParams.get('mac');
+  const receivedMacBase64 = decodeURIComponent(url.searchParams.get('mac'))
   console.log('receivedMacBase64', receivedMacBase64)
   const receivedMac = byteStringToUint8Array(atob(receivedMacBase64));
   console.log('receivedMac', receivedMac)
@@ -121,7 +121,7 @@ async function verifyLicenseKey(request) {
     reason: reason
   }
 
-  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${res.mac}&expiry=${res.expiry}`
+  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${encodeURIComponent(res.mac)}&expiry=${res.expiry}`
 
   return handleRequest(res, { status });
 }
@@ -186,7 +186,7 @@ async function generateLicenseKey(request) {
     reason: 'A request was made.'
   }
 
-  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${res.mac}&expiry=${res.expiry}`
+  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${encodeURIComponent(res.mac)}&expiry=${res.expiry}`
 
   return handleRequest(res);
 }
