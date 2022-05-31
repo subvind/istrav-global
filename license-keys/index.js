@@ -30,7 +30,7 @@ function byteStringToUint8Array(byteString) {
   var len = byteString.length;
   var bytes = new Uint8Array(len);
   for (var i = 0; i < len; i++) {
-      bytes[i] = byteString.charCodeAt(i);
+    bytes[i] = byteString.charCodeAt(i);
   }
   return bytes.buffer;
 }
@@ -42,18 +42,18 @@ function toData(licenseKeyId, expiry) {
   return `${licenseKeyId}@${expiry}`
 }
 
-async function verifyAndFetch(request) {
+async function verifyLicenseKey(request) {
   const url = new URL(request.url);
 
   // Make sure you have the minimum necessary query parameters.
   if (!url.searchParams.has('id')) {
-    return handleRequest('Missing "id" query parameter', { status: 403 });
+    return handleRequest({ reason: 'Missing "id" query parameter' }, { status: 403 });
   }
   if (!url.searchParams.has('mac')) {
-    return handleRequest('Missing "mac" query parameter', { status: 403 });
+    return handleRequest({ reason: 'Missing "mac" query parameter' }, { status: 403 });
   }
   if (!url.searchParams.has('expiry')) {
-    return handleRequest('Missing "expiry" query parameter', { status: 403 });
+    return handleRequest({ reason: 'Missing "expiry" query parameter' }, { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -93,14 +93,16 @@ async function verifyAndFetch(request) {
   );
   console.log('verified', verified)
 
+  let status = 200
+  let reason = 'A request was made.'
   if (!verified) {
-    const body = 'Invalid MAC';
-    return handleRequest(body, { status: 403 });
+    reason = 'Invalid License Key'
+    status = 403
   }
 
   if (Date.now() > expiry) {
-    const body = `URL expired at ${new Date(expiry)}`;
-    return handleRequest(body, { status: 403 });
+    reason = `License Key expired at ${new Date(expiry)}`;
+    status = 403
   }
 
   // you have verified the MAC and expiration time; you can now pass the request
@@ -110,23 +112,24 @@ async function verifyAndFetch(request) {
     genuine: dataToAuthenticate,
     valid: verified,
     mac: receivedMacBase64,
-    expiry: expiry
+    expiry: expiry,
+    reason: reason
   }
 
   res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${res.mac}&expiry=${res.expiry}`
 
-  return handleRequest(res);
+  return handleRequest(res, { status });
 }
 
-async function generateSignedData(request) {
+async function generateLicenseKey(request) {
   const url = new URL(request.url);
 
   // Make sure you have the minimum necessary query parameters.
   if (!url.searchParams.has('id')) {
-    return handleRequest('Missing "id" query parameter', { status: 403 });
+    return handleRequest({ reason: 'Missing "id" query parameter' }, { status: 403 });
   }
   if (!url.searchParams.has('secret')) {
-    return handleRequest('Missing "secret" query parameter', { status: 403 });
+    return handleRequest({ reason: 'Missing "secret" query parameter' }, { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -157,7 +160,7 @@ async function generateSignedData(request) {
 
   // only sign if the secret between this worker and the server match
   if (url.searchParams.get('secret') !== secret) {
-    return handleRequest('Invalid "secret" query parameter', { status: 401 });
+    return handleRequest({ reason: 'Invalid "secret" query parameter' }, { status: 401 });
   }
 
   const encoder = new TextEncoder("utf-8");
@@ -174,7 +177,8 @@ async function generateSignedData(request) {
     genuine: dataToAuthenticate,
     valid: true,
     mac: base64Mac,
-    expiry: expiry
+    expiry: expiry,
+    reason: 'A request was made.'
   }
 
   res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${res.mac}&expiry=${res.expiry}`
@@ -188,9 +192,9 @@ addEventListener('fetch', event => {
   console.log('requestHeaders', requestHeaders)
 
   if (url.pathname.startsWith('/generate')) {
-    event.respondWith(generateSignedData(event.request));
+    event.respondWith(generateLicenseKey(event.request));
   } else if (url.pathname.startsWith('/verify')) {
-    event.respondWith(verifyAndFetch(event.request));
+    event.respondWith(verifyLicenseKey(event.request));
   } else {
     event.respondWith(handleRequest("license-keys"));
   }
