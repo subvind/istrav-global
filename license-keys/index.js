@@ -3,11 +3,14 @@
  * @param {Request} request
  */
 async function handleRequest(body) {
-  if (typeof body === Object) {
-    body = JSON.stringify(body)
-  }
-  return new Response(body || 'Hello worker!', {
-    headers: { 'content-type': 'text/plain' },
+  return new Response(body, {
+    headers:  {
+      'content-type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,HEAD,OPTIONS',
+      'Access-Control-Allow-Headers': 'content-type',
+      'Access-Control-Max-Age': '86400',
+    },
   })
 }
 
