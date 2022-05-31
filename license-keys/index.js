@@ -35,10 +35,10 @@ function byteStringToUint8Array(byteString) {
 }
 
 function toData(licenseKey, expiry) {
-  return JSON.stringify({
+  return {
     licenseKey,
     expiry
-  })
+  }
 }
 
 async function verifyAndFetch(request) {
@@ -71,11 +71,13 @@ async function verifyAndFetch(request) {
   // case, use the @ symbol to separate the fields.
   const expiry = Number(url.searchParams.get('expiry'));
   const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
+  console.log('dataToAuthenticate', dataToAuthenticate)
 
   // The received MAC is Base64-encoded, so you have to go to some trouble to
   // get it into a buffer type that crypto.subtle.verify() can read.
   const receivedMacBase64 = url.searchParams.get('mac');
   const receivedMac = byteStringToUint8Array(atob(receivedMacBase64));
+  console.log('receivedMac', receivedMac)
 
   // Use crypto.subtle.verify() to guard against timing attacks. Since HMACs use
   // symmetric keys, you could implement this by calling crypto.subtle.sign() and
@@ -147,6 +149,7 @@ async function generateSignedData(request) {
   // fields, consider JSON.stringify-ing an array of the fields instead of
   // concatenating the values.
   const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
+  console.log('dataToAuthenticate', dataToAuthenticate)
 
   // only sign if the secret between this worker and the server match
   if (url.searchParams.get('secret') !== secret) {
@@ -176,6 +179,8 @@ async function generateSignedData(request) {
 
 addEventListener('fetch', event => {
   const url = new URL(event.request.url);
+  let requestHeaders = JSON.stringify([...request.headers])
+  console.log('requestHeaders', requestHeaders)
 
   if (url.pathname.startsWith('/generate')) {
     event.respondWith(generateSignedData(event.request));
