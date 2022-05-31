@@ -101,14 +101,17 @@ async function verifyLicenseKey(request) {
 
   let status = 200
   let reason = 'A request was made.'
+  let valid = true
   if (!verified) {
     reason = 'Invalid License Key'
     status = 403
+    valid = false
   }
 
   if (Date.now() > expiry) {
     reason = `License Key expired at ${new Date(expiry)}`;
     status = 403
+    valid = false
   }
 
   // you have verified the MAC and expiration time; you can now pass the request
@@ -116,7 +119,7 @@ async function verifyLicenseKey(request) {
   let res = {
     id: url.searchParams.get('id'),
     genuine: dataToAuthenticate,
-    valid: verified,
+    valid: valid,
     mac: receivedMacBase64,
     expiry: expiry,
     reason: reason
