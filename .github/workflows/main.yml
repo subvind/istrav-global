@@ -20,9 +20,15 @@ jobs:
           # we need --help because GHA places "wrangler" infront of each command
           # so it cancels that out
           
-      - name: Publish
+      - name: Publish Projects
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
+          command: publish
+      - name: Publish LicenseKeys
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'license-keys'
           command: publish

@@ -3,9 +3,7 @@ istrav-backend
 application for deploying and managing /community_folder/ platforms
 
 ### istrav
-- clients: linked with auth0
-- clientPlatforms: CRUD /for_example/ [dev, staging, production]
-- platformLicenseKeys: JWTs for limiting permission to software
+- licenseKeys: JWTs for limiting permission to software
 - projects: github public repositories
 
 ### payment processing
