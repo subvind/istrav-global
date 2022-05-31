@@ -16,7 +16,7 @@ async function handleRequest(body, init) {
 }
 
 // You will need some super-secret data to use as a symmetric key.
-const encoder = new TextEncoder("utf-8");
+const encoder = new TextEncoder();
 const passwordKeyData = encoder.encode(PASSWORD || 'worker only password symmetric key data');
 const secret = SECRET || 'between worker and backend'
 console.log('passwordKeyData', passwordKeyData)
@@ -27,9 +27,9 @@ console.log('secret', secret)
 // than 255, their values will overflow.
 function byteStringToUint8Array(byteString) {
   console.log('byteString', byteString)
-  const decoder = new TextDecoder("utf-8");
+  const decoder = new TextDecoder();
   return decoder.decode(byteString)
-  
+
   // var len = byteString.length;
   // var bytes = new Uint8Array(len);
   // for (var i = 0; i < len; i++) {
@@ -166,7 +166,7 @@ async function generateLicenseKey(request) {
     return handleRequest({ reason: 'Invalid "secret" query parameter' }, { status: 401 });
   }
 
-  const encoder = new TextEncoder("utf-8");
+  const encoder = new TextEncoder();
   const mac = await crypto.subtle.sign('HMAC', key, encoder.encode(dataToAuthenticate));
   console.log('mac', mac)
 
