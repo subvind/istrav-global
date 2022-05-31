@@ -27,15 +27,15 @@ console.log('secret', secret)
 // than 255, their values will overflow.
 function byteStringToUint8Array(byteString) {
   console.log('byteString', byteString)
-  const decoder = new TextDecoder();
-  return decoder.decode(byteString)
+  // const decoder = new TextDecoder();
+  // return decoder.decode(byteString)
 
-  // var len = byteString.length;
-  // var bytes = new Uint8Array(len);
-  // for (var i = 0; i < len; i++) {
-  //   bytes[i] = byteString.charCodeAt(i);
-  // }
-  // return bytes.buffer;
+  var len = byteString.length;
+  var bytes = new Uint8Array(len);
+  for (var i = 0; i < len; i++) {
+    bytes[i] = byteString.charCodeAt(i);
+  }
+  return bytes.buffer;
 }
 
 // It is crucial to pad the input data, for example, by adding a symbol
