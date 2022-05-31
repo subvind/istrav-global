@@ -16,7 +16,7 @@ async function handleRequest(body, init) {
 }
 
 // You will need some super-secret data to use as a symmetric key.
-const encoder = new TextEncoder();
+const encoder = new TextEncoder(("utf-8");
 const passwordKeyData = encoder.encode(PASSWORD || 'worker only password symmetric key data');
 const secret = SECRET || 'between worker and backend'
 console.log('passwordKeyData', passwordKeyData)
@@ -26,11 +26,9 @@ console.log('secret', secret)
 // [0, 255]), to a Uint8Array. If you pass in a string with code units larger
 // than 255, their values will overflow.
 function byteStringToUint8Array(byteString) {
-  const ui = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; ++i) {
-    ui[i] = byteString.charCodeAt(i);
-  }
-  return ui;
+  const decoder = new TextDecoder("utf-8");
+  const arr = new Uint8Array(byteString)
+  return decoder.decode(arr)
 }
 
 // It is crucial to pad the input data, for example, by adding a symbol
@@ -158,7 +156,7 @@ async function generateSignedData(request) {
     return handleRequest('Invalid "secret" query parameter', { status: 401 });
   }
 
-  const encoder = new TextEncoder();
+  const encoder = new TextEncoder("utf-8");
   const mac = await crypto.subtle.sign('HMAC', key, encoder.encode(dataToAuthenticate));
   console.log('mac', mac)
 
