@@ -2,9 +2,10 @@
  * Respond with hello worker text
  * @param {Request} request
  */
-async function handleRequest(body) {
+async function handleRequest(body, init) {
   body = JSON.stringify(body)
   return new Response(body, {
+    ...init,
     headers:  {
       'content-type': 'application/json;charset=UTF-8',
       'Access-Control-Allow-Origin': '*',
@@ -33,14 +34,15 @@ function byteStringToUint8Array(byteString) {
 async function verifyAndFetch(request) {
   const url = new URL(request.url);
 
-  // If the path does not begin with our protected prefix, pass the request through
-  if (!url.pathname.startsWith('/verify/')) {
-    return fetch(request);
-  }
-
   // Make sure you have the minimum necessary query parameters.
-  if (!url.searchParams.has('mac') || !url.searchParams.has('expiry')) {
-    return new Response('Missing query parameter', { status: 403 });
+  if (!url.searchParams.has('licenseKey')) {
+    return new handleRequest('Missing "licenseKey" query parameter', { status: 403 });
+  }
+  if (!url.searchParams.has('mac')) {
+    return new handleRequest('Missing "mac" query parameter', { status: 403 });
+  }
+  if (!url.searchParams.has('expiry')) {
+    return new handleRequest('Missing "expiry" query parameter', { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -57,7 +59,7 @@ async function verifyAndFetch(request) {
   // in-between the two fields that can never occur on the right side. In this
   // case, use the @ symbol to separate the fields.
   const expiry = Number(url.searchParams.get('expiry'));
-  const dataToAuthenticate = `${url.pathname}@${expiry}`;
+  const dataToAuthenticate = `${url.searchParams.get('licenseKey')}@${expiry}`;
 
   // The received MAC is Base64-encoded, so you have to go to some trouble to
   // get it into a buffer type that crypto.subtle.verify() can read.
@@ -78,23 +80,33 @@ async function verifyAndFetch(request) {
 
   if (!verified) {
     const body = 'Invalid MAC';
-    return new Response(body, { status: 403 });
+    return handleRequest(body, { status: 403 });
   }
 
   if (Date.now() > expiry) {
     const body = `URL expired at ${new Date(expiry)}`;
-    return new Response(body, { status: 403 });
+    return handleRequest(body, { status: 403 });
   }
 
   // you have verified the MAC and expiration time; you can now pass the request
   // through.
-  return handleRequest(request);
+  let body = {
+    mac: receivedMacBase64,
+    expiry: expiry,
+    valid: true
+  }
+
+  return handleRequest(body);
 }
 
-async function generateSignedUrl(url) {
-  // You will need some super-secret data to use as a symmetric key.
-  const encoder = new TextEncoder();
-  const secretKeyData = encoder.encode('my secret symmetric key');
+async function generateSignedUrl(request) {
+  const url = new URL(request.url);
+
+  // Make sure you have the minimum necessary query parameters.
+  if (!url.searchParams.has('licenseKey')) {
+    return new handleRequest('Missing "licenseKey" query parameter', { status: 403 });
+  }
+
   const key = await crypto.subtle.importKey(
     'raw',
     secretKeyData,
@@ -115,8 +127,9 @@ async function generateSignedUrl(url) {
   // number, so you can safely use it as a separator here. When combining more
   // fields, consider JSON.stringify-ing an array of the fields instead of
   // concatenating the values.
-  const dataToAuthenticate = `${url.pathname}@${expiry}`;
+  const dataToAuthenticate = `${url.searchParams.get('licenseKey')}@${expiry}`;
 
+  const encoder = new TextEncoder();
   const mac = await crypto.subtle.sign('HMAC', key, encoder.encode(dataToAuthenticate));
 
   // `mac` is an ArrayBuffer, so you need to make a few changes to get
@@ -128,17 +141,12 @@ async function generateSignedUrl(url) {
     expiry: expiry
   }
 
-  return new Response(body);
+  return handleRequest(body);
 }
 
 addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  const prefix = '/generate/';
-  if (url.pathname.startsWith(prefix)) {
-    // Replace the "/generate/" path prefix with "/verify/", which we
-    // use in the first example to recognize authenticated paths.
-    url.pathname = `/verify/${url.pathname.slice(prefix.length)}`;
-    event.respondWith(generateSignedUrl(url));
+  if (url.pathname.startsWith('/generate/')) {
+    event.respondWith(generateSignedData(event.request));
   } else if (url.pathname.startsWith('/verify/')) {
     event.respondWith(verifyAndFetch(event.request));
   } else {
