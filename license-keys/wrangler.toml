@@ -1,8 +1,13 @@
+# https://developers.cloudflare.com/workers/wrangler/configuration/
+
 name = "license-keys"
+main = "./index.js"
 type = "webpack"
 
-account_id = ""
+account_id = "f333d0427dfa7055547fcf4c072d9411"
 workers_dev = true
-route = ""
 zone_id = ""
 compatibility_date = "2022-05-31"
+
+# [vars]
+# GH_PRIVATE_ACCESS_TOKEN = "null"
