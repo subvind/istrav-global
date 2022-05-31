@@ -11,21 +11,33 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
-      - name: Secrets
+      # /projects
+      - name: Projects Secrets
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
+          # we need --help because GHA places "wrangler" infront of each command so it cancels that out
           command:  --help | echo "${{ secrets.GH_PRIVATE_ACCESS_TOKEN }}" | wrangler secret put GH_PRIVATE_ACCESS_TOKEN
-          # we need --help because GHA places "wrangler" infront of each command
-          # so it cancels that out
-          
       - name: Publish Projects
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'projects'
           command: publish
+      # /license-keys
+      - name: LicenseKeys Secrets
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'projects'
+          command:  --help | echo "${{ secrets.LICENSE_KEYS_SECRET }}" | wrangler secret put SECRET
+      - name: LicenseKeys Secrets
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'projects'
+          command:  --help | echo "${{ secrets.LICENSE_KEYS_PASSWORD }}" | wrangler secret put PASSWORD
       - name: Publish LicenseKeys
         uses: cloudflare/wrangler-action@2.0.0
         with:

@@ -18,7 +18,8 @@ async function handleRequest(body, init) {
 
 // You will need some super-secret data to use as a symmetric key.
 const encoder = new TextEncoder();
-const secretKeyData = encoder.encode('my secret symmetric key');
+const secretKeyData = encoder.encode(PASSWORD || 'my secret symmetric key');
+const secret = SECRET
 
 // Convert a ByteString (a string whose code units are all in the range
 // [0, 255]), to a Uint8Array. If you pass in a string with code units larger
@@ -104,7 +105,10 @@ async function generateSignedData(request) {
 
   // Make sure you have the minimum necessary query parameters.
   if (!url.searchParams.has('licenseKey')) {
-    return new handleRequest('Missing "licenseKey" query parameter', { status: 403 });
+    return handleRequest('Missing "licenseKey" query parameter', { status: 403 });
+  }
+  if (!url.searchParams.has('secret')) {
+    return handleRequest('Missing "secret" query parameter', { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -129,6 +133,11 @@ async function generateSignedData(request) {
   // concatenating the values.
   const dataToAuthenticate = `${url.searchParams.get('licenseKey')}@${expiry}`;
 
+  // only sign if the secret between this worker and the server match
+  if (url.searchParams.has('secret') === secret) {
+    return handleRequest('Invalid "secret" query parameter', { status: 401 });
+  }
+
   const encoder = new TextEncoder();
   const mac = await crypto.subtle.sign('HMAC', key, encoder.encode(dataToAuthenticate));
 
@@ -147,9 +156,9 @@ async function generateSignedData(request) {
 addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  if (url.pathname.startsWith('/generate/')) {
+  if (url.pathname.startsWith('/generate')) {
     event.respondWith(generateSignedData(event.request));
-  } else if (url.pathname.startsWith('/verify/')) {
+  } else if (url.pathname.startsWith('/verify')) {
     event.respondWith(verifyAndFetch(event.request));
   } else {
     event.respondWith(handleRequest("license-keys"));
