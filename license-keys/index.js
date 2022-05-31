@@ -3,6 +3,9 @@
  * @param {Request} request
  */
 async function handleRequest(body) {
+  if (typeof body === Object) {
+    body = JSON.stringify(body)
+  }
   return new Response(body || 'Hello worker!', {
     headers: { 'content-type': 'text/plain' },
   })
