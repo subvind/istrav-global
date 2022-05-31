@@ -3,6 +3,7 @@
  * @param {Request} request
  */
 async function handleRequest(body) {
+  body = JSON.stringify(body)
   return new Response(body, {
     headers:  {
       'content-type': 'application/json;charset=UTF-8',
