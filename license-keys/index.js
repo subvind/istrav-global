@@ -1,3 +1,13 @@
+/**
+ * Respond with hello worker text
+ * @param {Request} request
+ */
+async function handleRequest(request) {
+  return new Response('Hello worker!', {
+    headers: { 'content-type': 'text/plain' },
+  })
+}
+
 // You will need some super-secret data to use as a symmetric key.
 const encoder = new TextEncoder();
 const secretKeyData = encoder.encode('my secret symmetric key');
@@ -71,7 +81,7 @@ async function verifyAndFetch(request) {
 
   // you have verified the MAC and expiration time; you can now pass the request
   // through.
-  return fetch(request);
+  return handleRequest(request);
 }
 
 async function generateSignedUrl(url) {
@@ -123,6 +133,6 @@ addEventListener('fetch', event => {
   } else if (url.pathname.startsWith('verify')) {
     event.respondWith(verifyAndFetch(event.request));
   } else {
-    event.respondWith(fetch(event.request));
+    event.respondWith(handleRequest(event.request));
   }
 });
