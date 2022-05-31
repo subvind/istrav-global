@@ -152,6 +152,6 @@ addEventListener('fetch', event => {
   } else if (url.pathname.startsWith('/verify/')) {
     event.respondWith(verifyAndFetch(event.request));
   } else {
-    event.respondWith(handleRequest(event.request));
+    event.respondWith(handleRequest("license-keys"));
   }
 });
