@@ -37,13 +37,13 @@ async function verifyAndFetch(request) {
 
   // Make sure you have the minimum necessary query parameters.
   if (!url.searchParams.has('licenseKey')) {
-    return new handleRequest('Missing "licenseKey" query parameter', { status: 403 });
+    return handleRequest('Missing "licenseKey" query parameter', { status: 403 });
   }
   if (!url.searchParams.has('mac')) {
-    return new handleRequest('Missing "mac" query parameter', { status: 403 });
+    return handleRequest('Missing "mac" query parameter', { status: 403 });
   }
   if (!url.searchParams.has('expiry')) {
-    return new handleRequest('Missing "expiry" query parameter', { status: 403 });
+    return handleRequest('Missing "expiry" query parameter', { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
