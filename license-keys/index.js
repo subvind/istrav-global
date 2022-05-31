@@ -106,12 +106,12 @@ async function verifyAndFetch(request) {
   let res = {
     id: url.searchParams.get('id'),
     genuine: dataToAuthenticate,
-    valid: true,
-    crypto: {
-      mac: receivedMacBase64,
-      expiry: expiry
-    }
+    valid: verified,
+    mac: receivedMacBase64,
+    expiry: expiry
   }
+
+  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${res.mac}&expiry=${res.expiry}`
 
   return handleRequest(res);
 }
@@ -171,12 +171,11 @@ async function generateSignedData(request) {
     id: url.searchParams.get('id'),
     genuine: dataToAuthenticate,
     valid: true,
-    crypto: {
-      mac: base64Mac,
-      expiry: expiry
-    },
-    verifyUrl: `https://license-keys.trabur.workers.dev/verify?`
+    mac: base64Mac,
+    expiry: expiry
   }
+
+  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${res.mac}&expiry=${res.expiry}`
 
   return handleRequest(res);
 }
