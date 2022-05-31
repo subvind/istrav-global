@@ -33,11 +33,11 @@ function byteStringToUint8Array(byteString) {
   return ui;
 }
 
-function toData(licenseKey, expiry) {
-  return {
-    licenseKey,
-    expiry
-  }
+// It is crucial to pad the input data, for example, by adding a symbol
+// in-between the two fields that can never occur on the right side. In this
+// case, use the @ symbol to separate the fields.
+function toData(licenseKeyId, expiry) {
+  return `${licenseKeyId}@${expiry}`
 }
 
 async function verifyAndFetch(request) {
@@ -65,9 +65,7 @@ async function verifyAndFetch(request) {
 
   // Extract the query parameters we need and run the HMAC algorithm on the
   // parts of the request we are authenticating: the path and the expiration
-  // timestamp. It is crucial to pad the input data, for example, by adding a symbol
-  // in-between the two fields that can never occur on the right side. In this
-  // case, use the @ symbol to separate the fields.
+  // timestamp.
   const expiry = Number(url.searchParams.get('expiry'));
   console.log('expiry', expiry)
   const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
