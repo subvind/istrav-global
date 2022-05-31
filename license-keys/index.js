@@ -27,8 +27,10 @@ console.log('secret', secret)
 // than 255, their values will overflow.
 function byteStringToUint8Array(byteString) {
   console.log('byteString', byteString)
-  const decoder = new TextDecoder();
-  return decoder.decode(byteString)
+  return Uint8Array.from(byteString, c => c.charCodeAt(0))
+
+  // const decoder = new TextDecoder();
+  // return decoder.decode(byteString)
 
   // var len = byteString.length;
   // var bytes = new Uint8Array(len);
