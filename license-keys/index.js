@@ -99,7 +99,7 @@ async function verifyAndFetch(request) {
   return handleRequest(body);
 }
 
-async function generateSignedUrl(request) {
+async function generateSignedData(request) {
   const url = new URL(request.url);
 
   // Make sure you have the minimum necessary query parameters.
