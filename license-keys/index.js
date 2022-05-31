@@ -90,6 +90,7 @@ async function verifyLicenseKey(request) {
   // then doing a string comparison -- this is insecure, as string comparisons
   // bail out on the first mismatch, which leaks information to potential
   // attackers.
+  const encoder = new TextEncoder();
   const verified = await crypto.subtle.verify(
     'HMAC',
     key,
