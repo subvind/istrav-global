@@ -26,8 +26,10 @@ console.log('secret', secret)
 // [0, 255]), to a Uint8Array. If you pass in a string with code units larger
 // than 255, their values will overflow.
 function byteStringToUint8Array(byteString) {
+  console.log('byteString', byteString)
   const decoder = new TextDecoder("utf-8");
   const arr = new Uint8Array(byteString)
+  console.log('Uint8Array', arr)
   return decoder.decode(arr)
 }
 
