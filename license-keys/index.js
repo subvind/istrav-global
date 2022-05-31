@@ -145,6 +145,8 @@ async function generateSignedUrl(request) {
 }
 
 addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
   if (url.pathname.startsWith('/generate/')) {
     event.respondWith(generateSignedData(event.request));
   } else if (url.pathname.startsWith('/verify/')) {
