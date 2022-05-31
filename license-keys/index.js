@@ -32,6 +32,13 @@ function byteStringToUint8Array(byteString) {
   return ui;
 }
 
+function toData(licenseKey, expiry) {
+  return JSON.stringify({
+    licenseKey,
+    expiry
+  })
+}
+
 async function verifyAndFetch(request) {
   const url = new URL(request.url);
 
@@ -60,7 +67,7 @@ async function verifyAndFetch(request) {
   // in-between the two fields that can never occur on the right side. In this
   // case, use the @ symbol to separate the fields.
   const expiry = Number(url.searchParams.get('expiry'));
-  const dataToAuthenticate = `${url.searchParams.get('licenseKey')}@${expiry}`;
+  const dataToAuthenticate = toData(url.searchParams.get('licenseKey'), expiry);
 
   // The received MAC is Base64-encoded, so you have to go to some trouble to
   // get it into a buffer type that crypto.subtle.verify() can read.
@@ -92,8 +99,7 @@ async function verifyAndFetch(request) {
   // you have verified the MAC and expiration time; you can now pass the request
   // through.
   let body = {
-    mac: receivedMacBase64,
-    expiry: expiry,
+    licenseKey: dataToAuthenticate,
     valid: true
   }
 
@@ -131,7 +137,7 @@ async function generateSignedData(request) {
   // number, so you can safely use it as a separator here. When combining more
   // fields, consider JSON.stringify-ing an array of the fields instead of
   // concatenating the values.
-  const dataToAuthenticate = `${url.searchParams.get('licenseKey')}@${expiry}`;
+  const dataToAuthenticate = toData(url.searchParams.get('licenseKey'), expiry);
 
   // only sign if the secret between this worker and the server match
   if (url.searchParams.has('secret') === secret) {
