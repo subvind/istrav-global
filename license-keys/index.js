@@ -4,6 +4,8 @@
  */
 async function handleRequest(body, init) {
   body = JSON.stringify(body)
+  console.log('body', body)
+
   return new Response(body, {
     ...init,
     headers:  {
@@ -70,12 +72,14 @@ async function verifyAndFetch(request) {
   // in-between the two fields that can never occur on the right side. In this
   // case, use the @ symbol to separate the fields.
   const expiry = Number(url.searchParams.get('expiry'));
+  console.log('expiry', expiry)
   const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
   console.log('dataToAuthenticate', dataToAuthenticate)
 
   // The received MAC is Base64-encoded, so you have to go to some trouble to
   // get it into a buffer type that crypto.subtle.verify() can read.
   const receivedMacBase64 = url.searchParams.get('mac');
+  console.log('receivedMacBase64', receivedMacBase64)
   const receivedMac = byteStringToUint8Array(atob(receivedMacBase64));
   console.log('receivedMac', receivedMac)
 
@@ -135,12 +139,15 @@ async function generateSignedData(request) {
     false,
     ['sign']
   );
+  console.log('key', key)
 
   // Signed requests expire after one minute. Note that you could choose
   // expiration durations dynamically, depending on, for example, the path or a query
   // parameter.
   const expirationMs = 60000;
   const expiry = Number(Date.now() + expirationMs);
+  console.log('expiry', expiry)
+
   // The signature will be computed for the pathname and the expiry timestamp.
   // The two fields must be separated or padded to ensure that an attacker
   // will not be able to use the same signature for other pathname/expiry pairs.
@@ -158,10 +165,12 @@ async function generateSignedData(request) {
 
   const encoder = new TextEncoder();
   const mac = await crypto.subtle.sign('HMAC', key, encoder.encode(dataToAuthenticate));
+  console.log('mac', mac)
 
   // `mac` is an ArrayBuffer, so you need to make a few changes to get
   // it into a ByteString, and then a Base64-encoded string.
   const base64Mac = btoa(String.fromCharCode(...new Uint8Array(mac)));
+  console.log('base64Mac', base64Mac)
 
   let res = {
     id: url.searchParams.get('id'),
