@@ -2,8 +2,8 @@
  * Respond with hello worker text
  * @param {Request} request
  */
-async function handleRequest(request) {
-  return new Response('Hello worker!', {
+async function handleRequest(body) {
+  return new Response(body || 'Hello worker!', {
     headers: { 'content-type': 'text/plain' },
   })
 }
@@ -116,10 +116,12 @@ async function generateSignedUrl(url) {
   // it into a ByteString, and then a Base64-encoded string.
   const base64Mac = btoa(String.fromCharCode(...new Uint8Array(mac)));
 
-  url.searchParams.set('mac', base64Mac);
-  url.searchParams.set('expiry', expiry);
+  let body = {
+    mac: base64Mac,
+    expiry: expiry
+  }
 
-  return new Response(url);
+  return new Response(body);
 }
 
 addEventListener('fetch', event => {
