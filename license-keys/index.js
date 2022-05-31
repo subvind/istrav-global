@@ -1,7 +1,4 @@
-/**
- * Respond with hello worker text
- * @param {Request} request
- */
+
 async function handleRequest(body, init) {
   body = JSON.stringify(body)
   console.log('body', body)
@@ -188,7 +185,7 @@ async function generateSignedData(request) {
 
 addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  let requestHeaders = JSON.stringify([...request.headers])
+  const requestHeaders = JSON.stringify([...event.request.headers])
   console.log('requestHeaders', requestHeaders)
 
   if (url.pathname.startsWith('/generate')) {
