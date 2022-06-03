@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1654255056016' stop='1654255056276'>
+    <name>LicenseKeys:</name>
+    <title>LicenseKeys:</title>
+    <test-cases>
+        <test-case start='1654255056018' status='passed' stop='1654255056254'>
+            <name>generate license key then verify it</name>
+            <title>generate license key then verify it</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1654255056039' status='passed' stop='1654255056247'>
+                    <name>I send get request "https://license-keys.trabur.workers.dev/generate?id=long-block.name&amp;secret=furlong"</name>
+                    <title>I send get request "https://license-keys.trabur.workers.dev/generate?id=long-block.name&amp;secret=furlong"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654255056248' status='passed' stop='1654255056249'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654255056249' status='passed' stop='1654255056250'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654255056250' status='passed' stop='1654255056252'>
+                    <name>I see response contains keys ["id","expiry","genuine","mac","reason","valid","verifyUrl"]</name>
+                    <title>I see response contains keys ["id","expiry","genuine","mac","reason","valid","verifyUrl"]</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654255056252' status='passed' stop='1654255056254'>
+                    <name>I see response contains json {"id":"long-block.name"}</name>
+                    <title>I see response contains json {"id":"long-block.name"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

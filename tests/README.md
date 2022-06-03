@@ -1,4 +1,14 @@
 ```bash
+# always keep play button window on the side
+$ npm run codeceptjs:ui
+
+# generate static site at ./allure-report/*
+$ allure generate
+allure-results does not exist
+Report successfully generated to allure-report
+```
+
+```bash
 Try CodeceptJS now with a demo project:
 ➕ npm run codeceptjs:demo - executes codeceptjs tests for a demo project
 ➕ npm run codeceptjs:demo:headless - executes codeceptjs tests headlessly (no window shown)

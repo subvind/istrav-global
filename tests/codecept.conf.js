@@ -13,6 +13,9 @@ exports.config = {
   helpers: {
     REST: {
       endpoint: 'https://trabur.workers.dev'
+    },
+    JSONResponse: {
+      requestHelper: 'REST',
     }
   },
   include: {
@@ -20,5 +23,10 @@ exports.config = {
   },
   bootstrap: null,
   mocha: {},
-  name: 'tests'
+  name: 'tests',
+  plugins: {
+    "allure": {
+      enabled: true
+    }
+  }
 }
