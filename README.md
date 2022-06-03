@@ -12,7 +12,7 @@ These Workers are used with an equally powerful Key Value or KV database. The wo
 
 So why not code and deploy everyhthing to the cloud as Workers? Well, isTrav's monolithic platform or /community_folder/ is deployable to heroku, kubernetes, and bare metal; it is not as redundant as 250 serverless locations however it's much more cost effective.
 
-### Manage subscriptions, recurring payments, and billing
+### Subscription Management
 "Stripe Billing is the fastest way for your business to bill customers with subscriptions or invoices. Capture more revenue, support new products or business models, and accept recurring payments globally." - Stripe
 
 ### Key Management Service (KMS)
@@ -30,13 +30,12 @@ So why not code and deploy everyhthing to the cloud as Workers? Well, isTrav's m
 - then they remain disabled if they were disable and remain active if they were active
 - after a platform's license key is applied if the current level is over the max level then it should disable
 - because inside the platform's license key the data says { valid: false } so the platform disables
-- because platforms in-memory cache returns { isActive: false } and every request to the API checks on this value before doing anything platforms remain disabled
-- becuase isTrav triggers usage reports every 1 minute therefor means platforms shouldn't take any longer than 1 minute plus or minus a few seconds to shutdown after surpassing the max level of requests per day or max level of requests per month or max level of active users per hour allowances
+- because platforms in-memory cache returns { isActive: false } and every request to the API checks on this value before doing anything means platforms are disabled immediately
+- becuase isTrav triggers usage reports run every 1 minute therefor means platforms shouldn't take any longer than 1 minute, plus or minus a few seconds, to shutdown after surpassing the max level of requests per day or max level of requests per month or max level of active users per hour allowances
 - because everyone can publicly verify a platfrom anyone can know if a platform is running genuine or not
 - meaning platforms that [return illegitimate or no license key at all, return { isActive: true } when it should not, or return fake reports] are noticed and handled acordingly.
 
 ### CloudFlare Workers
-- checks
 - clients
 - levels
 - license-keys
@@ -56,14 +55,22 @@ So why not code and deploy everyhthing to the cloud as Workers? Well, isTrav's m
 - websites
 
 ### Table Fields & Relations
-- clients: {firebaseAuthId, token, tenant}
-- levels: {amount, number, activeUsers, requestsPerDay, requestsPerMonth, name, description, stripeProduct, stripePrice}
-- licenseKeys: {platform, validate, mac, expiry}
-- platforms: {tenant, backendDomainName, licenseKey, websites, stripeSubscription}
-- reports: {createdAt, activeUsersPastHour, requestsPastDay, requestsPastMonth}
-- stripe: [customers, products, prices, invoices, subscriptions, paymentIntents, paymentMethods]
-- tenants: {level, clients, platforms, stripeCustomer}
-- websites: {platform, frontendDomainName}
+- clients: {id, firebaseAuthId, token, tenantId}
+- levels: {id, tenants, amount, number, activeUsers, requestsPerDay, requestsPerMonth, name, description, stripeProductId, stripePriceId}
+- licenseKeys: {id, platforms, validate, mac, expiry}
+- platforms: {id, tenantId, backendDomainName, licenseKeyId, websites, reports, stripeSubscriptionId}
+- reports: {id, platformId, activeUsersPastHour, requestsPastDay, requestsPastMonth, createdAt }
+- stripe: [id, customers, products, prices, invoices, subscriptions, paymentIntents, paymentMethods]
+- tenants: {id, levelId, clients, platforms, stripeCustomerId}
+- websites: {id, platformId, frontendDomainName}
+
+### Table Foreign Keys
+- levels:{id}:tenants:{tenantId}
+- tenants:{id}:clients:{clientId}
+- tenants:{id}:platforms:{platformId}
+- platforms:{id}:websites:{websiteId}
+- platforms:{id}:reports:{reportId}
+- licenseKeys:{id}:platforms:{platformId}
 
 ### Level Limits
 ```bash
