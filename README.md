@@ -1,12 +1,19 @@
 istrav-backend
 ========
-This project is for selling code that clients get to run on their own servers using product activation license keys. 
+This project is for selling code that clients get to run on their own servers. 
 
-For example ... the code we are selling on istrav.com is a monolithic platform called /community_folder/ which can be tied along with other additional websites and mobile apps.
+In order to be rightfuly compensated for our work we limit our code usage to clients by the number of requests the code makes daily, the number of requests the code makes monthly, and the number of active users in the past hour the code has had. It is the clients resposibility to leave our reporting code alone and keep usage stats legit. It is our resposibility to manage, collect, save, bill, and keep clients up to date on code usage permission.
+
+So there is a reports collecting that we do on our side. We then generate and verify product activation license keys for every code platform which reveals whos code is genuine or whos is not and to what extent. Remember keys and locks are really just for show. It is mearly a way of saying and telling someone we don't want you here. After all anyone with bolt cutters could bypass that lock if they really wanted to. Fortunately, our cort systems treat that act of UI as fact and then use it against you with terms like "willing, knowingly, and premeditated" ... not to mention the evidence left behind. If an attacker persists then I guess nature would take over and it would come down to survival of the fitest // or perhaps, "2001: A Deep Space Odyssey"; monkey with the only stick situation. 
+
+- https://www.youtube.com/watch?v=zmX7K8noikE
+- https://www.youtube.com/watch?v=esnMDtMysHo
+
+Anyways ... the code we are selling on istrav.com is a monolithic platform called /community_folder/ which integrates with other websites and mobile apps.
 
 In order to sell code we'll need some sort of Key Management Service or KMS and that's partly what istrav-backend does under the hood. The other part is integration with a payment processor called Stripe so code may be billed in a monthly subscription like model. Then lastly is integration with the code we are selling itself; referred to as platforms.
 
-These platforms have levels and each level has a limit to how many active users it may hold and the number of daily requests and monthly requests it may process. These platforms are also containers or nestjs driven and are fairly stable as they may also run in the cloud. So we'll need an even more redundant system for our base and that's CloudFlare Workers! 
+These platforms have levels and each level has a limit to how many active users it may hold, the number of daily requests, and monthly requests it may process. These platforms are also containers or nestjs driven and are fairly stable as they may also run in the cloud. So we'll need an even more redundant system for our base and that's serverless CloudFlare Workers! 
 
 These Workers are used with an equally powerful Key Value or KV database. The workers themselves are javascript isolates that have a 0ms cold start and the code runs in over 250 strategic locations around the globe. This istrav-backend along with a Single Page App or SPA that runs in a Content Delivery Network or CDN makes isTrav one crazy scalable, performant, and highly available application for client area and business operations.
 
