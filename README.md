@@ -10,7 +10,7 @@ These platforms have levels and each level has a limit to how many active users 
 
 These Workers are used with an equally powerful Key Value or KV database. The workers themselves are javascript isolates that have a 0ms cold start and the code runs in over 250 strategic locations around the globe. This istrav-backend along with a Single Page App or SPA that runs in a Content Delivery Network or CDN makes isTrav one crazy scalable, performant, and highly available application for client area and business operations.
 
-So why not code and deploy everyhthing to the cloud as Workers? Well, isTrav's monolithic platform or /community_folder/ is deployable to heroku, kubernetes, and bare metal; it is not as redundant as 250 serverless locations however it's much more cost effective.
+So why not code and deploy every thing to the cloud as Workers? Well, isTrav's monolithic platform or /community_folder/ is deployable to heroku, kubernetes, and bare metal; it is not as redundant as 250 serverless locations however it's much more cost effective.
 
 ### Subscription Management
 "Stripe Billing is the fastest way for your business to bill customers with subscriptions or invoices. Capture more revenue, support new products or business models, and accept recurring payments globally." - Stripe
@@ -55,7 +55,7 @@ So why not code and deploy everyhthing to the cloud as Workers? Well, isTrav's m
 - websites
 
 ### Table Fields & Relations
-- clients: {id, firebaseAuthId, token, tenantId}
+- clients: {id, firebaseAuthId, apiKey, tenantId}
 - levels: {id, tenants, amount, number, activeUsers, requestsPerDay, requestsPerMonth, name, description, stripeProductId, stripePriceId}
 - licenseKeys: {id, platforms, validate, mac, expiry}
 - platforms: {id, tenantId, backendDomainName, licenseKeyId, websites, reports, stripeSubscriptionId}
