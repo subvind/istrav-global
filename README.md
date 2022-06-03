@@ -11,7 +11,7 @@ So there is a reports collecting that we do on our side. We then generate and ve
 
 Anyways ... the code we are selling on istrav.com is a monolithic platform called /community_folder/ which integrates with other websites and mobile apps.
 
-In order to sell code we'll need some sort of Key Management Service or KMS and that's partly what istrav-backend does under the hood. The other part is integration with a payment processor called Stripe so code may be billed in a monthly subscription like model. Then lastly is integration with the code we are selling itself; referred to as platforms.
+In order to sell this code we'll need some sort of Key Management Service or KMS and that's partly what istrav-backend does under the hood. The other part is integration with a payment processor called Stripe so code may be billed in a monthly subscription like model. Then lastly is integration with the code we are selling itself; referred to as platforms.
 
 These platforms have levels and each level has a limit to how many active users it may hold, the number of daily requests, and monthly requests it may process. These platforms are also containers or nestjs driven and are fairly stable as they may also run in the cloud. So we'll need an even more redundant system for our base and that's serverless CloudFlare Workers! 
 
