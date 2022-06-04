@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1654324877929' stop='1654324878276'>
+    <name>LicenseKeys:</name>
+    <title>LicenseKeys:</title>
+    <test-cases>
+        <test-case start='1654324877931' status='passed' stop='1654324878266'>
+            <name>generate license key then verify it</name>
+            <title>generate license key then verify it</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1654324877963' status='passed' stop='1654324878229'>
+                    <name>I send get request "https://license-keys.trabur.workers.dev/generate?id=filthy-spreadsheet.com&amp;secret=furlong"</name>
+                    <title>I send get request "https://license-keys.trabur.workers.dev/generate?id=filthy-spreadsheet.com&amp;secret=furlong"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654324878230' status='passed' stop='1654324878233'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654324878233' status='passed' stop='1654324878245'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654324878245' status='passed' stop='1654324878249'>
+                    <name>I see response contains keys ["id","expiry","genuine","mac","reason","valid","verifyUrl"]</name>
+                    <title>I see response contains keys ["id","expiry","genuine","mac","reason","valid","verifyUrl"]</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654324878250' status='passed' stop='1654324878266'>
+                    <name>I see response contains json {"id":"filthy-spreadsheet.com"}</name>
+                    <title>I see response contains json {"id":"filthy-spreadsheet.com"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

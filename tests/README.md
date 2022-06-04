@@ -2,12 +2,14 @@
 # always keep play button window on the side
 $ npm run codeceptjs:ui
 
-# generate static site at ./allure-report/*
+# generate result at ./allure-report/*
 $ allure generate --clean
 allure-results does not exist
 Report successfully generated to allure-report
 
-$ allure serve
+# watch live updates to test results
+$ cd allure-report/
+$ http-sever -p 3333
 ```
 
 ```bash

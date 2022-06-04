@@ -1,22 +1,22 @@
 {
   "uid" : "b1a8273437954620fa374b796ffaacdd",
-  "name" : "behaviors",
   "children" : [ {
     "name" : "generate license key then verify it",
-    "uid" : "9f569174b891f6c8",
+    "uid" : "cc3c6413380da4d5",
     "parentUid" : "b1a8273437954620fa374b796ffaacdd",
     "status" : "passed",
     "time" : {
-      "start" : 1654322546741,
-      "stop" : 1654322547027,
-      "duration" : 286
+      "start" : 1654324877931,
+      "stop" : 1654324878266,
+      "duration" : 335
     },
     "flaky" : false,
     "newFailed" : false,
     "newPassed" : false,
     "newBroken" : false,
-    "retriesCount" : 0,
+    "retriesCount" : 1,
     "retriesStatusChange" : false,
     "parameters" : [ ]
-  } ]
+  } ],
+  "name" : "behaviors"
 }
