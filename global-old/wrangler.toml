@@ -1,9 +1,0 @@
-name = "global"
-main = "./index.js"
-type = "webpack"
-
-account_id = "f333d0427dfa7055547fcf4c072d9411"
-workers_dev = true
-route = ""
-zone_id = ""
-compatibility_date = "2022-06-04"
