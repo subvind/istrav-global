@@ -1,1 +1,11 @@
-[ ]
+[ {
+  "uid" : "9f569174b891f6c8",
+  "name" : "generate license key then verify it",
+  "time" : {
+    "start" : 1654322546741,
+    "stop" : 1654322547027,
+    "duration" : 286
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]

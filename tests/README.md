@@ -3,9 +3,11 @@
 $ npm run codeceptjs:ui
 
 # generate static site at ./allure-report/*
-$ allure generate
+$ allure generate --clean
 allure-results does not exist
 Report successfully generated to allure-report
+
+$ allure open
 ```
 
 ```bash

@@ -9,7 +9,7 @@ setCommonPlugins();
 
 exports.config = {
   tests: './*_test.js',
-  output: './output',
+  output: './allure-results',
   helpers: {
     REST: {
       endpoint: 'https://trabur.workers.dev'
