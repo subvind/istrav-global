@@ -7,7 +7,7 @@ $ allure generate --clean
 allure-results does not exist
 Report successfully generated to allure-report
 
-$ allure open
+$ allure serve
 ```
 
 ```bash
