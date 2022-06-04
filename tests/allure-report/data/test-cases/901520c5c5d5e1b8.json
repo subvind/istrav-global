@@ -1,5 +1,5 @@
 {
-  "uid" : "de22d4d04fea801d",
+  "uid" : "901520c5c5d5e1b8",
   "name" : "generate license key then verify it",
   "fullName" : "LicenseKeys:.generate license key then verify it",
   "historyId" : "218dc50aa76a364fc9bf64eb4013e506",
@@ -128,6 +128,6 @@
     "categories" : [ ],
     "tags" : [ ]
   },
-  "source" : "de22d4d04fea801d.json",
+  "source" : "901520c5c5d5e1b8.json",
   "parameterValues" : [ ]
 }

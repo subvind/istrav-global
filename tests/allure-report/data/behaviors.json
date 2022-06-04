@@ -2,7 +2,7 @@
   "uid" : "b1a8273437954620fa374b796ffaacdd",
   "children" : [ {
     "name" : "generate license key then verify it",
-    "uid" : "cc3c6413380da4d5",
+    "uid" : "3a0964c7b96c355",
     "parentUid" : "b1a8273437954620fa374b796ffaacdd",
     "status" : "passed",
     "time" : {

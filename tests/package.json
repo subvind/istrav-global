@@ -15,9 +15,7 @@
         "@codeceptjs/examples": "^1.2.1",
         "@codeceptjs/ui": "^0.4.6",
         "codeceptjs": "^3.3.3",
-        "playwright": "^1.22.2"
-    },
-    "dependencies": {
-        "@faker-js/faker": "^7.1.0"
+        "playwright": "^1.22.2",
+        "@faker-js/faker": "latest"
     }
 }

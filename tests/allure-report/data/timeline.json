@@ -2,7 +2,7 @@
   "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
   "children" : [ {
     "name" : "generate license key then verify it",
-    "uid" : "de22d4d04fea801d",
+    "uid" : "901520c5c5d5e1b8",
     "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
     "status" : "passed",
     "time" : {
@@ -19,7 +19,7 @@
     "parameters" : [ ]
   }, {
     "name" : "generate license key then verify it",
-    "uid" : "cc3c6413380da4d5",
+    "uid" : "3a0964c7b96c355",
     "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
     "status" : "passed",
     "time" : {
