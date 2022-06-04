@@ -1,8 +1,43 @@
 {
   "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
   "children" : [ {
     "name" : "generate license key then verify it",
-    "uid" : "901520c5c5d5e1b8",
+    "uid" : "96faed9602b2800",
+    "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+    "status" : "passed",
+    "time" : {
+      "start" : 1654324877931,
+      "stop" : 1654324878266,
+      "duration" : 335
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "newPassed" : false,
+    "newBroken" : false,
+    "retriesCount" : 0,
+    "retriesStatusChange" : false,
+    "parameters" : [ ]
+  }, {
+    "name" : "generate license key then verify it",
+    "uid" : "948c3c8c4a4c3be8",
+    "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+    "status" : "failed",
+    "time" : {
+      "start" : 1654327651829,
+      "stop" : 1654327651848,
+      "duration" : 19
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "newPassed" : false,
+    "newBroken" : false,
+    "retriesCount" : 0,
+    "retriesStatusChange" : false,
+    "parameters" : [ ]
+  }, {
+    "name" : "generate license key then verify it",
+    "uid" : "d1ee14ca259bf88a",
     "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
     "status" : "passed",
     "time" : {
@@ -19,21 +54,20 @@
     "parameters" : [ ]
   }, {
     "name" : "generate license key then verify it",
-    "uid" : "3a0964c7b96c355",
+    "uid" : "a8cc705d6860e14c",
     "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
     "status" : "passed",
     "time" : {
-      "start" : 1654324877931,
-      "stop" : 1654324878266,
-      "duration" : 335
+      "start" : 1654327782285,
+      "stop" : 1654327782484,
+      "duration" : 199
     },
     "flaky" : false,
     "newFailed" : false,
     "newPassed" : false,
     "newBroken" : false,
-    "retriesCount" : 1,
-    "retriesStatusChange" : false,
+    "retriesCount" : 3,
+    "retriesStatusChange" : true,
     "parameters" : [ ]
-  } ],
-  "name" : "timeline"
+  } ]
 }

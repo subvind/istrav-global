@@ -1,0 +1,50 @@
+{
+  "uid" : "948c3c8c4a4c3be8",
+  "name" : "generate license key then verify it",
+  "fullName" : "LicenseKeys:.generate license key then verify it",
+  "historyId" : "218dc50aa76a364fc9bf64eb4013e506",
+  "time" : {
+    "start" : 1654327651829,
+    "stop" : 1654327651848,
+    "duration" : 19
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "failed",
+  "statusMessage" : "Cannot read properties of undefined (reading 'internet')",
+  "statusTrace" : "TypeError: Cannot read properties of undefined (reading 'internet')\n                    at Test.<anonymous> (/Users/istrav/Projects/istrav-global/tests/LicenseKeys_test.js:9:18)\n                    at test.fn (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/scenario.js:78:14)\n                    at callFnAsync (/Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runnable.js:386:21)\n                    at Runnable.run (/Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runnable.js:330:7)\n                    at Runner.runTest (/Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runner.js:621:10)\n                    at /Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runner.js:745:12\n                    at next (/Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runner.js:538:14)\n                    at /Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runner.js:548:7\n                    at next (/Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runner.js:430:14)\n                    at cbHookRun (/Users/istrav/Projects/istrav-global/tests/node_modules/mocha/lib/runner.js:495:7)",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "LicenseKeys:"
+  }, {
+    "name" : "testClass",
+    "value" : "LicenseKeys:"
+  }, {
+    "name" : "testMethod",
+    "value" : "generate license key then verify it"
+  }, {
+    "name" : "package",
+    "value" : "LicenseKeys:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "948c3c8c4a4c3be8.json",
+  "parameterValues" : [ ]
+}

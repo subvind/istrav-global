@@ -1,12 +1,12 @@
 {
-  "uid" : "3a0964c7b96c355",
+  "uid" : "d1ee14ca259bf88a",
   "name" : "generate license key then verify it",
   "fullName" : "LicenseKeys:.generate license key then verify it",
   "historyId" : "218dc50aa76a364fc9bf64eb4013e506",
   "time" : {
-    "start" : 1654324877931,
-    "stop" : 1654324878266,
-    "duration" : 335
+    "start" : 1654322546741,
+    "stop" : 1654322547027,
+    "duration" : 286
   },
   "description" : "",
   "descriptionHtml" : "",
@@ -15,17 +15,17 @@
   "newFailed" : false,
   "newBroken" : false,
   "newPassed" : false,
-  "retriesCount" : 1,
+  "retriesCount" : 0,
   "retriesStatusChange" : false,
   "beforeStages" : [ ],
   "testStage" : {
     "status" : "passed",
     "steps" : [ {
-      "name" : "I send get request \"https://license-keys.trabur.workers.dev/generate?id=filthy-spreadsheet.com&secret=furlong\"",
+      "name" : "I send get request \"https://license-keys.trabur.workers.dev/generate?id=graceful-integration.com&secret=furlong\"",
       "time" : {
-        "start" : 1654324877963,
-        "stop" : 1654324878229,
-        "duration" : 266
+        "start" : 1654322546764,
+        "stop" : 1654322547016,
+        "duration" : 252
       },
       "status" : "passed",
       "steps" : [ ],
@@ -38,9 +38,9 @@
     }, {
       "name" : "I see response code is 200",
       "time" : {
-        "start" : 1654324878230,
-        "stop" : 1654324878233,
-        "duration" : 3
+        "start" : 1654322547017,
+        "stop" : 1654322547019,
+        "duration" : 2
       },
       "status" : "passed",
       "steps" : [ ],
@@ -53,9 +53,9 @@
     }, {
       "name" : "I see response code is successful ",
       "time" : {
-        "start" : 1654324878233,
-        "stop" : 1654324878245,
-        "duration" : 12
+        "start" : 1654322547019,
+        "stop" : 1654322547020,
+        "duration" : 1
       },
       "status" : "passed",
       "steps" : [ ],
@@ -68,8 +68,8 @@
     }, {
       "name" : "I see response contains keys [\"id\",\"expiry\",\"genuine\",\"mac\",\"reason\",\"valid\",\"verifyUrl\"]",
       "time" : {
-        "start" : 1654324878245,
-        "stop" : 1654324878249,
+        "start" : 1654322547020,
+        "stop" : 1654322547024,
         "duration" : 4
       },
       "status" : "passed",
@@ -81,11 +81,11 @@
       "shouldDisplayMessage" : false,
       "hasContent" : false
     }, {
-      "name" : "I see response contains json {\"id\":\"filthy-spreadsheet.com\"}",
+      "name" : "I see response contains json {\"id\":\"graceful-integration.com\"}",
       "time" : {
-        "start" : 1654324878250,
-        "stop" : 1654324878266,
-        "duration" : 16
+        "start" : 1654322547024,
+        "stop" : 1654322547027,
+        "duration" : 3
       },
       "status" : "passed",
       "steps" : [ ],
@@ -122,22 +122,12 @@
   } ],
   "parameters" : [ ],
   "links" : [ ],
-  "hidden" : false,
-  "retry" : false,
+  "hidden" : true,
+  "retry" : true,
   "extra" : {
-    "severity" : "normal",
-    "retries" : [ {
-      "uid" : "901520c5c5d5e1b8",
-      "status" : "passed",
-      "time" : {
-        "start" : 1654322546741,
-        "stop" : 1654322547027,
-        "duration" : 286
-      }
-    } ],
     "categories" : [ ],
     "tags" : [ ]
   },
-  "source" : "3a0964c7b96c355.json",
+  "source" : "d1ee14ca259bf88a.json",
   "parameterValues" : [ ]
 }
