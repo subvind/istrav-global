@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1654327782281' stop='1654327782492'>
+    <name>LicenseKeys:</name>
+    <title>LicenseKeys:</title>
+    <test-cases>
+        <test-case start='1654327782285' status='passed' stop='1654327782484'>
+            <name>generate license key then verify it</name>
+            <title>generate license key then verify it</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1654327782302' status='passed' stop='1654327782471'>
+                    <name>I send get request "https://license-keys.trabur.workers.dev/generate?id=casey.org&amp;secret=furlong"</name>
+                    <title>I send get request "https://license-keys.trabur.workers.dev/generate?id=casey.org&amp;secret=furlong"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654327782472' status='passed' stop='1654327782473'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654327782474' status='passed' stop='1654327782475'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654327782475' status='passed' stop='1654327782479'>
+                    <name>I see response contains keys ["id","expiry","genuine","mac","reason","valid","verifyUrl"]</name>
+                    <title>I see response contains keys ["id","expiry","genuine","mac","reason","valid","verifyUrl"]</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1654327782479' status='passed' stop='1654327782484'>
+                    <name>I see response contains json {"id":"casey.org"}</name>
+                    <title>I see response contains json {"id":"casey.org"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>
