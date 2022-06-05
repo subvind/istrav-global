@@ -11,8 +11,15 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
+      # clients
+      - name: Publish Clients
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'clients'
+          command: publish
       # global
-      - name: Publish Projects
+      - name: Publish Global
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
