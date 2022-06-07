@@ -11,5 +11,9 @@
   "author": "istrav <travis.burandt@gmail.com>",
   "devDependencies": {
     "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "itty-router": "^2.6.1",
+    "itty-router-extras": "^0.4.2"
   }
 }
