@@ -16,15 +16,27 @@ router.get('/', async () => {
   return handleRequest(clients)
 })
 
-// GET item
+// GET item in collection
 router.get('/:id', async ({ params }) => {
   const client = await CLIENTS.get(params.id)
 
   return handleRequest(client)
 })
 
-// POST to the collection (we'll use async here)
+// POST new item to the collection
 router.post('/:id', withContent, async ({ params, content}) => {
+  // create
+  content = JSON.stringify(content)
+  await CLIENTS.put(params.id, content)
+  
+  // refetch
+  const client = await CLIENTS.get(params.id)
+
+  return handleRequest(client)
+})
+
+// UPDATE existing item in the collection
+router.put('/:id', withContent, async ({ params, content}) => {
   // save
   content = JSON.stringify(content)
   await CLIENTS.put(params.id, content)
@@ -35,6 +47,7 @@ router.post('/:id', withContent, async ({ params, content}) => {
   return handleRequest(client)
 })
 
+// DELETE item from collection
 router.delete('/:id', async ({ params }) => {
   const client = await CLIENTS.delete(params.id)
 
