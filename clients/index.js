@@ -85,6 +85,7 @@ addEventListener('fetch', event => {
   event.respondWith(router.handle(event.request))
 })
 
+// respond with a string and allow access control
 async function handleRequest(content, options) {
   let dataString = JSON.stringify(content)
   return new Response(dataString, {
