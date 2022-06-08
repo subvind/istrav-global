@@ -12,17 +12,20 @@ let db = new loki('istrav');
 let clients = db.addCollection('clients', { indices: ['id', 'email', 'firebaseAuthId'] });
 
 // grab clients from key value storage
-let data = await CLIENTS.get('all')
-data = JSON.parse(data)
-if (data && data.length) {
-  data.forEach((value) => {
-    // put client into collection one at a time
-    clients.insert(value)
-  })
+async function download() {
+  let data = await CLIENTS.get('all')
+  data = JSON.parse(data)
+  if (data && data.length) {
+    data.forEach((value) => {
+      // put client into collection one at a time
+      clients.insert(value)
+    })
+  }
 }
+download()
 
 // update database with in-memory records
-function save() {
+async function save() {
   let content = clients.find()
   content = JSON.stringify(content)
   await CLIENTS.put('all', content)
