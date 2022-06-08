@@ -9,26 +9,22 @@ import {
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let clients = db.addCollection('clients', { indices: ['id', 'email', 'firebaseAuthId'] });
+let collection = db.addCollection('clients', { indices: ['id'] });
 
 // grab clients from key value storage
 async function download() {
   let data = await CLIENTS.get('all')
-  data = JSON.parse(data)
-  if (data && data.length) {
-    data.forEach((value) => {
-      // put client into collection one at a time
-      clients.insert(value)
-    })
+  if (data) {
+    db.loadJSON(data) // Inflates a loki database from a serialized JSON string
   }
+  return data
 }
-download()
 
 // update database with in-memory records
 async function save() {
-  let content = clients.find()
-  content = JSON.stringify(content)
-  await CLIENTS.put('all', content)
+  let content = db.serialize() // Serialize database to a string which can be loaded via Loki#loadJSON
+  let data = await CLIENTS.put('all', content)
+  return data
 }
 
 // now let's create a router (note the lack of "new")
@@ -36,22 +32,25 @@ const router = Router()
 
 // GET collection index
 router.get('/', async () => {
-  let clients = clients.find()
+  let data = await download()
+  let clients = collection.find() || []
 
   return handleRequest(clients)
 })
 
 // GET item in collection
 router.get('/:id', async ({ params }) => {
-  let client = clients.findOne({ id: params.id })
+  let data = await download()
+  let client = collection.findOne({ id: params.id })
 
   return handleRequest(client)
 })
 
 // POST new item to the collection
 router.post('/', withContent, async ({ params, content}) => {
+  let data = await download()
   content.id = uuidv4()
-  let client = clients.insert(content)
+  let client = collection.insert(content)
   save()
 
   return handleRequest(client)
@@ -59,18 +58,20 @@ router.post('/', withContent, async ({ params, content}) => {
 
 // UPDATE existing item in the collection
 router.put('/:id', withContent, async ({ params, content}) => {
-  let client = clients.findOne({ id: params.id })
+  let data = await download()
+  let client = collection.findOne({ id: params.id })
   client.email = content.email || client.email
   client.firebaseAuthId = content.firebaseAuthId || client.firebaseAuthId
-  clients.update(client)
+  collection.update(client)
   save()
 
   return handleRequest(client)
 })
 
-// DELETE item from collection
+// DELETE an item from collection
 router.delete('/:id', async ({ params }) => {
-  clients.remove({ id: params.id })
+  let data = await download()
+  collection.findAndRemove({ id: params.id })
   save()
 
   return handleRequest(null)
@@ -85,7 +86,8 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(content, options) {
-  return new Response(content, {
+  let dataString = JSON.stringify(content)
+  return new Response(dataString, {
     ...options,
     headers:  {
       'content-type': 'application/json;charset=UTF-8',
