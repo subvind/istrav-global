@@ -17,6 +17,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'clients'
+          preCommands: npm install
           command: publish
       # /global
       - name: Publish Global
