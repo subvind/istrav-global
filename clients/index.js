@@ -12,7 +12,10 @@ import jwt from 'jsonwebtoken';
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let collection = db.addCollection('clients', { indices: ['id'] });
+let collection = db.addCollection('clients', { indices: ['id', 'firebaseAuthId'] });
+
+// for signing and verifying API keys
+const secret = API_KEYS_SECRET || 'between workers'
 
 // grab clients from key value storage
 async function download() {
@@ -80,8 +83,7 @@ router.delete('/:id', async ({ params }) => {
   return handleRequest(null)
 })
 
-// POST verify a token from browser's getIdTokenResult
-router.post('/verifyIdToken', withContent, async ({ params, content }) => {
+async function verifyToken (content) {
   let cert = await fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com')
     .then(response => response.json())
     .then((data) => {
@@ -100,7 +102,43 @@ router.post('/verifyIdToken', withContent, async ({ params, content }) => {
     }
   });
 
+  return verified
+}
+
+// POST verify a token from browser's getIdTokenResult
+router.post('/verifyIdToken', withContent, async ({ params, content }) => {
+  let verified = verifyToken(content)
   return handleRequest(verified)
+})
+
+// POST register an item with the collection
+router.post('/register', withContent, async ({ params, content }) => {
+  let data = await download()
+  let verified = verifyToken(content)
+  let record = {
+    id: uuidv4(),
+    email: verified.email,
+    firebaseAuthId: verified.user_id
+  }
+  let client = collection.insert(record)
+  save()
+  let apiKey = jwt.sign(client, secret)
+
+  return handleRequest(apiKey)
+})
+
+// POST login an item with the collection
+router.post('/login', withContent, async ({ params, content }) => {
+  let data = await download()
+  let verified = verifyToken(content)
+  let client = collection.findOne({ firebaseAuthId: verified.user_id })
+
+  let apiKey = null
+  if (client) {
+    apiKey = jwt.sign(client, secret)
+  }
+
+  return handleRequest(apiKey)
 })
 
 // 404 for everything else
