@@ -7,8 +7,7 @@ import {
 } from 'itty-router-extras'
 
 // authentication
-import { initializeApp } from 'firebase-admin/app';
-const app = initializeApp(FIREBASE_CONFIG);
+import jwt from 'jsonwebtoken';
 
 // database collection
 import loki from 'lokijs'
@@ -83,16 +82,20 @@ router.delete('/:id', async ({ params }) => {
 
 // POST verify a token from browser's getIdTokenResult
 router.post('/verifyIdToken', withContent, async ({ params, content }) => {
-  app.getAuth()
-    .verifyIdToken(content)
-    .then((decodedToken) => {
-      const uid = decodedToken.uid;
-
-      return handleRequest(uid)
+  let cert
+  fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com')
+    .then(response => response.json())
+    .then((data) => {
+      cert = Object.keys(data)[0]
     })
-    .catch((error) => {
+
+  jwt.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
+    if (error) {
       return handleRequest(error)
-    });
+    }
+
+    return handleRequest(payload)
+  });
 })
 
 // 404 for everything else
