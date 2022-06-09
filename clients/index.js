@@ -82,20 +82,25 @@ router.delete('/:id', async ({ params }) => {
 
 // POST verify a token from browser's getIdTokenResult
 router.post('/verifyIdToken', withContent, async ({ params, content }) => {
-  let cert
-  fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com')
+  let cert = await fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com')
     .then(response => response.json())
     .then((data) => {
-      cert = Object.keys(data)[0]
+      return data[Object.keys(data)[0]]
     })
+  console.log('cert', cert)
 
+  let verified
   jwt.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
     if (error) {
-      return handleRequest(error)
+      console.log('error', error)
+      verified = error
+    } else {
+      console.log('payload', payload)
+      verified = payload
     }
-
-    return handleRequest(payload)
   });
+
+  return handleRequest(verified)
 })
 
 // 404 for everything else
