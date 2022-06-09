@@ -107,7 +107,7 @@ async function verifyToken (content) {
 
 // POST verify a token from browser's getIdTokenResult
 router.post('/verifyIdToken', withContent, async ({ params, content }) => {
-  let verified = verifyToken(content)
+  let verified = await verifyToken(content)
   return handleRequest(verified)
 })
 
