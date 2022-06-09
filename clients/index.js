@@ -125,7 +125,7 @@ router.post('/register', withContent, async ({ params, content }) => {
   let client = collection.insert(record)
   console.log('client', client)
   save()
-  let apiKey = jsonwebtoken.sign(client, secret)
+  let apiKey = jsonwebtoken.sign(client, secret, { algorithm: 'RS256' })
   console.log('apiKey', apiKey)
 
   return handleRequest(apiKey)
@@ -140,7 +140,7 @@ router.post('/login', withContent, async ({ params, content }) => {
 
   let apiKey = null
   if (client) {
-    apiKey = jsonwebtoken.sign(client, secret)
+    apiKey = jsonwebtoken.sign(client, secret, { algorithm: 'RS256' })
   }
   console.log('apiKey', apiKey)
 
