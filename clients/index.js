@@ -6,6 +6,10 @@ import {
   withContent,
 } from 'itty-router-extras'
 
+// authentication
+import { initializeApp } from 'firebase-admin/app';
+const app = initializeApp(FIREBASE_CONFIG);
+
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
@@ -75,6 +79,20 @@ router.delete('/:id', async ({ params }) => {
   save()
 
   return handleRequest(null)
+})
+
+// POST verify a token from browser's getIdTokenResult
+router.post('/verifyIdToken', withContent, async ({ params, content }) => {
+  app.getAuth()
+    .verifyIdToken(content)
+    .then((decodedToken) => {
+      const uid = decodedToken.uid;
+
+      return handleRequest(uid)
+    })
+    .catch((error) => {
+      return handleRequest(error)
+    });
 })
 
 // 404 for everything else
