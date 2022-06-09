@@ -7,7 +7,8 @@ import {
 } from 'itty-router-extras'
 
 // authentication
-import jwt from 'jsonwebtoken';
+import jwt from '@tsndr/cloudflare-worker-jwt';
+import jsonwebtoken from 'jsonwebtoken';
 
 // database collection
 import loki from 'lokijs'
@@ -92,7 +93,7 @@ async function verifyToken (content) {
   console.log('cert', cert)
 
   let verified
-  jwt.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
+  jsonwebtoken.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
     if (error) {
       console.log('error', error)
       verified = error
@@ -114,15 +115,18 @@ router.post('/verifyIdToken', withContent, async ({ params, content }) => {
 // POST register an item with the collection
 router.post('/register', withContent, async ({ params, content }) => {
   let data = await download()
-  let verified = verifyToken(content)
+  let verified = await verifyToken(content)
   let record = {
     id: uuidv4(),
     email: verified.email,
     firebaseAuthId: verified.user_id
   }
+  console.log('record', record)
   let client = collection.insert(record)
+  console.log('client', client)
   save()
-  let apiKey = jwt.sign(client, secret)
+  let apiKey = await jwt.sign(client, secret, { algorithm: 'RS256' })
+  console.log('apiKey', apiKey)
 
   return handleRequest(apiKey)
 })
@@ -130,13 +134,15 @@ router.post('/register', withContent, async ({ params, content }) => {
 // POST login an item with the collection
 router.post('/login', withContent, async ({ params, content }) => {
   let data = await download()
-  let verified = verifyToken(content)
+  let verified = await verifyToken(content)
   let client = collection.findOne({ firebaseAuthId: verified.user_id })
+  console.log('client', client)
 
   let apiKey = null
   if (client) {
-    apiKey = jwt.sign(client, secret)
+    apiKey = await jwt.sign(client, secret, { algorithm: 'RS256' })
   }
+  console.log('apiKey', apiKey)
 
   return handleRequest(apiKey)
 })
