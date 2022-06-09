@@ -7,7 +7,7 @@ import {
 } from 'itty-router-extras'
 
 // authentication
-import jwt from '@tsndr/cloudflare-worker-jwt'; // removes "crypto2.createHmac is not a function" error
+import jwt from '@tsndr/cloudflare-worker-jwt';
 import jsonwebtoken from 'jsonwebtoken';
 
 // database collection
