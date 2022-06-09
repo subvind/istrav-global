@@ -7,7 +7,6 @@ import {
 } from 'itty-router-extras'
 
 // authentication
-import jwt from '@tsndr/cloudflare-worker-jwt';
 import jsonwebtoken from 'jsonwebtoken';
 
 // database collection
@@ -94,12 +93,12 @@ async function verifyToken (content) {
 
   let verified
   jsonwebtoken.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
-    if (error) {
-      console.log('error', error)
-      verified = error
-    } else {
-      console.log('payload', payload)
+    console.log('verify payload', payload)
+    console.log('verify error', error)
+    if (payload) {
       verified = payload
+    } else {
+      verified = error
     }
   });
 
@@ -125,7 +124,7 @@ router.post('/register', withContent, async ({ params, content }) => {
   let client = collection.insert(record)
   console.log('client', client)
   save()
-  let apiKey = await jwt.sign(client, secret, { algorithm: 'RS256' })
+  let apiKey = jsonwebtoken.sign(client, secret)
   console.log('apiKey', apiKey)
 
   return handleRequest(apiKey)
@@ -140,7 +139,7 @@ router.post('/login', withContent, async ({ params, content }) => {
 
   let apiKey = null
   if (client) {
-    apiKey = await jwt.sign(client, secret, { algorithm: 'RS256' })
+    apiKey = jsonwebtoken.sign(client, secret)
   }
   console.log('apiKey', apiKey)
 
