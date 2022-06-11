@@ -7,8 +7,8 @@ import {
 } from 'itty-router-extras'
 
 // authentication
+import jwt from '@tsndr/cloudflare-worker-jwt' // needed for libraries
 import jsonwebtoken from 'jsonwebtoken';
-import cloudflareJwt from '@tsndr/cloudflare-worker-jwt' // needed for libraries
 
 // database collection
 import loki from 'lokijs'
