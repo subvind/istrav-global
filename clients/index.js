@@ -99,7 +99,7 @@ async function verifyToken (content) {
     if (payload) {
       verified = payload
     } else {
-      verified = error
+      verified = { error: true, message: error }
     }
   });
 
@@ -116,6 +116,18 @@ router.post('/verifyIdToken', withContent, async ({ params, content }) => {
 router.post('/register', withContent, async ({ params, content }) => {
   let data = await download()
   let verified = await verifyToken(content)
+  console.log('verified', verified)
+  if (verified.error) {
+    return handleRequest({ reason: verified.message }, { status: 400 });
+  }
+  if (!verified.user_id) {
+    return handleRequest({ reason: 'Token data does not have a firebaseAuthId.' }, { status: 404 });
+  }
+  // check if user already exists
+  let clientCheck = collection.findOne({ firebaseAuthId: verified.user_id })
+  if (clientCheck) {
+    return handleRequest({ reason: 'A client with that firebaseAuthId already exists.' }, { status: 400 });
+  }
   let record = {
     id: uuidv4(),
     email: verified.email,
@@ -125,8 +137,11 @@ router.post('/register', withContent, async ({ params, content }) => {
   let client = collection.insert(record)
   console.log('client', client)
   save()
-  let apiKey = jsonwebtoken.sign(client, secret, { algorithm: 'RS256' })
+  let apiKey = jwt.sign(client, secret, { algorithm: 'RS256' })
   console.log('apiKey', apiKey)
+  if (!apiKey || apiKey === {}) {
+    return handleRequest({ reason: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
+  }
 
   return handleRequest(apiKey)
 })
@@ -135,14 +150,24 @@ router.post('/register', withContent, async ({ params, content }) => {
 router.post('/login', withContent, async ({ params, content }) => {
   let data = await download()
   let verified = await verifyToken(content)
+  console.log('verified', verified)
+  if (verified.error) {
+    return handleRequest({ reason: verified.message }, { status: 400 });
+  }
+  if (!verified.user_id) {
+    return handleRequest({ reason: 'Token data does not have a firebaseAuthId.' }, { status: 404 });
+  }
   let client = collection.findOne({ firebaseAuthId: verified.user_id })
   console.log('client', client)
-
-  let apiKey = null
-  if (client) {
-    apiKey = jsonwebtoken.sign(client, secret, { algorithm: 'RS256' })
+  if (!client) {
+    return handleRequest({ reason: 'No client exists exist with that firebaseAuthId.' }, { status: 404 });
   }
+
+  let apiKey = jwt.sign(client, secret, { algorithm: 'RS256' })
   console.log('apiKey', apiKey)
+  if (!apiKey || apiKey === {}) {
+    return handleRequest({ reason: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
+  }
 
   return handleRequest(apiKey)
 })
