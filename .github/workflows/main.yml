@@ -17,7 +17,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'clients'
-          command:  --help | echo '${{ secrets.API_KEYS_SECRET }}' | wrangler secret put API_KEYS_SECRET
+          command:  --help | echo -e "${{ secrets.API_KEYS_SECRET }}" | wrangler secret put API_KEYS_SECRET
       - name: Publish Clients
         uses: cloudflare/wrangler-action@2.0.0
         with:
