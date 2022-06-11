@@ -8,7 +8,7 @@ import {
 
 // authentication
 import jsonwebtoken from 'jsonwebtoken';
-import cloudflareJwt from 'cloudflare-worker-jwt' // needed for libraries
+import cloudflareJwt from '@tsndr/cloudflare-worker-jwt' // needed for libraries
 
 // database collection
 import loki from 'lokijs'
