@@ -21,9 +21,9 @@ const secret = API_KEYS_SECRET || 'between workers'
 // grab clients from s3 key value storage
 async function download() {
   let data = await ISTRAV.get('clients')
-  console.log('download', data)
-  if (!data || !data.body) {
-    db.loadJSON(data.body) // Inflates a loki database from a serialized JSON string
+  if (data) {
+    console.log('download', data)
+    db.loadJSON(data) // Inflates a loki database from a serialized JSON string
   }
   return data
 }
@@ -31,6 +31,7 @@ async function download() {
 // update s3 with in-memory records
 async function save() {
   let content = db.serialize() // Serialize database to a string which can be loaded via Loki#loadJSON
+  console.log('save', content)
   let data = await ISTRAV.put('clients', content)
   return data
 }
@@ -60,7 +61,7 @@ router.post('/', withContent, async ({ params, content}) => {
   let data = await download()
   content.id = uuidv4()
   let client = collection.insert(content)
-  save()
+  await save()
 
   return handleRequest(client)
 })
@@ -72,7 +73,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   client.email = content.email || client.email
   client.firebaseAuthId = content.firebaseAuthId || client.firebaseAuthId
   collection.update(client)
-  save()
+  await save()
 
   return handleRequest(client)
 })
@@ -81,7 +82,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
 router.delete('/:id', async ({ params }) => {
   let data = await download()
   collection.findAndRemove({ id: params.id })
-  save()
+  await save()
 
   return handleRequest(null)
 })
@@ -132,7 +133,7 @@ router.post('/register', withContent, async ({ params, content }) => {
   console.log('record', record)
   let client = collection.insert(record)
   console.log('client', client)
-  save()
+  await save()
   let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
   if (!apiKey || apiKey == {}) {
