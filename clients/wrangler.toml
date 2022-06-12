@@ -8,6 +8,10 @@ zone_id = ""
 compatibility_date = "2022-06-05"
 node_compat = true
 
-kv_namespaces = [ 
-  { binding = "CLIENTS", id = "f2835a9105e34d9fa4590045cc03670e" }
+# kv_namespaces = [ 
+#   { binding = "CLIENTS", id = "f2835a9105e34d9fa4590045cc03670e" }
+# ]
+
+r2_buckets = [
+  { binding = 'ISTRAV', bucket_name = 'istrav' }
 ]

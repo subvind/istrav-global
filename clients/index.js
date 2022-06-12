@@ -18,19 +18,20 @@ let collection = db.addCollection('clients', { indices: ['id', 'firebaseAuthId']
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
 
-// grab clients from key value storage
+// grab clients from s3 key value storage
 async function download() {
-  let data = await CLIENTS.get('all')
-  if (data) {
-    db.loadJSON(data) // Inflates a loki database from a serialized JSON string
+  let data = await ISTRAV.get('clients')
+  console.log('download', data)
+  if (!data || !data.body) {
+    db.loadJSON(data.body) // Inflates a loki database from a serialized JSON string
   }
   return data
 }
 
-// update database with in-memory records
+// update s3 with in-memory records
 async function save() {
   let content = db.serialize() // Serialize database to a string which can be loaded via Loki#loadJSON
-  let data = await CLIENTS.put('all', content)
+  let data = await ISTRAV.put('clients', content)
   return data
 }
 
@@ -98,15 +99,6 @@ async function verifyToken (content) {
   } else {
     return { error: true, message: 'Unable to verify token from firebase.' }
   }
-  // jsonwebtoken.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
-  //   console.log('verify payload', payload)
-  //   console.log('verify error', error)
-  //   if (payload) {
-  //     verified = payload
-  //   } else {
-  //     verified = { error: true, message: error }
-  //   }
-  // });
 }
 
 // POST verify a token from browser's getIdTokenResult
