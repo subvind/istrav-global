@@ -94,7 +94,7 @@ async function verifyToken (content) {
 
   let isValid = jwt.verify(content, cert, { algorithm: 'RS256' })
   if (isValid) {
-    return content
+    return jwt.decode(content)
   } else {
     return { error: true, message: 'Unable to verify token from firebase.' }
   }
