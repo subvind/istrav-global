@@ -24,9 +24,15 @@ async function download() {
   if (data && data.length) {
     data = JSON.parse(data)
     console.log('download', data)
-    collection.insert(data)
-    // data.forEach((value) => {
-    // })
+
+    // upsert
+    data.forEach((value) => {
+      if (collection.findOne({ id: value.id })) {
+        collection.update(value)
+      } else {
+        collection.insert(value)
+      }
+    })
   }
   return data
 }
