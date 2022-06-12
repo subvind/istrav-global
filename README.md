@@ -1,7 +1,6 @@
 istrav-global
 ========
 
-
 ### CloudFlare Workers
 - clients
 - levels
