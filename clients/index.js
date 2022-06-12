@@ -92,18 +92,22 @@ async function verifyToken (content) {
     })
   console.log('cert', cert)
 
+  let isValid = jwt.verify(content, cert, { algorithm: 'RS256' })
   let verified
-  jsonwebtoken.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
-    console.log('verify payload', payload)
-    console.log('verify error', error)
-    if (payload) {
-      verified = payload
-    } else {
-      verified = { error: true, message: error }
-    }
-  });
-
-  return verified
+  if (isValid) {
+    return payload
+  } else {
+    return { error: true, message: 'Unable to verify token from firebase.' }
+  }
+  // jsonwebtoken.verify(content, cert, { algorithms: ['RS256'] }, function (error, payload) {
+  //   console.log('verify payload', payload)
+  //   console.log('verify error', error)
+  //   if (payload) {
+  //     verified = payload
+  //   } else {
+  //     verified = { error: true, message: error }
+  //   }
+  // });
 }
 
 // POST verify a token from browser's getIdTokenResult
