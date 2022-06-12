@@ -23,7 +23,7 @@ async function download() {
   let data = await ISTRAV.get('clients')
   if (data) {
     console.log('download', data)
-    db.loadJSON(data) // Inflates a loki database from a serialized JSON string
+    db.loadJSONObject(data) // Inflates a loki database from a serialized JSON string
   }
   return data
 }
