@@ -139,7 +139,7 @@ router.post('/register', withContent, async ({ params, content }) => {
   save()
   let apiKey = jsonwebtoken.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
-  if (!apiKey || apiKey === {}) {
+  if (!apiKey || apiKey == {}) {
     return handleRequest({ reason: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
   }
 
