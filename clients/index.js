@@ -22,6 +22,7 @@ const secret = API_KEYS_SECRET || 'between workers'
 async function download() {
   let data = await ISTRAV.get('clients')
   if (data) {
+    data = JSON.parse(data)
     console.log('download', data)
     db.loadJSONObject(data) // Inflates a loki database from a serialized JSON string
   }
