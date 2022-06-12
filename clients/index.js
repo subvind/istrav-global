@@ -140,7 +140,7 @@ router.post('/register', withContent, async ({ params, content }) => {
   let client = collection.insert(record)
   console.log('client', client)
   save()
-  let apiKey = jwt.sign(client, secret, { algorithm: 'HS256' })
+  let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
   if (!apiKey || apiKey == {}) {
     return handleRequest({ reason: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
@@ -166,7 +166,7 @@ router.post('/login', withContent, async ({ params, content }) => {
     return handleRequest({ reason: 'No client exists exist with that firebaseAuthId.' }, { status: 404 });
   }
 
-  let apiKey = jwt.sign(client, secret, { algorithm: 'HS256' })
+  let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
   if (!apiKey || apiKey == {}) {
     return handleRequest({ reason: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
