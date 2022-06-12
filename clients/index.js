@@ -35,6 +35,7 @@ async function download() {
 async function save() {
   let keep = collection.find()
   console.log('keep', keep)
+  keep = JSON.stringify(keep)
   await ISTRAV.put('clients', keep)
   return keep
 }
