@@ -21,21 +21,22 @@ const secret = API_KEYS_SECRET || 'between workers'
 // grab clients from s3 key value storage
 async function download() {
   let data = await ISTRAV.get('clients')
-  if (data) {
+  if (data && data.length) {
     data = JSON.parse(data)
     console.log('download', data)
-    // db.loadJSONObject(data) // Inflates a loki database from a serialized JSON string
-    Object.assign(db.collections, data.collections);
+    data.forEach((value) => {
+      collection.insert(value)
+    })
   }
   return data
 }
 
 // update s3 with in-memory records
 async function save() {
-  let content = db.serialize() // Serialize database to a string which can be loaded via Loki#loadJSON
-  console.log('save', content)
-  let data = await ISTRAV.put('clients', content)
-  return data
+  let keep = collection.find()
+  console.log('keep', keep)
+  await ISTRAV.put('clients', keep)
+  return keep
 }
 
 // now let's create a router (note the lack of "new")
