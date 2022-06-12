@@ -24,10 +24,8 @@ async function download() {
   if (data) {
     data = JSON.parse(data)
     console.log('download', data)
-    db.loadJSONObject(data) // Inflates a loki database from a serialized JSON string
-    db.loadDatabase({}, () => {
-      Object.assign(db.collections, data.collections);
-    });
+    // db.loadJSONObject(data) // Inflates a loki database from a serialized JSON string
+    Object.assign(db.collections, data.collections);
   }
   return data
 }
