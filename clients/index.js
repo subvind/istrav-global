@@ -25,13 +25,9 @@ async function download() {
     data = JSON.parse(data)
     console.log('download', data)
 
-    // upsert
     data.forEach((value) => {
-      if (collection.findOne({ id: value.id })) {
-        collection.update(value)
-      } else {
-        collection.insert(value)
-      }
+      delete value['$loki']
+      collection.insert(value)
     })
   }
   return data
