@@ -26,7 +26,8 @@ async function download() {
     console.log('download', data)
 
     data.forEach((value) => {
-      delete value['$loki']
+      collection.findAndRemove({ id: value.id }) // so we don't get duplicates
+      delete value['$loki'] // otherwise we get record already there error
       collection.insert(value)
     })
   }
