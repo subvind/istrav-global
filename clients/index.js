@@ -41,7 +41,8 @@ const router = Router()
 // GET collection index
 router.get('/', async () => {
   let data = await download()
-  let clients = collection.find() || []
+  let clients = collection.find()
+  console.log('findAll', clients)
 
   return handleRequest(clients)
 })
