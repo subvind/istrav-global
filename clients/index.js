@@ -18,29 +18,31 @@ let collection = db.addCollection('clients', { indices: ['id', 'firebaseAuthId']
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
 
-// grab clients from s3 key value storage
-async function download() {
-  let data = await ISTRAV.get('clients')
-  if (data && data.length) {
-    data = JSON.parse(data)
-    console.log('download', data)
+// read from KV database
+async function download(key) {
+  let storageData
+  let recover = await ISTRAV.get(key)
+  console.log('recover', recover)
+  if (recover) {
+    storageData = JSON.parse(recover)
+    console.log('storageData', storageData)
 
-    data.forEach((value) => {
+    storageData.forEach((value) => {
       collection.findAndRemove({ id: value.id }) // so we don't get duplicates
       delete value['$loki'] // otherwise we get record already there error
       collection.insert(value)
     })
   }
-  return data
+  return storageData
 }
 
-// update s3 with in-memory records
-async function save() {
-  let keep = collection.find()
-  console.log('keep', keep)
-  keep = JSON.stringify(keep)
-  await ISTRAV.put('clients', keep)
-  return keep
+// update to KV with in-memory records
+async function save(key) {
+  let memoryData = collection.find()
+  console.log('memoryData', memoryData)
+  let keep = JSON.stringify(memoryData)
+  await ISTRAV.put(key, keep)
+  return memoryData
 }
 
 // now let's create a router (note the lack of "new")
@@ -48,7 +50,10 @@ const router = Router()
 
 // GET collection index
 router.get('/', async () => {
-  let data = await download()
+  // database
+  await download('clients')
+
+  // list
   let clients = collection.find()
   console.log('findAll', clients)
 
@@ -57,44 +62,63 @@ router.get('/', async () => {
 
 // GET item in collection
 router.get('/:id', async ({ params }) => {
-  let data = await download()
+  // database
+  await download('clients')
+
+  // read
   let client = collection.findOne({ id: params.id })
 
   return handleRequest(client)
 })
 
-// POST new item to the collection
+// POST create item in the collection
 router.post('/', withContent, async ({ params, content}) => {
-  let data = await download()
+  // database
+  await download('clients')
+
+  // create
   content.id = uuidv4()
   let client = collection.insert(content)
-  await save()
+
+  // database
+  await save('clients')
 
   return handleRequest(client)
 })
 
 // UPDATE existing item in the collection
 router.put('/:id', withContent, async ({ params, content}) => {
-  let data = await download()
+  // database
+  await download('clients')
+
+  // update
   let client = collection.findOne({ id: params.id })
   client.email = content.email || client.email
   client.firebaseAuthId = content.firebaseAuthId || client.firebaseAuthId
   collection.update(client)
-  await save()
+
+  // database
+  await save('clients')
 
   return handleRequest(client)
 })
 
 // DELETE an item from collection
 router.delete('/:id', async ({ params }) => {
-  let data = await download()
+  // database
+  await download('clients')
   collection.findAndRemove({ id: params.id })
-  await save()
+
+  // database
+  await save('clients')
 
   return handleRequest(null)
 })
 
+// true: If your backend is in a language not supported by the Firebase Admin SDK, you can still verify ID tokens...
+// https://firebase.google.com/docs/auth/admin/verify-id-tokens#verify_id_tokens_using_a_third-party_jwt_library
 async function verifyToken (content) {
+  // grab firebase's official public cert from the internet
   let cert = await fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com')
     .then(response => response.json())
     .then((data) => {
@@ -102,6 +126,7 @@ async function verifyToken (content) {
     })
   console.log('cert', cert)
 
+  // confirm user token is valid with firebase cert using 3rd party jwt library
   let isValid = jwt.verify(content, cert, { algorithm: 'RS256' })
   if (isValid) {
     return jsonwebtoken.decode(content)
@@ -112,13 +137,18 @@ async function verifyToken (content) {
 
 // POST verify a token from browser's getIdTokenResult
 router.post('/verifyIdToken', withContent, async ({ params, content }) => {
+  // check requirements
   let verified = await verifyToken(content)
+
   return handleRequest(verified)
 })
 
 // POST register an item with the collection
 router.post('/register', withContent, async ({ params, content }) => {
-  let data = await download()
+  // database
+  await download('clients')
+
+  // check requirements
   let verified = await verifyToken(content)
   console.log('verified', verified)
   if (verified.error) {
@@ -127,11 +157,14 @@ router.post('/register', withContent, async ({ params, content }) => {
   if (!verified.user_id) {
     return handleRequest({ reason: 'Token data does not have a firebaseAuthId.' }, { status: 404 });
   }
+
   // check if user already exists
   let clientCheck = collection.findOne({ firebaseAuthId: verified.user_id })
   if (clientCheck) {
     return handleRequest({ reason: 'A client with that firebaseAuthId already exists.' }, { status: 400 });
   }
+
+  // register: user is valid and new so create one here
   let record = {
     id: uuidv4(),
     email: verified.email,
@@ -140,7 +173,11 @@ router.post('/register', withContent, async ({ params, content }) => {
   console.log('record', record)
   let client = collection.insert(record)
   console.log('client', client)
-  await save()
+
+  // database
+  await save('clients')
+
+  // user is valid so return api key
   let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
   if (!apiKey || apiKey == {}) {
@@ -152,7 +189,10 @@ router.post('/register', withContent, async ({ params, content }) => {
 
 // POST login an item with the collection
 router.post('/login', withContent, async ({ params, content }) => {
-  let data = await download()
+  // database
+  await download('clients')
+
+  // check requirements
   let verified = await verifyToken(content)
   console.log('verified', verified)
   if (verified.error) {
@@ -161,12 +201,15 @@ router.post('/login', withContent, async ({ params, content }) => {
   if (!verified.user_id) {
     return handleRequest({ reason: 'Token data does not have a firebaseAuthId.' }, { status: 404 });
   }
+
+  // grab user by firebase auth id
   let client = collection.findOne({ firebaseAuthId: verified.user_id })
   console.log('client', client)
   if (!client) {
     return handleRequest({ reason: 'No client exists exist with that firebaseAuthId.' }, { status: 404 });
   }
 
+  // user is valid so return api key
   let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
   if (!apiKey || apiKey == {}) {
