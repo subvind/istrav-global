@@ -11,6 +11,20 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
+      # /accessKeys
+      - name: Namespaces Secrets
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'access-keys'
+          command:  --help | echo "${{ secrets.API_KEYS_SECRET }}" | wrangler secret put API_KEYS_SECRET
+      - name: Publish Namespaces
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'access-keys'
+          preCommands: npm install
+          command: publish
       # /namespaces
       - name: Namespaces Secrets
         uses: cloudflare/wrangler-action@2.0.0
