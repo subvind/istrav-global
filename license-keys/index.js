@@ -1,5 +1,5 @@
 
-async function handleRequest(body, init) {
+function handleRequest(body, init) {
   body = JSON.stringify(body)
   console.log('body', body)
 

@@ -10,7 +10,7 @@ import {
 import loki from 'lokijs'
 let db = new loki('istrav');
 let collection = db.addCollection('accessKeys', { indices: ['id'] });
-let namespaces = db.addCollection('namespaces', { indices: ['id'] });
+let namespaces = db.addCollection('namespaces', { indices: ['id', 'slug'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
@@ -70,6 +70,17 @@ router.get('/:id', async ({ params }) => {
   return handleRequest(record)
 })
 
+// confirm that namespace slug exists
+async function relatedNamespace(slug) {
+  // database
+  await download('namespaces', namespaces)
+
+  // check
+  return namespaces.where(function (value) {
+    return value.slug === slug
+  })
+}
+
 // POST create item in the collection
 router.post('/', withContent, async ({ params, content}) => {
   // database
@@ -77,6 +88,20 @@ router.post('/', withContent, async ({ params, content}) => {
 
   // create
   content.id = uuidv4()
+  console.log('create', content)
+  
+  // check requirements
+  let namespace = await relatedNamespace(content.namespace.slug)
+  if (namespace === null) {
+    console.log('content.namespace.slug', content.namespace.slug)
+    console.log('check requirements', namespace)
+    return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
+  } else {
+    // clean up record
+    delete content.namespace
+  }
+  
+  // submit
   let record = collection.insert(content)
 
   // database
@@ -94,6 +119,18 @@ router.put('/:id', withContent, async ({ params, content}) => {
   // update
   let record = collection.findOne({ id: params.id })
   record.namespaceId = content.namespaceId || record.namespaceId
+  console.log('update', record)
+  
+  // check requirements
+  let namespace = await relatedNamespace(record.namespace.slug)
+  if (namespace === null) {
+    return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
+  } else {
+    // clean up record
+    delete record.namespace
+  }
+
+  // submit
   collection.update(record)
 
   // database
@@ -123,7 +160,7 @@ addEventListener('fetch', event => {
 })
 
 // respond with a string and allow access control
-async function handleRequest(content, options) {
+function handleRequest(content, options) {
   let dataString = JSON.stringify(content)
   return new Response(dataString, {
     ...options,

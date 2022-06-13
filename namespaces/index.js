@@ -9,7 +9,7 @@ import {
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let collection = db.addCollection('namespaces', { indices: ['id'] });
+let collection = db.addCollection('namespaces', { indices: ['id', 'slug'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
@@ -69,6 +69,17 @@ router.get('/:id', async ({ params }) => {
   return handleRequest(record)
 })
 
+// prevent duplicate namespace slugs
+async function relatedNamespace(slug) {
+  // database
+  await download('namespaces', namespaces)
+
+  // check
+  return namespaces.where(function (value) {
+    return value.slug === slug
+  })
+}
+
 // POST create item in the collection
 router.post('/', withContent, async ({ params, content}) => {
   // database
@@ -76,6 +87,15 @@ router.post('/', withContent, async ({ params, content}) => {
 
   // create
   content.id = uuidv4()
+  console.log('create', content)
+  
+  // check requirements
+  let namespace = await relatedNamespace(record.slug)
+  if (namespace) {
+    return handleRequest({ error: 'A namespace with that slug already exists.' }, { status: 400 });
+  }
+
+  // submit
   let record = collection.insert(content)
 
   // database
@@ -91,8 +111,19 @@ router.put('/:id', withContent, async ({ params, content}) => {
 
   // update
   let record = collection.findOne({ id: params.id })
-  record.name = content.name || record.name
-  // record.firebaseAuthId = content.firebaseAuthId || record.firebaseAuthId
+  record.slug = content.slug || record.slug
+  console.log('update', record)
+  
+  // check requirements
+  if (record.slug) {
+    // only if slug is being changed
+    let namespace = await relatedNamespace(record.slug)
+    if (namespace && namespace.id !== content.id) {
+      return handleRequest({ error: 'A namespace with that slug already exists.' }, { status: 400 });
+    }
+  }
+  
+  // submit
   collection.update(record)
 
   // database
@@ -122,7 +153,7 @@ addEventListener('fetch', event => {
 })
 
 // respond with a string and allow access control
-async function handleRequest(content, options) {
+function handleRequest(content, options) {
   let dataString = JSON.stringify(content)
   return new Response(dataString, {
     ...options,

@@ -230,7 +230,7 @@ addEventListener('fetch', event => {
 })
 
 // respond with a string and allow access control
-async function handleRequest(content, options) {
+function handleRequest(content, options) {
   let dataString = JSON.stringify(content)
   return new Response(dataString, {
     ...options,
