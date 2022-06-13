@@ -17,7 +17,7 @@ const secret = API_KEYS_SECRET || 'between workers'
 
 // read from KV database
 async function download(key, store) {
-  let database = collection || store
+  let database = store || collection
   let storageData
   let recover = await ISTRAV.get(key)
   console.log('recover', recover)
@@ -81,35 +81,26 @@ router.get('/:id', async ({ params }) => {
   return handleRequest(record)
 })
 
-// confirm that namespace slug exists
-async function relatedNamespace(slug) {
-  // database
-  await download('namespaces', namespaces)
-
-  // check
-  return namespaces.where(function (value) {
-    return value.slug === slug
-  })[0]
-}
-
 // POST create item in the collection
 router.post('/', withContent, async ({ params, content}) => {
   // database
   await download('accessKeys')
+  await download('namespaces', namespaces)
 
   // create
   content.id = uuidv4()
-  content.key = randomString(64)
+  content.token = randomString(64)
   console.log('create', content)
   
   // check requirements
-  let namespace = await relatedNamespace(content.namespace.slug)
-  if (namespace === null) {
-    return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
-  } else {
-    // clean up record
-    delete content.namespace
+  let namespace = namespaces.findOne({ slug: content.namespace.slug })
+  if (!namespace) {
+    return await handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
   }
+
+  // clean up record
+  content.namespaceId = namespace.id
+  delete content.namespace
   
   // submit
   let record = collection.insert(content)
@@ -126,18 +117,21 @@ router.put('/:id', withContent, async ({ params, content}) => {
   await download('accessKeys', collection)
   await download('namespaces', namespaces)
 
-  // update
+  // fetch
   let record = collection.findOne({ id: params.id })
+  console.log('fetch', record)
+  if (!record) {
+    return handleRequest({ error: 'An access key with that id does not exist.' }, { status: 400 });
+  }
+
+  // update
   record.namespaceId = content.namespaceId || record.namespaceId
   console.log('update', record)
   
   // check requirements
-  let namespace = await relatedNamespace(record.namespace.slug)
-  if (namespace === null) {
-    return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
-  } else {
-    // clean up record
-    delete record.namespace
+  let namespace = namespaces.findOne({ id: content.namespaceId })
+  if (!namespace) {
+    return handleRequest({ error: 'A namespace with that id does not exist.' }, { status: 400 });
   }
 
   // submit
@@ -146,13 +140,15 @@ router.put('/:id', withContent, async ({ params, content}) => {
   // database
   await save('accessKeys')
 
-  return handleRequest(client)
+  return handleRequest(record)
 })
 
 // DELETE an item from collection
 router.delete('/:id', async ({ params }) => {
   // database
   await download('accessKeys')
+
+  // submit
   collection.findAndRemove({ id: params.id })
 
   // database
@@ -170,7 +166,7 @@ addEventListener('fetch', event => {
 })
 
 // respond with a string and allow access control
-function handleRequest(content, options) {
+async function handleRequest(content, options) {
   let dataString = JSON.stringify(content)
   return new Response(dataString, {
     ...options,
