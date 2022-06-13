@@ -99,7 +99,7 @@ router.post('/', withContent, async ({ params, content}) => {
 
   // create
   content.id = uuidv4()
-  content.key = randomString(256)
+  content.key = randomString(64)
   console.log('create', content)
   
   // check requirements
