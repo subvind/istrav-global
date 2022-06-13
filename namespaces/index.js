@@ -126,7 +126,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   // database
   await save('namespaces')
 
-  return handleRequest(client)
+  return handleRequest(record)
 })
 
 // DELETE an item from collection

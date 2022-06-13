@@ -56,10 +56,10 @@ router.get('/', async () => {
   await download('clients')
 
   // list
-  let clients = collection.find()
-  console.log('findAll', clients)
+  let records = collection.find()
+  console.log('findAll', records)
 
-  return handleRequest(clients)
+  return handleRequest(records)
 })
 
 // GET item in collection
@@ -68,9 +68,9 @@ router.get('/:id', async ({ params }) => {
   await download('clients')
 
   // read
-  let client = collection.findOne({ id: params.id })
+  let record = collection.findOne({ id: params.id })
 
-  return handleRequest(client)
+  return handleRequest(record)
 })
 
 // POST create item in the collection
@@ -80,12 +80,14 @@ router.post('/', withContent, async ({ params, content}) => {
 
   // create
   content.id = uuidv4()
-  let client = collection.insert(content)
+
+  // submit
+  let record = collection.insert(content)
 
   // database
   await save('clients')
 
-  return handleRequest(client)
+  return handleRequest(record)
 })
 
 // UPDATE existing item in the collection
@@ -94,21 +96,25 @@ router.put('/:id', withContent, async ({ params, content}) => {
   await download('clients')
 
   // update
-  let client = collection.findOne({ id: params.id })
-  client.email = content.email || client.email
-  client.firebaseAuthId = content.firebaseAuthId || client.firebaseAuthId
+  let record = collection.findOne({ id: params.id })
+  record.email = content.email || record.email
+  record.firebaseAuthId = content.firebaseAuthId || record.firebaseAuthId
+
+  // submit
   collection.update(client)
 
   // database
   await save('clients')
 
-  return handleRequest(client)
+  return handleRequest(record)
 })
 
 // DELETE an item from collection
 router.delete('/:id', async ({ params }) => {
   // database
   await download('clients')
+
+  // submit
   collection.findAndRemove({ id: params.id })
 
   // database

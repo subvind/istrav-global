@@ -129,7 +129,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   console.log('update', record)
   
   // check requirements
-  let namespace = namespaces.findOne({ id: content.namespaceId })
+  let namespace = namespaces.findOne({ id: record.namespaceId })
   if (!namespace) {
     return handleRequest({ error: 'A namespace with that id does not exist.' }, { status: 400 });
   }
