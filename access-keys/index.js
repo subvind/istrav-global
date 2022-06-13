@@ -44,6 +44,17 @@ async function save(key, store) {
   return memoryData
 }
 
+// create X length random string
+function randomString(len) {
+  let charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var randomString = '';
+  for (var i = 0; i < len; i++) {
+    var randomPoz = Math.floor(Math.random() * charSet.length);
+    randomString += charSet.substring(randomPoz,randomPoz+1);
+  }
+  return randomString;
+}
+
 // now let's create a router (note the lack of "new")
 const router = Router()
 
@@ -88,11 +99,12 @@ router.post('/', withContent, async ({ params, content}) => {
 
   // create
   content.id = uuidv4()
+  content.key = randomString(256)
   console.log('create', content)
   
   // check requirements
   let namespace = await relatedNamespace(content.namespace.slug)
-  if (!namespace) {
+  if (namespace === null) {
     return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
   } else {
     // clean up record
@@ -121,7 +133,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   
   // check requirements
   let namespace = await relatedNamespace(record.namespace.slug)
-  if (!namespace) {
+  if (namespace === null) {
     return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
   } else {
     // clean up record

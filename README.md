@@ -49,7 +49,7 @@ KV storage locations:
 
 ### Table Fields & Relations
 - namespaces: {id, name, accessKeys}
-- accessKeys: {id, namespaceId}
+- accessKeys: {id, namespaceId, token}
 - tenants: {id, levelId, clients, platforms, namespaces, stripeCustomerId}
 - clients: {id, firebaseAuthId, apiKey, tenantId}
 - platforms: {id, tenantId, backendDomainName, licenseKeyId, websites, reports, stripeSubscriptionId}

@@ -89,7 +89,6 @@ router.post('/', withContent, async ({ params, content}) => {
   // check requirements
   let namespace = await relatedNamespace(content.slug)
   if (namespace) {
-    console.log('already exists', namespace)
     return handleRequest({ error: 'A namespace with that slug already exists.' }, { status: 400 });
   }
 
