@@ -11,7 +11,7 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
-      # /accessKeys
+      # /access-keys
       - name: Namespaces Secrets
         uses: cloudflare/wrangler-action@2.0.0
         with:

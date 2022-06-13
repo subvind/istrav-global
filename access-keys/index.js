@@ -89,8 +89,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
 
   // update
   let record = collection.findOne({ id: params.id })
-  record.name = content.name || record.name
-  // record.firebaseAuthId = content.firebaseAuthId || record.firebaseAuthId
+  record.namespaceId = content.namespaceId || record.namespaceId
   collection.update(record)
 
   // database
