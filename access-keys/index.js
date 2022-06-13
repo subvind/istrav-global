@@ -10,12 +10,14 @@ import {
 import loki from 'lokijs'
 let db = new loki('istrav');
 let collection = db.addCollection('accessKeys', { indices: ['id'] });
+let namespaces = db.addCollection('namespaces', { indices: ['id'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
 
 // read from KV database
-async function download(key) {
+async function download(key, store) {
+  let database = collection || store
   let storageData
   let recover = await ISTRAV.get(key)
   console.log('recover', recover)
@@ -24,17 +26,18 @@ async function download(key) {
     console.log('storageData', storageData)
 
     storageData.forEach((value) => {
-      collection.findAndRemove({ id: value.id }) // so we don't get duplicates
+      database.findAndRemove({ id: value.id }) // so we don't get duplicates
       delete value['$loki'] // otherwise we get record already there error
-      collection.insert(value)
+      database.insert(value)
     })
   }
   return storageData
 }
 
 // update to KV with in-memory records
-async function save(key) {
-  let memoryData = collection.find()
+async function save(key, store) {
+  let database = collection || store
+  let memoryData = database.find()
   console.log('memoryData', memoryData)
   let keep = JSON.stringify(memoryData)
   await ISTRAV.put(key, keep)
@@ -85,7 +88,8 @@ router.post('/', withContent, async ({ params, content}) => {
 // UPDATE existing item in the collection
 router.put('/:id', withContent, async ({ params, content}) => {
   // database
-  await download('accessKeys')
+  await download('accessKeys', collection)
+  await download('namespaces', namespaces)
 
   // update
   let record = collection.findOne({ id: params.id })
