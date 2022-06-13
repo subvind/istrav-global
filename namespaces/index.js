@@ -11,6 +11,9 @@ import loki from 'lokijs'
 let db = new loki('istrav');
 let collection = db.addCollection('namespaces', { indices: ['id'] });
 
+// for signing and verifying API keys
+const secret = API_KEYS_SECRET || 'between workers'
+
 // read from KV database
 async function download(key) {
   let storageData
