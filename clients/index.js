@@ -20,7 +20,7 @@ const secret = API_KEYS_SECRET || 'between workers'
 
 // read from KV database
 async function download(key, store) {
-  let database = collection || store
+  let database = store || collection
   let storageData
   let recover = await ISTRAV.get(key)
   console.log('recover', recover)
@@ -39,7 +39,7 @@ async function download(key, store) {
 
 // update to KV with in-memory records
 async function save(key, store) {
-  let database = collection || store
+  let database = store || collection
   let memoryData = database.find()
   console.log('memoryData', memoryData)
   let keep = JSON.stringify(memoryData)
