@@ -71,13 +71,10 @@ router.get('/:id', async ({ params }) => {
 
 // prevent duplicate namespace slugs
 async function relatedNamespace(slug) {
-  // database
-  await download('namespaces', namespaces)
-
   // check
-  return namespaces.where(function (value) {
+  return collection.where(function (value) {
     return value.slug === slug
-  })
+  })[0]
 }
 
 // POST create item in the collection
@@ -90,8 +87,9 @@ router.post('/', withContent, async ({ params, content}) => {
   console.log('create', content)
   
   // check requirements
-  let namespace = await relatedNamespace(record.slug)
+  let namespace = await relatedNamespace(content.slug)
   if (namespace) {
+    console.log('already exists', namespace)
     return handleRequest({ error: 'A namespace with that slug already exists.' }, { status: 400 });
   }
 
@@ -118,7 +116,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   if (record.slug) {
     // only if slug is being changed
     let namespace = await relatedNamespace(record.slug)
-    if (namespace && namespace.id !== content.id) {
+    if (namespace && namespace.id !== params.id) {
       return handleRequest({ error: 'A namespace with that slug already exists.' }, { status: 400 });
     }
   }

@@ -78,7 +78,7 @@ async function relatedNamespace(slug) {
   // check
   return namespaces.where(function (value) {
     return value.slug === slug
-  })
+  })[0]
 }
 
 // POST create item in the collection
@@ -92,9 +92,7 @@ router.post('/', withContent, async ({ params, content}) => {
   
   // check requirements
   let namespace = await relatedNamespace(content.namespace.slug)
-  if (namespace === null) {
-    console.log('content.namespace.slug', content.namespace.slug)
-    console.log('check requirements', namespace)
+  if (!namespace) {
     return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
   } else {
     // clean up record
@@ -123,7 +121,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   
   // check requirements
   let namespace = await relatedNamespace(record.namespace.slug)
-  if (namespace === null) {
+  if (!namespace) {
     return handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
   } else {
     // clean up record
