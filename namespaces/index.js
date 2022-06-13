@@ -50,7 +50,7 @@ router.get('/', async () => {
   let records = collection.find()
   console.log('findAll', records)
 
-  return handleRequest(namespaces)
+  return handleRequest(records)
 })
 
 // GET item in collection
