@@ -10,7 +10,6 @@ KV storage locations:
 - platforms/namespace/id
 - levels/namespace/id
 - licenseKeys/namespace/id
-- projects/namespace/id
 - reports/namespace/id
 - stripe/namespace/id
 - websites/namespace/id
@@ -20,6 +19,7 @@ KV storage locations:
 
 ### CloudFlare Workers
 - namespaces
+- accessKeys
 - tenants
 - clients
 - platforms
@@ -32,10 +32,10 @@ KV storage locations:
 - bins
 - collections
 - schemaValidators
-- accessKeys
 
 ### KV Database Tables
 - namespaces
+- accessKeys
 - tenants
 - clients
 - platforms
@@ -46,22 +46,21 @@ KV storage locations:
 - bins
 - collections
 - schemaValidators
-- accessKeys
 
 ### Table Fields & Relations
 - namespaces: {id, name, accessKeys}
+- accessKeys: {id, namespaceId}
 - tenants: {id, levelId, clients, platforms, namespaces, stripeCustomerId}
 - clients: {id, firebaseAuthId, apiKey, tenantId}
 - platforms: {id, tenantId, backendDomainName, licenseKeyId, websites, reports, stripeSubscriptionId}
-- levels: {id, tenants, amount, number, activeUsers, requestsPerDay, requestsPerMonth, name, description, stripeProductId, stripePriceId}
 - licenseKeys: {id, platforms, validate, mac, expiry}
+- levels: {id, tenants, amount, number, activeUsersPerHour, requestsPerDay, requestsPerMonth, name, description, stripeProductId, stripePriceId}
 - reports: {id, platformId, activeUsersPastHour, requestsPastDay, requestsPastMonth, createdAt }
 - stripe: [id, customers, products, prices, invoices, subscriptions, paymentIntents, paymentMethods]
 - websites: {id, platformId, frontendDomainName}
 - bins: {id, collectionId, data}
 - collections: {id, bins, schemaValidatorId}
 - schemaValidators: {id, collections}
-- accessKeys: {id, namespaceId}
 
 ### Table Foreign Keys
 - namespaces:{id}:accessKeys:{accessKeyId}
@@ -70,8 +69,8 @@ KV storage locations:
 - tenants:{id}:namespaces:{namespaceId}
 - platforms:{id}:websites:{websiteId}
 - platforms:{id}:reports:{reportId}
-- levels:{id}:tenants:{tenantId}
 - licenseKeys:{id}:platforms:{platformId}
+- levels:{id}:tenants:{tenantId}
 - collections:{id}:bins:{binId}
 - schemaValidators:{id}:collections:{collectionId}
 
