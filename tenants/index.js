@@ -88,7 +88,7 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
   // check requirements
   let tenant = await collection.findOne({ slug: content.slug })
   if (tenant) {
-    return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 400 });
+    return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 404 });
   }
 
   // submit
@@ -107,8 +107,14 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   // database
   await download(key)
 
-  // update
+  // fetch
   let record = collection.findOne({ id: params.id })
+  console.log('fetch', record)
+  if (!record) {
+    return handleRequest({ error: 'A tenant with that id does not exist.' }, { status: 404 });
+  }
+
+  // update
   record.slug = content.slug || record.slug
   console.log('update', record)
   

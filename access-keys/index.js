@@ -95,7 +95,7 @@ router.post('/', withContent, async ({ params, content}) => {
   // check requirements
   let namespace = namespaces.findOne({ slug: content.namespace.slug })
   if (!namespace) {
-    return await handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 400 });
+    return await handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 404 });
   }
 
   // clean up record
@@ -121,7 +121,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   let record = collection.findOne({ id: params.id })
   console.log('fetch', record)
   if (!record) {
-    return handleRequest({ error: 'An access key with that id does not exist.' }, { status: 400 });
+    return handleRequest({ error: 'An access key with that id does not exist.' }, { status: 404 });
   }
 
   // update
@@ -131,7 +131,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   // check requirements
   let namespace = namespaces.findOne({ id: record.namespaceId })
   if (!namespace) {
-    return handleRequest({ error: 'A namespace with that id does not exist.' }, { status: 400 });
+    return handleRequest({ error: 'A namespace with that id does not exist.' }, { status: 404 });
   }
 
   // submit

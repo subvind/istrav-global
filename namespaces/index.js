@@ -106,8 +106,14 @@ router.put('/:id', withContent, async ({ params, content}) => {
   // database
   await download(key)
 
-  // update
+  // fetch
   let record = collection.findOne({ id: params.id })
+  console.log('fetch', record)
+  if (!record) {
+    return handleRequest({ error: 'A namespace with that id does not exist.' }, { status: 404 });
+  }
+
+  // update
   record.slug = content.slug || record.slug
   console.log('update', record)
   
