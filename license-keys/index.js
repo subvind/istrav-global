@@ -148,7 +148,7 @@ router.post('/generate', withContent, async ({ params, content }) => {
 
   // only sign if the secret between this worker and the server match
   if (content.secret !== secret) {
-    return handleRequest({ reason: 'Invalid "secret" query parameter' }, { status: 401 });
+    return handleRequest({ reason: 'Invalid "secret" parameter' }, { status: 401 });
   }
 
   const encoder = new TextEncoder();
