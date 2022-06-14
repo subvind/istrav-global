@@ -1,3 +1,4 @@
+
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from 'itty-router'
 import {
@@ -9,7 +10,7 @@ import {
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let collection = db.addCollection('namespaces', { indices: ['id', 'slug'] });
+let collection = db.addCollection('tenants', { indices: ['id', 'slug'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
@@ -49,7 +50,7 @@ const router = Router()
 // GET collection index
 router.get('/', async () => {
   // database
-  await download('namespaces')
+  await download('tenants')
 
   // list
   let records = collection.find()
@@ -61,7 +62,7 @@ router.get('/', async () => {
 // GET item in collection
 router.get('/:id', async ({ params }) => {
   // database
-  await download('namespaces')
+  await download('tenants')
 
   // read
   let record = collection.findOne({ id: params.id })
@@ -70,7 +71,7 @@ router.get('/:id', async ({ params }) => {
 })
 
 // prevent duplicate namespace slugs
-async function relatedNamespace(slug) {
+async function relatedTenant(slug) {
   // check
   return collection.where(function (value) {
     return value.slug === slug
@@ -80,23 +81,23 @@ async function relatedNamespace(slug) {
 // POST create item in the collection
 router.post('/', withContent, async ({ params, content}) => {
   // database
-  await download('namespaces')
+  await download('tenants')
 
   // create
   content.id = uuidv4()
   console.log('create', content)
   
   // check requirements
-  let namespace = await relatedNamespace(content.slug)
-  if (namespace) {
-    return handleRequest({ error: 'A namespace with that slug already exists.' }, { status: 400 });
+  let tenant = await relatedTenant(content.slug)
+  if (tenant) {
+    return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 400 });
   }
 
   // submit
   let record = collection.insert(content)
 
   // database
-  await save('namespaces')
+  await save('tenants')
 
   return handleRequest(record)
 })
@@ -104,7 +105,7 @@ router.post('/', withContent, async ({ params, content}) => {
 // UPDATE existing item in the collection
 router.put('/:id', withContent, async ({ params, content}) => {
   // database
-  await download('namespaces')
+  await download('tenants')
 
   // update
   let record = collection.findOne({ id: params.id })
@@ -114,9 +115,9 @@ router.put('/:id', withContent, async ({ params, content}) => {
   // check requirements
   if (record.slug) {
     // only if slug is being changed
-    let namespace = await relatedNamespace(record.slug)
-    if (namespace && namespace.id !== params.id) {
-      return handleRequest({ error: 'A namespace with that slug already exists.' }, { status: 400 });
+    let tenant = await relatedTenant(record.slug)
+    if (tenant && tenant.id !== params.id) {
+      return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 400 });
     }
   }
   
@@ -124,7 +125,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   collection.update(record)
 
   // database
-  await save('namespaces')
+  await save('tenants')
 
   return handleRequest(record)
 })
@@ -132,11 +133,11 @@ router.put('/:id', withContent, async ({ params, content}) => {
 // DELETE an item from collection
 router.delete('/:id', async ({ params }) => {
   // database
-  await download('namespaces')
+  await download('tenants')
   collection.findAndRemove({ id: params.id })
 
   // database
-  await save('namespaces')
+  await save('tenants')
 
   return handleRequest(null)
 })
