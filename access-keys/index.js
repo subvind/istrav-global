@@ -59,9 +59,11 @@ function randomString(len) {
 const router = Router()
 
 // GET collection index
-router.get('/', async () => {
+router.get('/:namespace/', async ({ params }) => {
+  let key = `access-keys:${params.namespace}`
+
   // database
-  await download('accessKeys')
+  await download(key)
 
   // list
   let records = collection.find()
@@ -71,9 +73,11 @@ router.get('/', async () => {
 })
 
 // GET item in collection
-router.get('/:id', async ({ params }) => {
+router.get('/:namespace/:id', async ({ params }) => {
+  let key = `access-keys:${params.namespace}`
+
   // database
-  await download('accessKeys')
+  await download(key)
 
   // read
   let record = collection.findOne({ id: params.id })
@@ -82,9 +86,11 @@ router.get('/:id', async ({ params }) => {
 })
 
 // POST create item in the collection
-router.post('/', withContent, async ({ params, content}) => {
+router.post('/:namespace', withContent, async ({ params, content}) => {
+  let key = `access-keys:${params.namespace}`
+
   // database
-  await download('accessKeys')
+  await download(key)
   await download('namespaces', namespaces)
 
   // create
@@ -92,29 +98,21 @@ router.post('/', withContent, async ({ params, content}) => {
   content.token = randomString(64)
   console.log('create', content)
   
-  // check requirements
-  let namespace = namespaces.findOne({ slug: content.namespace.slug })
-  if (!namespace) {
-    return await handleRequest({ error: 'A namespace with that slug id does not exist.' }, { status: 404 });
-  }
-
-  // clean up record
-  content.namespaceId = namespace.id
-  delete content.namespace
-  
   // submit
   let record = collection.insert(content)
 
   // database
-  await save('accessKeys')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // UPDATE existing item in the collection
-router.put('/:id', withContent, async ({ params, content}) => {
+router.put('/:namespace/:id', withContent, async ({ params, content}) => {
+  let key = `access-keys:${params.namespace}`
+
   // database
-  await download('accessKeys', collection)
+  await download(key, collection)
   await download('namespaces', namespaces)
 
   // fetch
@@ -125,34 +123,30 @@ router.put('/:id', withContent, async ({ params, content}) => {
   }
 
   // update
-  record.namespaceId = content.namespaceId || record.namespaceId
+  record.token = content.token || record.token
   console.log('update', record)
   
-  // check requirements
-  let namespace = namespaces.findOne({ id: record.namespaceId })
-  if (!namespace) {
-    return handleRequest({ error: 'A namespace with that id does not exist.' }, { status: 404 });
-  }
-
   // submit
   collection.update(record)
 
   // database
-  await save('accessKeys')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // DELETE an item from collection
-router.delete('/:id', async ({ params }) => {
+router.delete('/:namespace/:id', async ({ params }) => {
+  let key = `access-keys:${params.namespace}`
+
   // database
-  await download('accessKeys')
+  await download(key)
 
   // submit
   collection.findAndRemove({ id: params.id })
 
   // database
-  await save('accessKeys')
+  await save(key)
 
   return handleRequest(null)
 })

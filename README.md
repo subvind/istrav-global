@@ -4,7 +4,7 @@ let folders = [community, json, charge]
 
 KV storage locations:
 - namespaces/id
-- accessKeys/id
+- accessKeys/namespace/id
 - tenants/namespace/id
 - clients/namespace/id
 - platforms/namespace/id
