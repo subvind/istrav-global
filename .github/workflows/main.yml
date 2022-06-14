@@ -80,13 +80,13 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'license-keys'
-          command:  --help | echo "${{ secrets.LICENSE_KEYS_SECRET }}" | wrangler secret put SECRET
+          command:  --help | echo "${{ secrets.LICENSE_KEYS_SECRET }}" | wrangler secret put LICENSE_KEYS_SECRET
       - name: LicenseKeys Secrets
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'license-keys'
-          command:  --help | echo "${{ secrets.LICENSE_KEYS_PASSWORD }}" | wrangler secret put PASSWORD
+          command:  --help | echo "${{ secrets.LICENSE_KEYS_PASSWORD }}" | wrangler secret put LICENSE_KEYS_PASSWORD
       - name: Publish LicenseKeys
         uses: cloudflare/wrangler-action@2.0.0
         with:

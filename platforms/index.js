@@ -10,10 +10,11 @@ import {
 import loki from 'lokijs'
 let db = new loki('istrav');
 let collection = db.addCollection('platforms', { indices: ['id'] });
-let namespaces = db.addCollection('namespaces', { indices: ['id', 'slug'] });
+let tenants = db.addCollection('tenants', { indices: ['id', 'slug'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
+const licenseSecret = LICENSE_KEYS_SECRET || 'between workers and platform'
 
 // read from KV database
 async function download(key, store) {
@@ -91,11 +92,16 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
   // database
   await download(key)
-  await download('namespaces', namespaces)
+  await download('tenants', tenants)
 
   // create
   content.id = uuidv4()
-  content.token = randomString(64)
+  // content.tenantId
+  // content.backendDomainName 
+  // content.licenseKeyData
+  // content.licenseKeyMac
+  // content.licenseKeyExpiry
+  // content.stripeSubscriptionId
   console.log('create', content)
   
   // submit

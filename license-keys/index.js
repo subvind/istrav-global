@@ -1,24 +1,14 @@
-
-function handleRequest(body, init) {
-  body = JSON.stringify(body)
-  console.log('body', body)
-
-  return new Response(body, {
-    ...init,
-    headers:  {
-      'content-type': 'application/json;charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,HEAD,OPTIONS',
-      'Access-Control-Allow-Headers': 'content-type',
-      'Access-Control-Max-Age': '86400',
-    },
-  })
-}
+import { Router } from 'itty-router'
+import {
+  json,
+  missing,
+  withContent,
+} from 'itty-router-extras'
 
 // You will need some super-secret data to use as a symmetric key.
 const te = new TextEncoder();
-const passwordKeyData = te.encode(PASSWORD || 'worker only password symmetric key data');
-const secret = SECRET || 'between worker and backend'
+const passwordKeyData = te.encode(LICENSE_KEYS_PASSWORD || 'worker only password symmetric key data');
+const secret = LICENSE_KEYS_SECRET || 'between worker and backend'
 console.log('passwordKeyData', passwordKeyData)
 console.log('secret', secret)
 
@@ -28,16 +18,6 @@ console.log('secret', secret)
 function byteStringToUint8Array(byteString) {
   console.log('byteString', byteString)
   return Uint8Array.from(byteString, c => c.charCodeAt(0))
-
-  // const decoder = new TextDecoder();
-  // return decoder.decode(byteString)
-
-  // var len = byteString.length;
-  // var bytes = new Uint8Array(len);
-  // for (var i = 0; i < len; i++) {
-  //   bytes[i] = byteString.charCodeAt(i);
-  // }
-  // return bytes.buffer;
 }
 
 // It is crucial to pad the input data, for example, by adding a symbol
@@ -47,18 +27,20 @@ function toData(licenseKeyId, expiry) {
   return `${licenseKeyId}@${expiry}`
 }
 
-async function verifyLicenseKey(request) {
-  const url = new URL(request.url);
+// now let's create a router (note the lack of "new")
+const router = Router()
 
-  // Make sure you have the minimum necessary query parameters.
-  if (!url.searchParams.has('id')) {
-    return handleRequest({ reason: 'Missing "id" query parameter' }, { status: 403 });
+// POST an item verify generated license key
+router.post('/verify', withContent, async ({ params, content }) => {
+  // Make sure you have the minimum necessary body parameters.
+  if (!content.id) {
+    return handleRequest({ reason: 'Missing "id" body parameter' }, { status: 403 });
   }
-  if (!url.searchParams.has('mac')) {
-    return handleRequest({ reason: 'Missing "mac" query parameter' }, { status: 403 });
+  if (!content.mac) {
+    return handleRequest({ reason: 'Missing "mac" body parameter' }, { status: 403 });
   }
-  if (!url.searchParams.has('expiry')) {
-    return handleRequest({ reason: 'Missing "expiry" query parameter' }, { status: 403 });
+  if (!content.expiry) {
+    return handleRequest({ reason: 'Missing "expiry" body parameter' }, { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -73,14 +55,14 @@ async function verifyLicenseKey(request) {
   // Extract the query parameters we need and run the HMAC algorithm on the
   // parts of the request we are authenticating: the path and the expiration
   // timestamp.
-  const expiry = Number(url.searchParams.get('expiry'));
+  const expiry = Number(content.expiry);
   console.log('expiry', expiry)
-  const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
+  const dataToAuthenticate = toData(content.id, expiry);
   console.log('dataToAuthenticate', dataToAuthenticate)
 
   // The received MAC is Base64-encoded, so you have to go to some trouble to
   // get it into a buffer type that crypto.subtle.verify() can read.
-  const receivedMacBase64 = decodeURIComponent(url.searchParams.get('mac'))
+  const receivedMacBase64 = content.mac
   console.log('receivedMacBase64', receivedMacBase64)
   const receivedMac = byteStringToUint8Array(atob(receivedMacBase64));
   console.log('receivedMac', receivedMac)
@@ -117,7 +99,7 @@ async function verifyLicenseKey(request) {
   // you have verified the MAC and expiration time; you can now pass the request
   // through.
   let res = {
-    id: url.searchParams.get('id'),
+    id: content.id,
     genuine: dataToAuthenticate,
     valid: valid,
     mac: receivedMacBase64,
@@ -125,20 +107,17 @@ async function verifyLicenseKey(request) {
     reason: reason
   }
 
-  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${encodeURIComponent(res.mac)}&expiry=${res.expiry}`
-
   return handleRequest(res, { status });
-}
+})
 
-async function generateLicenseKey(request) {
-  const url = new URL(request.url);
-
-  // Make sure you have the minimum necessary query parameters.
-  if (!url.searchParams.has('id')) {
-    return handleRequest({ reason: 'Missing "id" query parameter' }, { status: 403 });
+// POST an item to generate license key
+router.post('/generate', withContent, async ({ params, content }) => {
+  // Make sure you have the minimum necessary body parameters.
+  if (!content.id) {
+    return handleRequest({ reason: 'Missing "id" body parameter' }, { status: 403 });
   }
-  if (!url.searchParams.has('secret')) {
-    return handleRequest({ reason: 'Missing "secret" query parameter' }, { status: 403 });
+  if (!content.secret) {
+    return handleRequest({ reason: 'Missing "secret" body parameter' }, { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -164,11 +143,11 @@ async function generateLicenseKey(request) {
   // number, so you can safely use it as a separator here. When combining more
   // fields, consider JSON.stringify-ing an array of the fields instead of
   // concatenating the values.
-  const dataToAuthenticate = toData(url.searchParams.get('id'), expiry);
+  const dataToAuthenticate = toData(content.id, expiry);
   console.log('dataToAuthenticate', dataToAuthenticate)
 
   // only sign if the secret between this worker and the server match
-  if (url.searchParams.get('secret') !== secret) {
+  if (content.secret !== secret) {
     return handleRequest({ reason: 'Invalid "secret" query parameter' }, { status: 401 });
   }
 
@@ -182,7 +161,7 @@ async function generateLicenseKey(request) {
   console.log('base64Mac', base64Mac)
 
   let res = {
-    id: url.searchParams.get('id'),
+    id: content.id,
     genuine: dataToAuthenticate,
     valid: true,
     mac: base64Mac,
@@ -190,21 +169,29 @@ async function generateLicenseKey(request) {
     reason: 'A request was made.'
   }
 
-  res.verifyUrl = `https://license-keys.trabur.workers.dev/verify?id=${res.id}&mac=${encodeURIComponent(res.mac)}&expiry=${res.expiry}`
-
   return handleRequest(res);
-}
+})
 
+// 404 for everything else
+router.all('*', () => new Response('Not Found.', { status: 404 }))
+
+// attach the router "handle" to the event handler
 addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  const requestHeaders = JSON.stringify([...event.request.headers])
-  console.log('requestHeaders', requestHeaders)
+  event.respondWith(router.handle(event.request))
+})
 
-  if (url.pathname.startsWith('/generate')) {
-    event.respondWith(generateLicenseKey(event.request));
-  } else if (url.pathname.startsWith('/verify')) {
-    event.respondWith(verifyLicenseKey(event.request));
-  } else {
-    event.respondWith(handleRequest("license-keys"));
-  }
-});
+function handleRequest(body, init) {
+  body = JSON.stringify(body)
+  console.log('body', body)
+
+  return new Response(body, {
+    ...init,
+    headers:  {
+      'content-type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,HEAD,OPTIONS',
+      'Access-Control-Allow-Headers': 'content-type',
+      'Access-Control-Max-Age': '86400',
+    },
+  })
+}
