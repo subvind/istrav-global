@@ -70,14 +70,6 @@ router.get('/:id', async ({ params }) => {
   return handleRequest(record)
 })
 
-// prevent duplicate namespace slugs
-async function relatedTenant(slug) {
-  // check
-  return collection.where(function (value) {
-    return value.slug === slug
-  })[0]
-}
-
 // POST create item in the collection
 router.post('/', withContent, async ({ params, content}) => {
   // database
@@ -88,7 +80,7 @@ router.post('/', withContent, async ({ params, content}) => {
   console.log('create', content)
   
   // check requirements
-  let tenant = await relatedTenant(content.slug)
+  let tenant = await collection.findOne({ slug: content.slug })
   if (tenant) {
     return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 400 });
   }
@@ -115,7 +107,7 @@ router.put('/:id', withContent, async ({ params, content}) => {
   // check requirements
   if (record.slug) {
     // only if slug is being changed
-    let tenant = await relatedTenant(record.slug)
+    let tenant = await collection.findOne({ slug: record.slug })
     if (tenant && tenant.id !== params.id) {
       return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 400 });
     }
