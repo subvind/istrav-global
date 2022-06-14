@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "platforms",
+  "version": "1.0.0",
+  "description": "A template for kick starting a Cloudflare Workers project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,css,json,md}'"
+  },
+  "author": "istrav <travis.burandt@gmail.com>",
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "@tsndr/cloudflare-worker-jwt": "^1.4.2",
+    "itty-router": "^2.6.1",
+    "itty-router-extras": "^0.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "lokijs": "^1.5.12",
+    "uuid": "^8.3.2"
+  }
+}
