@@ -92,4 +92,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: 'license-keys'
+          preCommands: npm install
           command: publish
