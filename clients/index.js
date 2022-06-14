@@ -51,9 +51,11 @@ async function save(key, store) {
 const router = Router()
 
 // GET collection index
-router.get('/', async () => {
+router.get('/:namespace', async ({ params }) => {
+  let key = `clients:${params.namespace}`
+
   // database
-  await download('clients')
+  await download(key)
 
   // list
   let records = collection.find()
@@ -63,9 +65,11 @@ router.get('/', async () => {
 })
 
 // GET item in collection
-router.get('/:id', async ({ params }) => {
+router.get('/:namespace/:id', async ({ params }) => {
+  let key = `clients:${params.namespace}`
+  
   // database
-  await download('clients')
+  await download(key)
 
   // read
   let record = collection.findOne({ id: params.id })
@@ -74,9 +78,11 @@ router.get('/:id', async ({ params }) => {
 })
 
 // POST create item in the collection
-router.post('/', withContent, async ({ params, content}) => {
+router.post('/:namespace', withContent, async ({ params, content}) => {
+  let key = `clients:${params.namespace}`
+  
   // database
-  await download('clients')
+  await download(key)
 
   // create
   content.id = uuidv4()
@@ -85,15 +91,17 @@ router.post('/', withContent, async ({ params, content}) => {
   let record = collection.insert(content)
 
   // database
-  await save('clients')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // UPDATE existing item in the collection
-router.put('/:id', withContent, async ({ params, content}) => {
+router.put('/:namespace/:id', withContent, async ({ params, content}) => {
+  let key = `clients:${params.namespace}`
+  
   // database
-  await download('clients')
+  await download(key)
 
   // update
   let record = collection.findOne({ id: params.id })
@@ -104,21 +112,23 @@ router.put('/:id', withContent, async ({ params, content}) => {
   collection.update(client)
 
   // database
-  await save('clients')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // DELETE an item from collection
-router.delete('/:id', async ({ params }) => {
+router.delete('/:namespace/:id', async ({ params }) => {
+  let key = `clients:${params.namespace}`
+  
   // database
-  await download('clients')
+  await download(key)
 
   // submit
   collection.findAndRemove({ id: params.id })
 
   // database
-  await save('clients')
+  await save(key)
 
   return handleRequest(null)
 })
@@ -144,7 +154,9 @@ async function verifyToken (content) {
 }
 
 // POST verify a token from browser's getIdTokenResult
-router.post('/verifyIdToken', withContent, async ({ params, content }) => {
+router.post('/:namespace/verifyIdToken', withContent, async ({ params, content }) => {
+  let key = `clients:${params.namespace}`
+  
   // check requirements
   let verified = await verifyToken(content)
 
@@ -152,9 +164,11 @@ router.post('/verifyIdToken', withContent, async ({ params, content }) => {
 })
 
 // POST register an item with the collection
-router.post('/register', withContent, async ({ params, content }) => {
+router.post('/:namespace/register', withContent, async ({ params, content }) => {
+  let key = `clients:${params.namespace}`
+  
   // database
-  await download('clients')
+  await download(key)
 
   // check requirements
   let verified = await verifyToken(content)
@@ -183,7 +197,7 @@ router.post('/register', withContent, async ({ params, content }) => {
   console.log('client', client)
 
   // database
-  await save('clients')
+  await save(key)
 
   // user is valid so return api key
   let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
@@ -196,9 +210,11 @@ router.post('/register', withContent, async ({ params, content }) => {
 })
 
 // POST login an item with the collection
-router.post('/login', withContent, async ({ params, content }) => {
+router.post('/:namespace/login', withContent, async ({ params, content }) => {
+  let key = `clients:${params.namespace}`
+  
   // database
-  await download('clients')
+  await download(key)
 
   // check requirements
   let verified = await verifyToken(content)
