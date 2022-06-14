@@ -1,4 +1,4 @@
-name = "platforms"
+name = "levels"
 main = "./index.js"
 type = "webpack"
 

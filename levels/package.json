@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "platforms",
+  "name": "levels",
   "version": "1.0.0",
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "index.js",

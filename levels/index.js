@@ -9,12 +9,10 @@ import {
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let collection = db.addCollection('platforms', { indices: ['id'] });
-let tenants = db.addCollection('tenants', { indices: ['id', 'slug'] });
+let collection = db.addCollection('levels', { indices: ['id'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
-const licenseSecret = LICENSE_KEYS_SECRET || 'between workers and platform'
 
 // read from KV database
 async function download(key, store) {
@@ -45,23 +43,12 @@ async function save(key, store) {
   return memoryData
 }
 
-// create X length random string
-function randomString(len) {
-  let charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var randomString = '';
-  for (var i = 0; i < len; i++) {
-    var randomPoz = Math.floor(Math.random() * charSet.length);
-    randomString += charSet.substring(randomPoz,randomPoz+1);
-  }
-  return randomString;
-}
-
 // now let's create a router (note the lack of "new")
 const router = Router()
 
 // GET collection index
 router.get('/:namespace/', async ({ params }) => {
-  let key = `platforms:${params.namespace}`
+  let key = `levels:${params.namespace}`
 
   // database
   await download(key)
@@ -75,7 +62,7 @@ router.get('/:namespace/', async ({ params }) => {
 
 // GET item in collection
 router.get('/:namespace/:id', async ({ params }) => {
-  let key = `platforms:${params.namespace}`
+  let key = `levels:${params.namespace}`
 
   // database
   await download(key)
@@ -88,20 +75,22 @@ router.get('/:namespace/:id', async ({ params }) => {
 
 // POST create item in the collection
 router.post('/:namespace', withContent, async ({ params, content}) => {
-  let key = `platforms:${params.namespace}`
+  let key = `levels:${params.namespace}`
 
   // database
   await download(key)
-  await download('tenants', tenants)
 
   // create
   content.id = uuidv4()
-  // content.tenantId
-  // content.backendDomainName 
-  // content.licenseKeyData
-  // content.licenseKeyMac
-  // content.licenseKeyExpiry
-  // content.stripeSubscriptionId
+  // content.amount
+  // content.number
+  // content.activeUsersPerHour
+  // content.requestsPerDay
+  // content.requestsPerMonth
+  // content.name
+  // content.description
+  // content.stripeProductId
+  // content.stripePriceId
   console.log('create', content)
   
   // submit
@@ -115,7 +104,7 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
 // UPDATE existing item in the collection
 router.put('/:namespace/:id', withContent, async ({ params, content}) => {
-  let key = `platforms:${params.namespace}`
+  let key = `levels:${params.namespace}`
 
   // database
   await download(key, collection)
@@ -143,7 +132,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
 
 // DELETE an item from collection
 router.delete('/:namespace/:id', async ({ params }) => {
-  let key = `platforms:${params.namespace}`
+  let key = `levels:${params.namespace}`
 
   // database
   await download(key)
