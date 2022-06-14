@@ -48,9 +48,11 @@ async function save(key, store) {
 const router = Router()
 
 // GET collection index
-router.get('/', async () => {
+router.get('/:namespace', async ({ params }) => {
+  let key = `tenants:${params.namespace}`
+
   // database
-  await download('tenants')
+  await download(key)
 
   // list
   let records = collection.find()
@@ -60,9 +62,11 @@ router.get('/', async () => {
 })
 
 // GET item in collection
-router.get('/:id', async ({ params }) => {
+router.get('/:namespace/:id', async ({ params }) => {
+  let key = `tenants:${params.namespace}`
+
   // database
-  await download('tenants')
+  await download(key)
 
   // read
   let record = collection.findOne({ id: params.id })
@@ -71,9 +75,11 @@ router.get('/:id', async ({ params }) => {
 })
 
 // POST create item in the collection
-router.post('/', withContent, async ({ params, content}) => {
+router.post('/:namespace', withContent, async ({ params, content}) => {
+  let key = `tenants:${params.namespace}`
+
   // database
-  await download('tenants')
+  await download(key)
 
   // create
   content.id = uuidv4()
@@ -89,15 +95,17 @@ router.post('/', withContent, async ({ params, content}) => {
   let record = collection.insert(content)
 
   // database
-  await save('tenants')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // UPDATE existing item in the collection
-router.put('/:id', withContent, async ({ params, content}) => {
+router.put('/:namespace/:id', withContent, async ({ params, content}) => {
+  let key = `tenants:${params.namespace}`
+
   // database
-  await download('tenants')
+  await download(key)
 
   // update
   let record = collection.findOne({ id: params.id })
@@ -117,19 +125,23 @@ router.put('/:id', withContent, async ({ params, content}) => {
   collection.update(record)
 
   // database
-  await save('tenants')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // DELETE an item from collection
-router.delete('/:id', async ({ params }) => {
+router.delete('/:namespace/:id', async ({ params }) => {
+  let key = `tenants:${params.namespace}`
+
   // database
-  await download('tenants')
+  await download(key)
+
+  // submit
   collection.findAndRemove({ id: params.id })
 
   // database
-  await save('tenants')
+  await save(key)
 
   return handleRequest(null)
 })

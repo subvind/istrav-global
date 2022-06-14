@@ -48,8 +48,10 @@ const router = Router()
 
 // GET collection index
 router.get('/', async () => {
+  let key = `namespaces`
+
   // database
-  await download('namespaces')
+  await download(key)
 
   // list
   let records = collection.find()
@@ -60,8 +62,10 @@ router.get('/', async () => {
 
 // GET item in collection
 router.get('/:id', async ({ params }) => {
+  let key = `namespaces`
+  
   // database
-  await download('namespaces')
+  await download(key)
 
   // read
   let record = collection.findOne({ id: params.id })
@@ -71,8 +75,10 @@ router.get('/:id', async ({ params }) => {
 
 // POST create item in the collection
 router.post('/', withContent, async ({ params, content}) => {
+  let key = `namespaces`
+  
   // database
-  await download('namespaces')
+  await download(key)
 
   // create
   content.id = uuidv4()
@@ -88,15 +94,17 @@ router.post('/', withContent, async ({ params, content}) => {
   let record = collection.insert(content)
 
   // database
-  await save('namespaces')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // UPDATE existing item in the collection
 router.put('/:id', withContent, async ({ params, content}) => {
+  let key = `namespaces`
+  
   // database
-  await download('namespaces')
+  await download(key)
 
   // update
   let record = collection.findOne({ id: params.id })
@@ -116,19 +124,23 @@ router.put('/:id', withContent, async ({ params, content}) => {
   collection.update(record)
 
   // database
-  await save('namespaces')
+  await save(key)
 
   return handleRequest(record)
 })
 
 // DELETE an item from collection
 router.delete('/:id', async ({ params }) => {
+  let key = `namespaces`
+  
   // database
-  await download('namespaces')
+  await download(key)
+
+  // submit
   collection.findAndRemove({ id: params.id })
 
   // database
-  await save('namespaces')
+  await save(key)
 
   return handleRequest(null)
 })
