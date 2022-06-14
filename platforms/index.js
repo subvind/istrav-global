@@ -14,7 +14,6 @@ let tenants = db.addCollection('tenants', { indices: ['id', 'slug'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
-const licenseSecret = LICENSE_KEYS_SECRET || 'between workers and platform'
 
 // read from KV database
 async function download(key, store) {
