@@ -2,24 +2,24 @@ istrav-global
 ========
 let folders = [community, json, charge]
 
-KV storage locations:
+### Storage Locations
 - namespaces/id
-- accessKeys/namespace/id
+- access-keys/namespace/id
 - tenants/namespace/id
 - clients/namespace/id
 - platforms/namespace/id
 - levels/namespace/id
-- licenseKeys/namespace/id
+- license-keys/namespace/id
 - reports/namespace/id
 - stripe/namespace/id
 - websites/namespace/id
 - bins/namespace/version/id
 - collections/namespace/id
-- schemaValidators/namespace/id
+- schema-validators/namespace/id
 
 ### CloudFlare Workers
 - namespaces
-- accessKeys
+- access-keys
 - tenants
 - clients
 - platforms
@@ -31,21 +31,21 @@ KV storage locations:
 - websites
 - bins
 - collections
-- schemaValidators
+- schema-validators
 
 ### KV Database Tables
 - namespaces
-- accessKeys
+- access-keys
 - tenants
 - clients
 - platforms
 - levels
-- licenseKeys
+- license-keys
 - reports
 - websites
 - bins
 - collections
-- schemaValidators
+- schema-validators
 
 ### Table Fields & Relations
 - namespaces: {id, name, accessKeys}
