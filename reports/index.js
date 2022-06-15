@@ -9,8 +9,8 @@ import {
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let collection = db.addCollection('platforms', { indices: ['id'] });
-let tenants = db.addCollection('tenants', { indices: ['id', 'slug'] });
+let collection = db.addCollection('reports', { indices: ['id'] });
+let platforms = db.addCollection('platforms', { indices: ['id'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
@@ -49,7 +49,7 @@ const router = Router()
 
 // GET collection index
 router.get('/:namespace/', async ({ params }) => {
-  let key = `platforms:${params.namespace}`
+  let key = `reports:${params.namespace}`
 
   // database
   await download(key)
@@ -63,7 +63,7 @@ router.get('/:namespace/', async ({ params }) => {
 
 // GET item in collection
 router.get('/:namespace/:id', async ({ params }) => {
-  let key = `platforms:${params.namespace}`
+  let key = `reports:${params.namespace}`
 
   // database
   await download(key)
@@ -76,26 +76,25 @@ router.get('/:namespace/:id', async ({ params }) => {
 
 // POST create item in the collection
 router.post('/:namespace', withContent, async ({ params, content}) => {
-  let key = `platforms:${params.namespace}`
+  let key = `reports:${params.namespace}`
 
   // database
   await download(key)
-  await download(`tenants:${params.namespace}`, tenants)
+  await download(`platforms:${params.namespace}`, platforms)
 
   // create
   content.id = uuidv4()
-  // content.backendDomainName 
-  // content.tenantId
-  // content.licenseKey.id
-  // content.licenseKey.mac
-  // content.licenseKey.expiry
-  // content.stripeSubscriptionRef
+  // content.createdAt
+  // content.platformId
+  // content.activeUsersPastHour
+  // content.requestsPastDay
+  // content.requestsPastMonth
   console.log('create', content)
 
   // check foreign keys
-  let tenant = await tenants.findOne({ id: content.tenantId })
-  if (!tenant) {
-    return handleRequest({ error: 'The provided tenant id does not exist.' }, { status: 404 });
+  let platform = await platforms.findOne({ id: content.platformId })
+  if (!platform) {
+    return handleRequest({ error: 'The provided platform id foreign key does not exist.' }, { status: 404 });
   }
   
   // submit
@@ -109,11 +108,11 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
 // UPDATE existing item in the collection
 router.put('/:namespace/:id', withContent, async ({ params, content}) => {
-  let key = `platforms:${params.namespace}`
+  let key = `reports:${params.namespace}`
 
   // database
   await download(key, collection)
-  await download(`tenants:${params.namespace}`, tenants)
+  await download(`platforms:${params.namespace}`, platforms)
 
   // fetch
   let record = collection.findOne({ id: params.id })
@@ -123,16 +122,17 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   }
 
   // update
-  record.backendDomainName = content.backendDomainName || record.backendDomainName
-  record.tenantId = content.tenantId || record.tenantId
-  record.licenseKey = content.licenseKey || record.licenseKey
-  record.stripeSubscriptionRef = content.stripeSubscriptionRef || record.stripeSubscriptionRef
+  record.createdAt = content.createdAt || record.createdAt
+  record.platformId = content.platformId || record.platformId
+  record.activeUsersPastHour = content.activeUsersPastHour || record.activeUsersPastHour
+  record.requestsPastDay = content.requestsPastDay || record.requestsPastDay
+  record.requestsPastMonth = content.requestsPastMonth || record.requestsPastMonth
   console.log('update', record)
 
   // check foreign keys
-  let tenant = await tenants.findOne({ id: record.tenantId })
-  if (!tenant) {
-    return handleRequest({ error: 'The provided tenant id does not exist.' }, { status: 404 });
+  let platform = await platforms.findOne({ id: record.platformId })
+  if (!platform) {
+    return handleRequest({ error: 'The provided platform id foreign key does not exist.' }, { status: 404 });
   }
   
   // submit
@@ -146,7 +146,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
 
 // DELETE an item from collection
 router.delete('/:namespace/:id', async ({ params }) => {
-  let key = `platforms:${params.namespace}`
+  let key = `reports:${params.namespace}`
 
   // database
   await download(key)

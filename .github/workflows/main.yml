@@ -11,6 +11,20 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
+      # /reports
+      - name: Reports Secrets
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'reports'
+          command:  --help | echo "${{ secrets.API_KEYS_SECRET }}" | wrangler secret put API_KEYS_SECRET
+      - name: Publish Reports
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: 'reports'
+          preCommands: npm install
+          command: publish
       # /levels
       - name: Levels Secrets
         uses: cloudflare/wrangler-action@2.0.0

@@ -92,7 +92,7 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
   // check foreign keys
   let tenant = await tenants.findOne({ id: content.tenantId })
   if (!tenant) {
-    return handleRequest({ error: 'The provided tenent id does not exist.' }, { status: 404 });
+    return handleRequest({ error: 'The provided tenent id foreign key does not exist.' }, { status: 404 });
   }
 
   // submit
@@ -121,7 +121,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   // check foreign keys
   let tenant = await tenants.findOne({ id: record.tenantId })
   if (!tenant) {
-    return handleRequest({ error: 'The provided tenent id does not exist.' }, { status: 404 });
+    return handleRequest({ error: 'The provided tenent id foreign key does not exist.' }, { status: 404 });
   }
 
   // submit

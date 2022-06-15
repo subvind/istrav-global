@@ -96,7 +96,7 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
   // check foreign keys
   let level = await levels.findOne({ id: content.levelId })
   if (!level) {
-    return handleRequest({ error: 'The provided level id does not exist.' }, { status: 404 });
+    return handleRequest({ error: 'The provided level id foreign key does not exist.' }, { status: 404 });
   }
 
   // submit
@@ -140,7 +140,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   // check foreign keys
   let level = await levels.findOne({ id: record.levelId })
   if (!level) {
-    return handleRequest({ error: 'The provided level id does not exist.' }, { status: 404 });
+    return handleRequest({ error: 'The provided level id foreign key does not exist.' }, { status: 404 });
   }
 
   // submit
