@@ -9,7 +9,7 @@ import {
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let collection = db.addCollection('reports', { indices: ['id'] });
+let collection = db.addCollection('websites', { indices: ['id'] });
 let platforms = db.addCollection('platforms', { indices: ['id'] });
 
 // for signing and verifying API keys
@@ -49,7 +49,7 @@ const router = Router()
 
 // GET collection index
 router.get('/:namespace/', async ({ params }) => {
-  let key = `reports:${params.namespace}`
+  let key = `websites:${params.namespace}`
 
   // database
   await download(key)
@@ -63,7 +63,7 @@ router.get('/:namespace/', async ({ params }) => {
 
 // GET item in collection
 router.get('/:namespace/:id', async ({ params }) => {
-  let key = `reports:${params.namespace}`
+  let key = `websites:${params.namespace}`
 
   // database
   await download(key)
@@ -76,7 +76,7 @@ router.get('/:namespace/:id', async ({ params }) => {
 
 // POST create item in the collection
 router.post('/:namespace', withContent, async ({ params, content}) => {
-  let key = `reports:${params.namespace}`
+  let key = `websites:${params.namespace}`
 
   // database
   await download(key)
@@ -84,11 +84,8 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
   // create
   content.id = uuidv4()
-  // content.createdAt
+  // content.frontendDomainName
   // content.platformId
-  // content.activeUsersPastHour
-  // content.requestsPastDay
-  // content.requestsPastMonth
   console.log('create', content)
 
   // check foreign keys
@@ -108,7 +105,7 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
 // UPDATE existing item in the collection
 router.put('/:namespace/:id', withContent, async ({ params, content}) => {
-  let key = `reports:${params.namespace}`
+  let key = `websites:${params.namespace}`
 
   // database
   await download(key, collection)
@@ -122,11 +119,8 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   }
 
   // update
-  record.createdAt = content.createdAt || record.createdAt
   record.platformId = content.platformId || record.platformId
-  record.activeUsersPastHour = content.activeUsersPastHour || record.activeUsersPastHour
-  record.requestsPastDay = content.requestsPastDay || record.requestsPastDay
-  record.requestsPastMonth = content.requestsPastMonth || record.requestsPastMonth
+  record.frontendDomainName = content.frontendDomainName || record.frontendDomainName
   console.log('update', record)
 
   // check foreign keys
@@ -146,7 +140,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
 
 // DELETE an item from collection
 router.delete('/:namespace/:id', async ({ params }) => {
-  let key = `reports:${params.namespace}`
+  let key = `websites:${params.namespace}`
 
   // database
   await download(key)
