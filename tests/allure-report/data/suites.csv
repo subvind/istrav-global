@@ -1,2 +1,6 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sat Jun 04 02:29:42 CDT 2022","Sat Jun 04 02:29:42 CDT 2022","199","","LicenseKeys:","","LicenseKeys:","generate license key then verify it","generate license key then verify it",""
+"failed","Wed Jun 15 04:30:06 CDT 2022","Wed Jun 15 04:30:06 CDT 2022","251","","Clients:","","Clients:","GET findAll clients then verify a not found call","GET findAll clients then verify a not found call",""
+"failed","Wed Jun 15 04:30:06 CDT 2022","Wed Jun 15 04:30:06 CDT 2022","49","","Namespaces:","","Namespaces:","generate license key then verify it","generate license key then verify it",""
+"failed","Wed Jun 15 04:30:06 CDT 2022","Wed Jun 15 04:30:06 CDT 2022","56","","LicenseKeys:","","LicenseKeys:","generate license key then verify it","generate license key then verify it",""
+"passed","Wed Jun 15 04:30:05 CDT 2022","Wed Jun 15 04:30:06 CDT 2022","289","","Clients:","","Clients:","GET findAll clients then verify a successful call","GET findAll clients then verify a successful call",""
+"passed","Wed Jun 15 04:27:28 CDT 2022","Wed Jun 15 04:27:28 CDT 2022","324","","Clients:","","Clients:","GET findAll clients: verify a successful call","GET findAll clients: verify a successful call",""

@@ -1,10 +1,50 @@
 [ {
-  "uid" : "a8cc705d6860e14c",
+  "uid" : "3971a2b8a1318feb",
+  "name" : "GET findAll clients then verify a not found call",
+  "time" : {
+    "start" : 1655285406122,
+    "stop" : 1655285406373,
+    "duration" : 251
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "e89517cb57614395",
   "name" : "generate license key then verify it",
   "time" : {
-    "start" : 1654327782285,
-    "stop" : 1654327782484,
-    "duration" : 199
+    "start" : 1655285406458,
+    "stop" : 1655285406507,
+    "duration" : 49
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "cd20b8c134a2aacc",
+  "name" : "generate license key then verify it",
+  "time" : {
+    "start" : 1655285406396,
+    "stop" : 1655285406452,
+    "duration" : 56
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "30902c0fa55810dc",
+  "name" : "GET findAll clients then verify a successful call",
+  "time" : {
+    "start" : 1655285405829,
+    "stop" : 1655285406118,
+    "duration" : 289
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "436a1d9294ea43c9",
+  "name" : "GET findAll clients: verify a successful call",
+  "time" : {
+    "start" : 1655285248139,
+    "stop" : 1655285248463,
+    "duration" : 324
   },
   "status" : "passed",
   "severity" : "normal"

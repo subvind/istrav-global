@@ -8,7 +8,7 @@ setHeadlessWhen(process.env.HEADLESS);
 setCommonPlugins();
 
 exports.config = {
-  tests: './*_test.js',
+  tests: './src/*.js',
   output: './allure-results',
   helpers: {
     REST: {

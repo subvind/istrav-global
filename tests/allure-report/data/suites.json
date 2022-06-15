@@ -2,25 +2,101 @@
   "uid" : "98d3104e051c652961429bf95fa0b5d6",
   "name" : "suites",
   "children" : [ {
-    "name" : "LicenseKeys:",
+    "name" : "Clients:",
     "children" : [ {
-      "name" : "generate license key then verify it",
-      "uid" : "a8cc705d6860e14c",
-      "parentUid" : "e54185b85a5264c84abb3fda6fbaddc2",
+      "name" : "GET findAll clients: verify a successful call",
+      "uid" : "436a1d9294ea43c9",
+      "parentUid" : "62736882fab50d2c254d7e2be5dbd3b5",
       "status" : "passed",
       "time" : {
-        "start" : 1654327782285,
-        "stop" : 1654327782484,
-        "duration" : 199
+        "start" : 1655285248139,
+        "stop" : 1655285248463,
+        "duration" : 324
       },
       "flaky" : false,
       "newFailed" : false,
       "newPassed" : false,
       "newBroken" : false,
-      "retriesCount" : 3,
-      "retriesStatusChange" : true,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "GET findAll clients then verify a successful call",
+      "uid" : "30902c0fa55810dc",
+      "parentUid" : "62736882fab50d2c254d7e2be5dbd3b5",
+      "status" : "passed",
+      "time" : {
+        "start" : 1655285405829,
+        "stop" : 1655285406118,
+        "duration" : 289
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "GET findAll clients then verify a not found call",
+      "uid" : "3971a2b8a1318feb",
+      "parentUid" : "62736882fab50d2c254d7e2be5dbd3b5",
+      "status" : "failed",
+      "time" : {
+        "start" : 1655285406122,
+        "stop" : 1655285406373,
+        "duration" : 251
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "62736882fab50d2c254d7e2be5dbd3b5"
+  }, {
+    "name" : "LicenseKeys:",
+    "children" : [ {
+      "name" : "generate license key then verify it",
+      "uid" : "cd20b8c134a2aacc",
+      "parentUid" : "e54185b85a5264c84abb3fda6fbaddc2",
+      "status" : "failed",
+      "time" : {
+        "start" : 1655285406396,
+        "stop" : 1655285406452,
+        "duration" : 56
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 1,
+      "retriesStatusChange" : false,
       "parameters" : [ ]
     } ],
     "uid" : "e54185b85a5264c84abb3fda6fbaddc2"
+  }, {
+    "name" : "Namespaces:",
+    "children" : [ {
+      "name" : "generate license key then verify it",
+      "uid" : "e89517cb57614395",
+      "parentUid" : "905fec38ac7ccea1f4feda5cccb1092a",
+      "status" : "failed",
+      "time" : {
+        "start" : 1655285406458,
+        "stop" : 1655285406507,
+        "duration" : 49
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 1,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "905fec38ac7ccea1f4feda5cccb1092a"
   } ]
 }

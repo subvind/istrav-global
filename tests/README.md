@@ -7,9 +7,11 @@ $ allure generate --clean
 allure-results does not exist
 Report successfully generated to allure-report
 
+# single command
+$ npm run codeceptjs; allure generate --clean
+
 # watch live updates to test results
-$ cd allure-report/
-$ http-sever -p 3333
+$ http-server -p 3333 allure-report/
 ```
 
 ```bash

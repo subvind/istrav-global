@@ -1,0 +1,93 @@
+{
+  "uid" : "6f91a6f38fcd233d",
+  "name" : "generate license key then verify it",
+  "fullName" : "LicenseKeys:.generate license key then verify it",
+  "historyId" : "218dc50aa76a364fc9bf64eb4013e506",
+  "time" : {
+    "start" : 1655285248501,
+    "stop" : 1655285248614,
+    "duration" : 113
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "failed",
+  "statusMessage" : "Response code is not the same as expected: expected 404 to deeply equal 200",
+  "statusTrace" : "AssertionError: Response code is not the same as expected: expected 404 to deeply equal 200\n                    at JSONResponse.seeResponseCodeIs (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/helper/JSONResponse.js:110:37)\n                    at Step.run (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/step.js:122:47)\n                    at /Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/actor.js:134:23\n                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "failed",
+    "statusMessage" : "Response code is not the same as expected: expected 404 to deeply equal 200",
+    "statusTrace" : "AssertionError: Response code is not the same as expected: expected 404 to deeply equal 200\n                    at JSONResponse.seeResponseCodeIs (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/helper/JSONResponse.js:110:37)\n                    at Step.run (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/step.js:122:47)\n                    at /Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/actor.js:134:23\n                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+    "steps" : [ {
+      "name" : "I send get request \"https://license-keys.trabur.workers.dev/generate?id=benedict.name&secret=furlong\"",
+      "time" : {
+        "start" : 1655285248506,
+        "stop" : 1655285248611,
+        "duration" : 105
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is 200",
+      "time" : {
+        "start" : 1655285248612,
+        "stop" : 1655285248613,
+        "duration" : 1
+      },
+      "status" : "failed",
+      "statusMessage" : "AssertionError: Response code is not the same as expected: expected 404 to deeply equal 200\n                    at JSONResponse.seeResponseCodeIs (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/helper/JSONResponse.js:110:37)\n                    at Step.run (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/step.js:122:47)\n                    at /Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/actor.js:134:23\n                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true,
+      "hasContent" : true
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "LicenseKeys:"
+  }, {
+    "name" : "testClass",
+    "value" : "LicenseKeys:"
+  }, {
+    "name" : "testMethod",
+    "value" : "generate license key then verify it"
+  }, {
+    "name" : "package",
+    "value" : "LicenseKeys:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : true,
+  "retry" : true,
+  "extra" : {
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "6f91a6f38fcd233d.json",
+  "parameterValues" : [ ]
+}

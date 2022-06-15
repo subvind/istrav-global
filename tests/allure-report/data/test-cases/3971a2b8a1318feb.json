@@ -1,0 +1,83 @@
+{
+  "uid" : "3971a2b8a1318feb",
+  "name" : "GET findAll clients then verify a not found call",
+  "fullName" : "Clients:.GET findAll clients then verify a not found call",
+  "historyId" : "f5e27d9255c89e6d03651cd6e36af34d",
+  "time" : {
+    "start" : 1655285406122,
+    "stop" : 1655285406373,
+    "duration" : 251
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "failed",
+  "statusMessage" : "I.seeResponseCodeClientError is not a function",
+  "statusTrace" : "TypeError: I.seeResponseCodeClientError is not a function\n                    at Test.<anonymous> (/Users/istrav/Projects/istrav-global/tests/src/Clients.js:23:10)\n                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "failed",
+    "statusMessage" : "I.seeResponseCodeClientError is not a function",
+    "statusTrace" : "TypeError: I.seeResponseCodeClientError is not a function\n                    at Test.<anonymous> (/Users/istrav/Projects/istrav-global/tests/src/Clients.js:23:10)\n                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+    "steps" : [ {
+      "name" : "I send get request \"https://clients.trabur.workers.dev/no-namespace\"",
+      "time" : {
+        "start" : 1655285406124,
+        "stop" : 1655285406371,
+        "duration" : 247
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 1,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : true,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "Clients:"
+  }, {
+    "name" : "testClass",
+    "value" : "Clients:"
+  }, {
+    "name" : "testMethod",
+    "value" : "GET findAll clients then verify a not found call"
+  }, {
+    "name" : "package",
+    "value" : "Clients:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ {
+      "name" : "Product defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "tags" : [ ]
+  },
+  "source" : "3971a2b8a1318feb.json",
+  "parameterValues" : [ ]
+}

@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1655285248642' stop='1655285248702'>
+    <name>Namespaces:</name>
+    <title>Namespaces:</title>
+    <test-cases>
+        <test-case start='1655285248649' status='failed' stop='1655285248700'>
+            <name>generate license key then verify it</name>
+            <title>generate license key then verify it</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655285248651' status='passed' stop='1655285248699'>
+                    <name>I send get request "https://license-keys.trabur.workers.dev/generate?id=lillian.biz&amp;secret=furlong"</name>
+                    <title>I send get request "https://license-keys.trabur.workers.dev/generate?id=lillian.biz&amp;secret=furlong"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655285248700' status='failed' stop='1655285248700'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+            <failure>
+                <message>Response code is not the same as expected: expected 404 to deeply equal 200</message>
+                <stack-trace>AssertionError: Response code is not the same as expected: expected 404 to deeply equal 200
+                    at JSONResponse.seeResponseCodeIs (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/helper/JSONResponse.js:110:37)
+                    at Step.run (/Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/step.js:122:47)
+                    at /Users/istrav/Projects/istrav-global/tests/node_modules/codeceptjs/lib/actor.js:134:23
+                    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)</stack-trace>
+            </failure>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

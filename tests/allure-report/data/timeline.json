@@ -3,30 +3,47 @@
   "name" : "timeline",
   "children" : [ {
     "name" : "generate license key then verify it",
-    "uid" : "96faed9602b2800",
-    "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
-    "status" : "passed",
-    "time" : {
-      "start" : 1654324877931,
-      "stop" : 1654324878266,
-      "duration" : 335
-    },
-    "flaky" : false,
-    "newFailed" : false,
-    "newPassed" : false,
-    "newBroken" : false,
-    "retriesCount" : 0,
-    "retriesStatusChange" : false,
-    "parameters" : [ ]
-  }, {
-    "name" : "generate license key then verify it",
-    "uid" : "948c3c8c4a4c3be8",
+    "uid" : "cd20b8c134a2aacc",
     "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
     "status" : "failed",
     "time" : {
-      "start" : 1654327651829,
-      "stop" : 1654327651848,
-      "duration" : 19
+      "start" : 1655285406396,
+      "stop" : 1655285406452,
+      "duration" : 56
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "newPassed" : false,
+    "newBroken" : false,
+    "retriesCount" : 1,
+    "retriesStatusChange" : false,
+    "parameters" : [ ]
+  }, {
+    "name" : "GET findAll clients then verify a successful call",
+    "uid" : "30902c0fa55810dc",
+    "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+    "status" : "passed",
+    "time" : {
+      "start" : 1655285405829,
+      "stop" : 1655285406118,
+      "duration" : 289
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "newPassed" : false,
+    "newBroken" : false,
+    "retriesCount" : 0,
+    "retriesStatusChange" : false,
+    "parameters" : [ ]
+  }, {
+    "name" : "GET findAll clients then verify a not found call",
+    "uid" : "3971a2b8a1318feb",
+    "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+    "status" : "failed",
+    "time" : {
+      "start" : 1655285406122,
+      "stop" : 1655285406373,
+      "duration" : 251
     },
     "flaky" : false,
     "newFailed" : false,
@@ -37,13 +54,13 @@
     "parameters" : [ ]
   }, {
     "name" : "generate license key then verify it",
-    "uid" : "d1ee14ca259bf88a",
+    "uid" : "26d5c527e8cd2ff1",
     "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
-    "status" : "passed",
+    "status" : "failed",
     "time" : {
-      "start" : 1654322546741,
-      "stop" : 1654322547027,
-      "duration" : 286
+      "start" : 1655285248649,
+      "stop" : 1655285248700,
+      "duration" : 51
     },
     "flaky" : false,
     "newFailed" : false,
@@ -54,20 +71,54 @@
     "parameters" : [ ]
   }, {
     "name" : "generate license key then verify it",
-    "uid" : "a8cc705d6860e14c",
+    "uid" : "e89517cb57614395",
     "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
-    "status" : "passed",
+    "status" : "failed",
     "time" : {
-      "start" : 1654327782285,
-      "stop" : 1654327782484,
-      "duration" : 199
+      "start" : 1655285406458,
+      "stop" : 1655285406507,
+      "duration" : 49
     },
     "flaky" : false,
     "newFailed" : false,
     "newPassed" : false,
     "newBroken" : false,
-    "retriesCount" : 3,
-    "retriesStatusChange" : true,
+    "retriesCount" : 1,
+    "retriesStatusChange" : false,
+    "parameters" : [ ]
+  }, {
+    "name" : "generate license key then verify it",
+    "uid" : "6f91a6f38fcd233d",
+    "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+    "status" : "failed",
+    "time" : {
+      "start" : 1655285248501,
+      "stop" : 1655285248614,
+      "duration" : 113
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "newPassed" : false,
+    "newBroken" : false,
+    "retriesCount" : 0,
+    "retriesStatusChange" : false,
+    "parameters" : [ ]
+  }, {
+    "name" : "GET findAll clients: verify a successful call",
+    "uid" : "436a1d9294ea43c9",
+    "parentUid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+    "status" : "passed",
+    "time" : {
+      "start" : 1655285248139,
+      "stop" : 1655285248463,
+      "duration" : 324
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "newPassed" : false,
+    "newBroken" : false,
+    "retriesCount" : 0,
+    "retriesStatusChange" : false,
     "parameters" : [ ]
   } ]
 }

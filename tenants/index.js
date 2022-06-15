@@ -172,8 +172,8 @@ router.delete('/:namespace/:id', async ({ params }) => {
   return handleRequest(null)
 })
 
-// 404 for everything else
-router.all('*', () => new Response('Not Found.', { status: 404 }))
+// for everything else
+router.all('*', () => new Response('https://global.trabur.workers.dev'))
 
 // attach the router "handle" to the event handler
 addEventListener('fetch', event => {
