@@ -1,0 +1,180 @@
+{
+  "uid" : "b27f275f4666e0fe",
+  "name" : "POST create namespace then verify new record",
+  "fullName" : "Namespaces:.POST create namespace then verify new record",
+  "historyId" : "f289af6400382d208f8674a34539df3a",
+  "time" : {
+    "start" : 1655315223715,
+    "stop" : 1655315224193,
+    "duration" : 478
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "I send post request \"/\", {\"slug\":\"corporis-nihil-a\"}, {\"Content-Type\":\"application/json\"}",
+      "time" : {
+        "start" : 1655315223719,
+        "stop" : 1655315223959,
+        "duration" : 240
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315223959,
+        "stop" : 1655315223959,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is 200",
+      "time" : {
+        "start" : 1655315223959,
+        "stop" : 1655315223959,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response contains keys [\"id\",\"slug\"]",
+      "time" : {
+        "start" : 1655315223959,
+        "stop" : 1655315223960,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response contains json {\"slug\":\"corporis-nihil-a\"}",
+      "time" : {
+        "start" : 1655315223960,
+        "stop" : 1655315223960,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I send delete request \"/2fda6466-e6f5-49f2-860e-97bf9a121495\"",
+      "time" : {
+        "start" : 1655315223960,
+        "stop" : 1655315224192,
+        "duration" : 232
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315224192,
+        "stop" : 1655315224193,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is 200",
+      "time" : {
+        "start" : 1655315224193,
+        "stop" : 1655315224193,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 8,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "Namespaces:"
+  }, {
+    "name" : "testClass",
+    "value" : "Namespaces:"
+  }, {
+    "name" : "testMethod",
+    "value" : "POST create namespace then verify new record"
+  }, {
+    "name" : "package",
+    "value" : "Namespaces:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "b27f275f4666e0fe.json",
+  "parameterValues" : [ ]
+}

@@ -1,0 +1,244 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1655315220247' stop='1655315223271'>
+    <name>Clients:</name>
+    <title>Clients:</title>
+    <test-cases>
+        <test-case start='1655315220251' status='passed' stop='1655315220570'>
+            <name>GET / clients then verify a successful call</name>
+            <title>GET / clients then verify a successful call</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315220257' status='passed' stop='1655315220568'>
+                    <name>I send get request "/"</name>
+                    <title>I send get request "/"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315220568' status='passed' stop='1655315220570'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315220580' status='passed' stop='1655315221302'>
+            <name>POST register client then verify new record</name>
+            <title>POST register client then verify new record</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315220584' status='passed' stop='1655315221083'>
+                    <name>I send post request "/corporis-debitis-ullam/register", "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A", {"Content-Type":"application/json"}</name>
+                    <title>I send post request "/corporis-debitis-ullam/register", "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A", {"Content-Type":"application/json"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221084' status='passed' stop='1655315221085'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221085' status='passed' stop='1655315221085'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221085' status='passed' stop='1655315221300'>
+                    <name>I send delete request "/corporis-debitis-ullam/125b7f54-e661-4fc9-bc63-c6cc91a47212"</name>
+                    <title>I send delete request "/corporis-debitis-ullam/125b7f54-e661-4fc9-bc63-c6cc91a47212"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221301' status='passed' stop='1655315221301'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221301' status='passed' stop='1655315221302'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315221305' status='passed' stop='1655315222248'>
+            <name>POST register client then confirm it has already been created</name>
+            <title>POST register client then confirm it has already been created</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315221308' status='passed' stop='1655315221904'>
+                    <name>I send post request "/corporis-debitis-ullam/register", "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A", {"Content-Type":"application/json"}</name>
+                    <title>I send post request "/corporis-debitis-ullam/register", "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A", {"Content-Type":"application/json"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221904' status='passed' stop='1655315221905'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221905' status='passed' stop='1655315221905'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315221905' status='passed' stop='1655315222009'>
+                    <name>I send post request "/corporis-debitis-ullam/register", "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A", {"Content-Type":"application/json"}</name>
+                    <title>I send post request "/corporis-debitis-ullam/register", "eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A", {"Content-Type":"application/json"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222010' status='passed' stop='1655315222010'>
+                    <name>I see response code is client error </name>
+                    <title>I see response code is client error </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222010' status='passed' stop='1655315222011'>
+                    <name>I see response code is 400</name>
+                    <title>I see response code is 400</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222011' status='passed' stop='1655315222012'>
+                    <name>I see response contains keys ["error"]</name>
+                    <title>I see response contains keys ["error"]</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222012' status='passed' stop='1655315222014'>
+                    <name>I see response contains json {"error":"A client with that firebaseAuthRef already exists."}</name>
+                    <title>I see response contains json {"error":"A client with that firebaseAuthRef already exists."}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222014' status='passed' stop='1655315222247'>
+                    <name>I send delete request "/corporis-debitis-ullam/9d6853a9-b923-443f-b867-389cb39e1573"</name>
+                    <title>I send delete request "/corporis-debitis-ullam/9d6853a9-b923-443f-b867-389cb39e1573"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222247' status='passed' stop='1655315222247'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222248' status='passed' stop='1655315222248'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315222258' status='passed' stop='1655315222460'>
+            <name>GET findOne client then verify a single record</name>
+            <title>GET findOne client then verify a single record</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315222259' status='passed' stop='1655315222459'>
+                    <name>I send get request "/corporis-debitis-ullam/1023f53f-d5a4-4a26-9df0-2710b1be0573"</name>
+                    <title>I send get request "/corporis-debitis-ullam/1023f53f-d5a4-4a26-9df0-2710b1be0573"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222459' status='passed' stop='1655315222459'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315222461' status='passed' stop='1655315222620'>
+            <name>GET findAll clients then verify multiple records</name>
+            <title>GET findAll clients then verify multiple records</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315222463' status='passed' stop='1655315222619'>
+                    <name>I send get request "/corporis-debitis-ullam/"</name>
+                    <title>I send get request "/corporis-debitis-ullam/"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222619' status='passed' stop='1655315222620'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315222636' status='passed' stop='1655315222815'>
+            <name>GET verifyIdToken client then confirm that it is valid</name>
+            <title>GET verifyIdToken client then confirm that it is valid</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315222637' status='passed' stop='1655315222814'>
+                    <name>I send get request "/corporis-debitis-ullam/register"</name>
+                    <title>I send get request "/corporis-debitis-ullam/register"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315222814' status='passed' stop='1655315222815'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315222816' status='passed' stop='1655315223097'>
+            <name>DELETE delete client then verify that it is gone</name>
+            <title>DELETE delete client then verify that it is gone</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315222817' status='passed' stop='1655315223097'>
+                    <name>I send delete request "/corporis-debitis-ullam/b16f154d-97a7-41c6-8e2f-b1970f967d1c"</name>
+                    <title>I send delete request "/corporis-debitis-ullam/b16f154d-97a7-41c6-8e2f-b1970f967d1c"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223097' status='passed' stop='1655315223097'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223100' status='passed' stop='1655315223270'>
+                    <name>I send delete request "/17ead9fb-c913-40d5-8d88-407dc24cc256"</name>
+                    <title>I send delete request "/17ead9fb-c913-40d5-8d88-407dc24cc256"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223270' status='passed' stop='1655315223270'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

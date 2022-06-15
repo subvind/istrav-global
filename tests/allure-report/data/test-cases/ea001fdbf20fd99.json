@@ -1,12 +1,12 @@
 {
-  "uid" : "30902c0fa55810dc",
-  "name" : "GET findAll clients then verify a successful call",
-  "fullName" : "Clients:.GET findAll clients then verify a successful call",
-  "historyId" : "a71709a3fb3c4687b62517dd559b443",
+  "uid" : "ea001fdbf20fd99",
+  "name" : "GET / namespaces then verify a successful call",
+  "fullName" : "Namespaces:.GET / namespaces then verify a successful call",
+  "historyId" : "26e2a4c529c65062e0249f14207646c2",
   "time" : {
-    "start" : 1655285405829,
-    "stop" : 1655285406118,
-    "duration" : 289
+    "start" : 1655315223558,
+    "stop" : 1655315223708,
+    "duration" : 150
   },
   "description" : "",
   "descriptionHtml" : "",
@@ -21,11 +21,11 @@
   "testStage" : {
     "status" : "passed",
     "steps" : [ {
-      "name" : "I send get request \"https://clients.trabur.workers.dev/my-namespace\"",
+      "name" : "I send get request \"/\"",
       "time" : {
-        "start" : 1655285405842,
-        "stop" : 1655285406116,
-        "duration" : 274
+        "start" : 1655315223559,
+        "stop" : 1655315223704,
+        "duration" : 145
       },
       "status" : "passed",
       "steps" : [ ],
@@ -38,9 +38,24 @@
     }, {
       "name" : "I see response code is successful ",
       "time" : {
-        "start" : 1655285406116,
-        "stop" : 1655285406118,
+        "start" : 1655315223704,
+        "stop" : 1655315223706,
         "duration" : 2
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is 200",
+      "time" : {
+        "start" : 1655315223707,
+        "stop" : 1655315223708,
+        "duration" : 1
       },
       "status" : "passed",
       "steps" : [ ],
@@ -53,7 +68,7 @@
     } ],
     "attachments" : [ ],
     "parameters" : [ ],
-    "stepsCount" : 2,
+    "stepsCount" : 3,
     "attachmentsCount" : 0,
     "shouldDisplayMessage" : false,
     "hasContent" : true
@@ -61,16 +76,16 @@
   "afterStages" : [ ],
   "labels" : [ {
     "name" : "suite",
-    "value" : "Clients:"
+    "value" : "Namespaces:"
   }, {
     "name" : "testClass",
-    "value" : "Clients:"
+    "value" : "Namespaces:"
   }, {
     "name" : "testMethod",
-    "value" : "GET findAll clients then verify a successful call"
+    "value" : "GET / namespaces then verify a successful call"
   }, {
     "name" : "package",
-    "value" : "Clients:"
+    "value" : "Namespaces:"
   }, {
     "name" : "resultFormat",
     "value" : "allure1"
@@ -85,6 +100,6 @@
     "categories" : [ ],
     "tags" : [ ]
   },
-  "source" : "30902c0fa55810dc.json",
+  "source" : "ea001fdbf20fd99.json",
   "parameterValues" : [ ]
 }

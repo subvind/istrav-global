@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1655315223320' stop='1655315223543'>
+    <name>LicenseKeys:</name>
+    <title>LicenseKeys:</title>
+    <test-cases>
+        <test-case start='1655315223331' status='passed' stop='1655315223541'>
+            <name>POST generate license key then verify it</name>
+            <title>POST generate license key then verify it</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315223335' status='passed' stop='1655315223535'>
+                    <name>I send post request "/generate", {"id":"ally.name","secret":"2387d29ydh23uy8dg9283gd9u2yd9238yufgd93487yfvb923y74fvbq93248tg93ouy4wi"}</name>
+                    <title>I send post request "/generate", {"id":"ally.name","secret":"2387d29ydh23uy8dg9283gd9u2yd9238yufgd93487yfvb923y74fvbq93248tg93ouy4wi"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223535' status='passed' stop='1655315223536'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223536' status='passed' stop='1655315223536'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223537' status='passed' stop='1655315223539'>
+                    <name>I see response contains keys ["id","expiry","genuine","mac","valid"]</name>
+                    <title>I see response contains keys ["id","expiry","genuine","mac","valid"]</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223539' status='passed' stop='1655315223541'>
+                    <name>I see response contains json {"id":"ally.name"}</name>
+                    <title>I see response contains json {"id":"ally.name"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

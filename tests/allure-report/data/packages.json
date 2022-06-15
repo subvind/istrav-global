@@ -4,14 +4,14 @@
   "children" : [ {
     "name" : "Clients:",
     "children" : [ {
-      "name" : "GET findAll clients: verify a successful call",
-      "uid" : "436a1d9294ea43c9",
+      "name" : "GET / clients then verify a successful call",
+      "uid" : "a838ebcadc7075ab",
       "parentUid" : "9ed249639d18e9c260ebf3c3f5c0db71",
       "status" : "passed",
       "time" : {
-        "start" : 1655285248139,
-        "stop" : 1655285248463,
-        "duration" : 324
+        "start" : 1655315220251,
+        "stop" : 1655315220570,
+        "duration" : 319
       },
       "flaky" : false,
       "newFailed" : false,
@@ -21,14 +21,14 @@
       "retriesStatusChange" : false,
       "parameters" : [ ]
     }, {
-      "name" : "GET findAll clients then verify a successful call",
-      "uid" : "30902c0fa55810dc",
+      "name" : "POST register client then verify new record",
+      "uid" : "31ac2beff7638406",
       "parentUid" : "9ed249639d18e9c260ebf3c3f5c0db71",
       "status" : "passed",
       "time" : {
-        "start" : 1655285405829,
-        "stop" : 1655285406118,
-        "duration" : 289
+        "start" : 1655315220580,
+        "stop" : 1655315221302,
+        "duration" : 722
       },
       "flaky" : false,
       "newFailed" : false,
@@ -38,14 +38,82 @@
       "retriesStatusChange" : false,
       "parameters" : [ ]
     }, {
-      "name" : "GET findAll clients then verify a not found call",
-      "uid" : "3971a2b8a1318feb",
+      "name" : "POST register client then confirm it has already been created",
+      "uid" : "4bfbe74144674fc",
       "parentUid" : "9ed249639d18e9c260ebf3c3f5c0db71",
-      "status" : "failed",
+      "status" : "passed",
       "time" : {
-        "start" : 1655285406122,
-        "stop" : 1655285406373,
-        "duration" : 251
+        "start" : 1655315221305,
+        "stop" : 1655315222248,
+        "duration" : 943
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "GET findOne client then verify a single record",
+      "uid" : "cd1bf2884bac2627",
+      "parentUid" : "9ed249639d18e9c260ebf3c3f5c0db71",
+      "status" : "passed",
+      "time" : {
+        "start" : 1655315222258,
+        "stop" : 1655315222460,
+        "duration" : 202
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "GET findAll clients then verify multiple records",
+      "uid" : "ede1b2adf18edb3f",
+      "parentUid" : "9ed249639d18e9c260ebf3c3f5c0db71",
+      "status" : "passed",
+      "time" : {
+        "start" : 1655315222461,
+        "stop" : 1655315222620,
+        "duration" : 159
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "GET verifyIdToken client then confirm that it is valid",
+      "uid" : "56f2daaa210bc977",
+      "parentUid" : "9ed249639d18e9c260ebf3c3f5c0db71",
+      "status" : "passed",
+      "time" : {
+        "start" : 1655315222636,
+        "stop" : 1655315222815,
+        "duration" : 179
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "DELETE delete client then verify that it is gone",
+      "uid" : "43024137eb6a614",
+      "parentUid" : "9ed249639d18e9c260ebf3c3f5c0db71",
+      "status" : "passed",
+      "time" : {
+        "start" : 1655315222816,
+        "stop" : 1655315223097,
+        "duration" : 281
       },
       "flaky" : false,
       "newFailed" : false,
@@ -59,20 +127,20 @@
   }, {
     "name" : "LicenseKeys:",
     "children" : [ {
-      "name" : "generate license key then verify it",
-      "uid" : "cd20b8c134a2aacc",
+      "name" : "POST generate license key then verify it",
+      "uid" : "2d77069514030ef4",
       "parentUid" : "a8d5e5d9894daa31f614c3a98d052466",
-      "status" : "failed",
+      "status" : "passed",
       "time" : {
-        "start" : 1655285406396,
-        "stop" : 1655285406452,
-        "duration" : 56
+        "start" : 1655315223331,
+        "stop" : 1655315223541,
+        "duration" : 210
       },
       "flaky" : false,
       "newFailed" : false,
       "newPassed" : false,
       "newBroken" : false,
-      "retriesCount" : 1,
+      "retriesCount" : 0,
       "retriesStatusChange" : false,
       "parameters" : [ ]
     } ],
@@ -80,20 +148,54 @@
   }, {
     "name" : "Namespaces:",
     "children" : [ {
-      "name" : "generate license key then verify it",
-      "uid" : "e89517cb57614395",
+      "name" : "GET / namespaces then verify a successful call",
+      "uid" : "ea001fdbf20fd99",
       "parentUid" : "c86d8da5777819145745425c8460f020",
-      "status" : "failed",
+      "status" : "passed",
       "time" : {
-        "start" : 1655285406458,
-        "stop" : 1655285406507,
-        "duration" : 49
+        "start" : 1655315223558,
+        "stop" : 1655315223708,
+        "duration" : 150
       },
       "flaky" : false,
       "newFailed" : false,
       "newPassed" : false,
       "newBroken" : false,
-      "retriesCount" : 1,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "POST create namespace then verify new record",
+      "uid" : "b27f275f4666e0fe",
+      "parentUid" : "c86d8da5777819145745425c8460f020",
+      "status" : "passed",
+      "time" : {
+        "start" : 1655315223715,
+        "stop" : 1655315224193,
+        "duration" : 478
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
+      "retriesStatusChange" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "POST create namespace then confirm it has already been created",
+      "uid" : "c289d0ce45a11882",
+      "parentUid" : "c86d8da5777819145745425c8460f020",
+      "status" : "passed",
+      "time" : {
+        "start" : 1655315224194,
+        "stop" : 1655315225180,
+        "duration" : 986
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "newPassed" : false,
+      "newBroken" : false,
+      "retriesCount" : 0,
       "retriesStatusChange" : false,
       "parameters" : [ ]
     } ],

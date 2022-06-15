@@ -1,0 +1,90 @@
+{
+  "uid" : "ede1b2adf18edb3f",
+  "name" : "GET findAll clients then verify multiple records",
+  "fullName" : "Clients:.GET findAll clients then verify multiple records",
+  "historyId" : "9340c88f14827cb091fb8a21e56c3b0a",
+  "time" : {
+    "start" : 1655315222461,
+    "stop" : 1655315222620,
+    "duration" : 159
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "I send get request \"/corporis-debitis-ullam/\"",
+      "time" : {
+        "start" : 1655315222463,
+        "stop" : 1655315222619,
+        "duration" : 156
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315222619,
+        "stop" : 1655315222620,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "Clients:"
+  }, {
+    "name" : "testClass",
+    "value" : "Clients:"
+  }, {
+    "name" : "testMethod",
+    "value" : "GET findAll clients then verify multiple records"
+  }, {
+    "name" : "package",
+    "value" : "Clients:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "ede1b2adf18edb3f.json",
+  "parameterValues" : [ ]
+}

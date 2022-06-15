@@ -1,0 +1,225 @@
+{
+  "uid" : "4bfbe74144674fc",
+  "name" : "POST register client then confirm it has already been created",
+  "fullName" : "Clients:.POST register client then confirm it has already been created",
+  "historyId" : "b887811c28308e857c0b3bad3bd9bc1",
+  "time" : {
+    "start" : 1655315221305,
+    "stop" : 1655315222248,
+    "duration" : 943
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "I send post request \"/corporis-debitis-ullam/register\", \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A\", {\"Content-Type\":\"application/json\"}",
+      "time" : {
+        "start" : 1655315221308,
+        "stop" : 1655315221904,
+        "duration" : 596
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315221904,
+        "stop" : 1655315221905,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is 200",
+      "time" : {
+        "start" : 1655315221905,
+        "stop" : 1655315221905,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I send post request \"/corporis-debitis-ullam/register\", \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFhZWY1NjlmNTI0MTRlOWY0YTcxMDRiNmQwNzFmMDY2ZGZlZWQ2NzciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaXN0cmF2IiwiYXVkIjoiaXN0cmF2IiwiYXV0aF90aW1lIjoxNjU0OTg0NDM2LCJ1c2VyX2lkIjoiM2VNSEFKTzdnMmNlVm9qNlN3VUsycjJSdWloMSIsInN1YiI6IjNlTUhBSk83ZzJjZVZvajZTd1VLMnIyUnVpaDEiLCJpYXQiOjE2NTQ5ODQ0MzgsImV4cCI6MTY1NDk4ODAzOCwiZW1haWwiOiJ0cmF2aXMuYnVyYW5kdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidHJhdmlzLmJ1cmFuZHRAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.NiCH3c7mgpzVBJw08iM86aSdutO7Rmy9jLNqS_pQUbkBsfDce6Njtow8y5H7AftFTwlrOaK31IUop7WaNJF8HMGwa5PC23dLuyWYLsoyAbc1ttC6dxXRmjwc21F6HMNWuMLB6J3_XOZg5S4kwwL9cp-KKjPkXtpNJIb7eRVbApTQWZFtxUWBwqgQrM0Ntx2SLdTS_gtoIkdIordDo16vcV14BVPnZRhf6slgMAHPuegyizJ9YGs3QHW0VjHdQ1IuPdjjTJ5lE081LThschEQGJdB5TXQG1iaEm4ikrOYTAXjJgJxHfCms171537fZ4Ivgo-VQMhOEEAQHOb7wyMW5A\", {\"Content-Type\":\"application/json\"}",
+      "time" : {
+        "start" : 1655315221905,
+        "stop" : 1655315222009,
+        "duration" : 104
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is client error ",
+      "time" : {
+        "start" : 1655315222010,
+        "stop" : 1655315222010,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is 400",
+      "time" : {
+        "start" : 1655315222010,
+        "stop" : 1655315222011,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response contains keys [\"error\"]",
+      "time" : {
+        "start" : 1655315222011,
+        "stop" : 1655315222012,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response contains json {\"error\":\"A client with that firebaseAuthRef already exists.\"}",
+      "time" : {
+        "start" : 1655315222012,
+        "stop" : 1655315222014,
+        "duration" : 2
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I send delete request \"/corporis-debitis-ullam/9d6853a9-b923-443f-b867-389cb39e1573\"",
+      "time" : {
+        "start" : 1655315222014,
+        "stop" : 1655315222247,
+        "duration" : 233
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315222247,
+        "stop" : 1655315222247,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is 200",
+      "time" : {
+        "start" : 1655315222248,
+        "stop" : 1655315222248,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 11,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "Clients:"
+  }, {
+    "name" : "testClass",
+    "value" : "Clients:"
+  }, {
+    "name" : "testMethod",
+    "value" : "POST register client then confirm it has already been created"
+  }, {
+    "name" : "package",
+    "value" : "Clients:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "4bfbe74144674fc.json",
+  "parameterValues" : [ ]
+}

@@ -34,13 +34,13 @@ const router = Router()
 router.post('/verify', withContent, async ({ params, content }) => {
   // Make sure you have the minimum necessary body parameters.
   if (!content.id) {
-    return handleRequest({ reason: 'Missing "id" body parameter' }, { status: 403 });
+    return handleRequest({ error: 'Missing "id" body parameter' }, { status: 403 });
   }
   if (!content.mac) {
-    return handleRequest({ reason: 'Missing "mac" body parameter' }, { status: 403 });
+    return handleRequest({ error: 'Missing "mac" body parameter' }, { status: 403 });
   }
   if (!content.expiry) {
-    return handleRequest({ reason: 'Missing "expiry" body parameter' }, { status: 403 });
+    return handleRequest({ error: 'Missing "expiry" body parameter' }, { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -82,16 +82,16 @@ router.post('/verify', withContent, async ({ params, content }) => {
   console.log('verified', verified)
 
   let status = 200
-  let reason = 'A request was made.'
+  let error = 'A request was made.'
   let valid = true
   if (!verified) {
-    reason = 'Invalid License Key'
+    error = 'Invalid License Key'
     status = 403
     valid = false
   }
 
   if (Date.now() > expiry) {
-    reason = `License Key expired at ${new Date(expiry)}`;
+    error = `License Key expired at ${new Date(expiry)}`;
     status = 403
     valid = false
   }
@@ -104,7 +104,7 @@ router.post('/verify', withContent, async ({ params, content }) => {
     valid: valid,
     mac: receivedMacBase64,
     expiry: expiry,
-    reason: reason
+    error: error
   }
 
   return handleRequest(res, { status });
@@ -114,10 +114,10 @@ router.post('/verify', withContent, async ({ params, content }) => {
 router.post('/generate', withContent, async ({ params, content }) => {
   // Make sure you have the minimum necessary body parameters.
   if (!content.id) {
-    return handleRequest({ reason: 'Missing "id" body parameter' }, { status: 403 });
+    return handleRequest({ error: 'Missing "id" body parameter' }, { status: 403 });
   }
   if (!content.secret) {
-    return handleRequest({ reason: 'Missing "secret" body parameter' }, { status: 403 });
+    return handleRequest({ error: 'Missing "secret" body parameter' }, { status: 403 });
   }
 
   const key = await crypto.subtle.importKey(
@@ -148,7 +148,7 @@ router.post('/generate', withContent, async ({ params, content }) => {
 
   // only sign if the secret between this worker and the server match
   if (content.secret !== secret) {
-    return handleRequest({ reason: 'Invalid "secret" parameter' }, { status: 401 });
+    return handleRequest({ error: 'Invalid "secret" parameter' }, { status: 401 });
   }
 
   const encoder = new TextEncoder();
@@ -165,8 +165,7 @@ router.post('/generate', withContent, async ({ params, content }) => {
     genuine: dataToAuthenticate,
     valid: true,
     mac: base64Mac,
-    expiry: expiry,
-    reason: 'A request was made.'
+    expiry: expiry
   }
 
   return handleRequest(res);

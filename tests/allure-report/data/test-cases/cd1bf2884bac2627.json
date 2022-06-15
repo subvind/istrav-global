@@ -1,0 +1,90 @@
+{
+  "uid" : "cd1bf2884bac2627",
+  "name" : "GET findOne client then verify a single record",
+  "fullName" : "Clients:.GET findOne client then verify a single record",
+  "historyId" : "18656eda0679b01319ac5d501c6da071",
+  "time" : {
+    "start" : 1655315222258,
+    "stop" : 1655315222460,
+    "duration" : 202
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "I send get request \"/corporis-debitis-ullam/1023f53f-d5a4-4a26-9df0-2710b1be0573\"",
+      "time" : {
+        "start" : 1655315222259,
+        "stop" : 1655315222459,
+        "duration" : 200
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315222459,
+        "stop" : 1655315222459,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "Clients:"
+  }, {
+    "name" : "testClass",
+    "value" : "Clients:"
+  }, {
+    "name" : "testMethod",
+    "value" : "GET findOne client then verify a single record"
+  }, {
+    "name" : "package",
+    "value" : "Clients:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "cd1bf2884bac2627.json",
+  "parameterValues" : [ ]
+}

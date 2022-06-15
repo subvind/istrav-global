@@ -1,50 +1,110 @@
 [ {
-  "uid" : "3971a2b8a1318feb",
-  "name" : "GET findAll clients then verify a not found call",
+  "uid" : "2d77069514030ef4",
+  "name" : "POST generate license key then verify it",
   "time" : {
-    "start" : 1655285406122,
-    "stop" : 1655285406373,
-    "duration" : 251
-  },
-  "status" : "failed",
-  "severity" : "normal"
-}, {
-  "uid" : "e89517cb57614395",
-  "name" : "generate license key then verify it",
-  "time" : {
-    "start" : 1655285406458,
-    "stop" : 1655285406507,
-    "duration" : 49
-  },
-  "status" : "failed",
-  "severity" : "normal"
-}, {
-  "uid" : "cd20b8c134a2aacc",
-  "name" : "generate license key then verify it",
-  "time" : {
-    "start" : 1655285406396,
-    "stop" : 1655285406452,
-    "duration" : 56
-  },
-  "status" : "failed",
-  "severity" : "normal"
-}, {
-  "uid" : "30902c0fa55810dc",
-  "name" : "GET findAll clients then verify a successful call",
-  "time" : {
-    "start" : 1655285405829,
-    "stop" : 1655285406118,
-    "duration" : 289
+    "start" : 1655315223331,
+    "stop" : 1655315223541,
+    "duration" : 210
   },
   "status" : "passed",
   "severity" : "normal"
 }, {
-  "uid" : "436a1d9294ea43c9",
-  "name" : "GET findAll clients: verify a successful call",
+  "uid" : "b27f275f4666e0fe",
+  "name" : "POST create namespace then verify new record",
   "time" : {
-    "start" : 1655285248139,
-    "stop" : 1655285248463,
-    "duration" : 324
+    "start" : 1655315223715,
+    "stop" : 1655315224193,
+    "duration" : 478
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "43024137eb6a614",
+  "name" : "DELETE delete client then verify that it is gone",
+  "time" : {
+    "start" : 1655315222816,
+    "stop" : 1655315223097,
+    "duration" : 281
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "56f2daaa210bc977",
+  "name" : "GET verifyIdToken client then confirm that it is valid",
+  "time" : {
+    "start" : 1655315222636,
+    "stop" : 1655315222815,
+    "duration" : 179
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ea001fdbf20fd99",
+  "name" : "GET / namespaces then verify a successful call",
+  "time" : {
+    "start" : 1655315223558,
+    "stop" : 1655315223708,
+    "duration" : 150
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "ede1b2adf18edb3f",
+  "name" : "GET findAll clients then verify multiple records",
+  "time" : {
+    "start" : 1655315222461,
+    "stop" : 1655315222620,
+    "duration" : 159
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "cd1bf2884bac2627",
+  "name" : "GET findOne client then verify a single record",
+  "time" : {
+    "start" : 1655315222258,
+    "stop" : 1655315222460,
+    "duration" : 202
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a838ebcadc7075ab",
+  "name" : "GET / clients then verify a successful call",
+  "time" : {
+    "start" : 1655315220251,
+    "stop" : 1655315220570,
+    "duration" : 319
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "31ac2beff7638406",
+  "name" : "POST register client then verify new record",
+  "time" : {
+    "start" : 1655315220580,
+    "stop" : 1655315221302,
+    "duration" : 722
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "c289d0ce45a11882",
+  "name" : "POST create namespace then confirm it has already been created",
+  "time" : {
+    "start" : 1655315224194,
+    "stop" : 1655315225180,
+    "duration" : 986
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "4bfbe74144674fc",
+  "name" : "POST register client then confirm it has already been created",
+  "time" : {
+    "start" : 1655315221305,
+    "stop" : 1655315222248,
+    "duration" : 943
   },
   "status" : "passed",
   "severity" : "normal"

@@ -1,0 +1,90 @@
+{
+  "uid" : "a838ebcadc7075ab",
+  "name" : "GET / clients then verify a successful call",
+  "fullName" : "Clients:.GET / clients then verify a successful call",
+  "historyId" : "21faf4072ceaba85f167c09a6221b368",
+  "time" : {
+    "start" : 1655315220251,
+    "stop" : 1655315220570,
+    "duration" : 319
+  },
+  "description" : "",
+  "descriptionHtml" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "newBroken" : false,
+  "newPassed" : false,
+  "retriesCount" : 0,
+  "retriesStatusChange" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "I send get request \"/\"",
+      "time" : {
+        "start" : 1655315220257,
+        "stop" : 1655315220568,
+        "duration" : 311
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315220568,
+        "stop" : 1655315220570,
+        "duration" : 2
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "suite",
+    "value" : "Clients:"
+  }, {
+    "name" : "testClass",
+    "value" : "Clients:"
+  }, {
+    "name" : "testMethod",
+    "value" : "GET / clients then verify a successful call"
+  }, {
+    "name" : "package",
+    "value" : "Clients:"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure1"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "a838ebcadc7075ab.json",
+  "parameterValues" : [ ]
+}

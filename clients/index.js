@@ -193,16 +193,16 @@ router.post('/:namespace/register', withContent, async ({ params, content }) => 
   let verified = await verifyToken(content)
   console.log('verified', verified)
   if (verified.error) {
-    return handleRequest({ reason: verified.message }, { status: 400 });
+    return handleRequest({ error: verified.message }, { status: 400 });
   }
   if (!verified.user_id) {
-    return handleRequest({ reason: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
+    return handleRequest({ error: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
   }
 
   // check if user already exists
   let clientCheck = collection.findOne({ firebaseAuthRef: verified.user_id })
   if (clientCheck) {
-    return handleRequest({ reason: 'A client with that firebaseAuthRef already exists.' }, { status: 400 });
+    return handleRequest({ error: 'A client with that firebaseAuthRef already exists.' }, { status: 400 });
   }
 
   // register: user is valid and new so create one here
@@ -222,7 +222,7 @@ router.post('/:namespace/register', withContent, async ({ params, content }) => 
   let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
   if (!apiKey || apiKey == {}) {
-    return handleRequest({ reason: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
+    return handleRequest({ error: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
   }
 
   return handleRequest(apiKey)
@@ -239,24 +239,24 @@ router.post('/:namespace/login', withContent, async ({ params, content }) => {
   let verified = await verifyToken(content)
   console.log('verified', verified)
   if (verified.error) {
-    return handleRequest({ reason: verified.message }, { status: 400 });
+    return handleRequest({ error: verified.message }, { status: 400 });
   }
   if (!verified.user_id) {
-    return handleRequest({ reason: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
+    return handleRequest({ error: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
   }
 
   // grab user by firebase auth id
   let client = collection.findOne({ firebaseAuthRef: verified.user_id })
   console.log('client', client)
   if (!client) {
-    return handleRequest({ reason: 'No client exists exist with that firebaseAuthRef.' }, { status: 404 });
+    return handleRequest({ error: 'No client exists exist with that firebaseAuthRef.' }, { status: 404 });
   }
 
   // user is valid so return api key
   let apiKey = await jwt.sign(client, secret, { algorithm: 'HS256' })
   console.log('apiKey', apiKey)
   if (!apiKey || apiKey == {}) {
-    return handleRequest({ reason: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
+    return handleRequest({ error: 'Sorry we are unable to generate an apiKey.' }, { status: 400 });
   }
 
   return handleRequest(apiKey)

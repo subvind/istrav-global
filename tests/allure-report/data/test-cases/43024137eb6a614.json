@@ -1,12 +1,12 @@
 {
-  "uid" : "436a1d9294ea43c9",
-  "name" : "GET findAll clients: verify a successful call",
-  "fullName" : "Clients:.GET findAll clients: verify a successful call",
-  "historyId" : "63a5d9ca6ccff63d67588f3fcca1325e",
+  "uid" : "43024137eb6a614",
+  "name" : "DELETE delete client then verify that it is gone",
+  "fullName" : "Clients:.DELETE delete client then verify that it is gone",
+  "historyId" : "a0b31536b4d1b0bd73fc3df8ffe7d09d",
   "time" : {
-    "start" : 1655285248139,
-    "stop" : 1655285248463,
-    "duration" : 324
+    "start" : 1655315222816,
+    "stop" : 1655315223097,
+    "duration" : 281
   },
   "description" : "",
   "descriptionHtml" : "",
@@ -21,11 +21,11 @@
   "testStage" : {
     "status" : "passed",
     "steps" : [ {
-      "name" : "I send get request \"https://clients.trabur.workers.dev/my-namespace\"",
+      "name" : "I send delete request \"/corporis-debitis-ullam/b16f154d-97a7-41c6-8e2f-b1970f967d1c\"",
       "time" : {
-        "start" : 1655285248152,
-        "stop" : 1655285248460,
-        "duration" : 308
+        "start" : 1655315222817,
+        "stop" : 1655315223097,
+        "duration" : 280
       },
       "status" : "passed",
       "steps" : [ ],
@@ -38,9 +38,39 @@
     }, {
       "name" : "I see response code is successful ",
       "time" : {
-        "start" : 1655285248461,
-        "stop" : 1655285248462,
-        "duration" : 1
+        "start" : 1655315223097,
+        "stop" : 1655315223097,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I send delete request \"/17ead9fb-c913-40d5-8d88-407dc24cc256\"",
+      "time" : {
+        "start" : 1655315223100,
+        "stop" : 1655315223270,
+        "duration" : 170
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "I see response code is successful ",
+      "time" : {
+        "start" : 1655315223270,
+        "stop" : 1655315223270,
+        "duration" : 0
       },
       "status" : "passed",
       "steps" : [ ],
@@ -53,7 +83,7 @@
     } ],
     "attachments" : [ ],
     "parameters" : [ ],
-    "stepsCount" : 2,
+    "stepsCount" : 4,
     "attachmentsCount" : 0,
     "shouldDisplayMessage" : false,
     "hasContent" : true
@@ -67,7 +97,7 @@
     "value" : "Clients:"
   }, {
     "name" : "testMethod",
-    "value" : "GET findAll clients: verify a successful call"
+    "value" : "DELETE delete client then verify that it is gone"
   }, {
     "name" : "package",
     "value" : "Clients:"
@@ -85,6 +115,6 @@
     "categories" : [ ],
     "tags" : [ ]
   },
-  "source" : "436a1d9294ea43c9.json",
+  "source" : "43024137eb6a614.json",
   "parameterValues" : [ ]
 }

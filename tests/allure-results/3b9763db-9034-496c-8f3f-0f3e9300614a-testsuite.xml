@@ -1,0 +1,166 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1655315223555' stop='1655315225182'>
+    <name>Namespaces:</name>
+    <title>Namespaces:</title>
+    <test-cases>
+        <test-case start='1655315223558' status='passed' stop='1655315223708'>
+            <name>GET / namespaces then verify a successful call</name>
+            <title>GET / namespaces then verify a successful call</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315223559' status='passed' stop='1655315223704'>
+                    <name>I send get request "/"</name>
+                    <title>I send get request "/"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223704' status='passed' stop='1655315223706'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223707' status='passed' stop='1655315223708'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315223715' status='passed' stop='1655315224193'>
+            <name>POST create namespace then verify new record</name>
+            <title>POST create namespace then verify new record</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315223719' status='passed' stop='1655315223959'>
+                    <name>I send post request "/", {"slug":"corporis-nihil-a"}, {"Content-Type":"application/json"}</name>
+                    <title>I send post request "/", {"slug":"corporis-nihil-a"}, {"Content-Type":"application/json"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223959' status='passed' stop='1655315223959'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223959' status='passed' stop='1655315223959'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223959' status='passed' stop='1655315223960'>
+                    <name>I see response contains keys ["id","slug"]</name>
+                    <title>I see response contains keys ["id","slug"]</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223960' status='passed' stop='1655315223960'>
+                    <name>I see response contains json {"slug":"corporis-nihil-a"}</name>
+                    <title>I see response contains json {"slug":"corporis-nihil-a"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315223960' status='passed' stop='1655315224192'>
+                    <name>I send delete request "/2fda6466-e6f5-49f2-860e-97bf9a121495"</name>
+                    <title>I send delete request "/2fda6466-e6f5-49f2-860e-97bf9a121495"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224192' status='passed' stop='1655315224193'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224193' status='passed' stop='1655315224193'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+        <test-case start='1655315224194' status='passed' stop='1655315225180'>
+            <name>POST create namespace then confirm it has already been created</name>
+            <title>POST create namespace then confirm it has already been created</title>
+            <labels/>
+            <parameters/>
+            <steps>
+                <step start='1655315224195' status='passed' stop='1655315224467'>
+                    <name>I send post request "/", {"slug":"aut-occaecati-dolorem"}, {"Content-Type":"application/json"}</name>
+                    <title>I send post request "/", {"slug":"aut-occaecati-dolorem"}, {"Content-Type":"application/json"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224467' status='passed' stop='1655315224467'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224467' status='passed' stop='1655315224468'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224468' status='passed' stop='1655315224694'>
+                    <name>I send post request "/", {"slug":"aut-occaecati-dolorem"}, {"Content-Type":"application/json"}</name>
+                    <title>I send post request "/", {"slug":"aut-occaecati-dolorem"}, {"Content-Type":"application/json"}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224695' status='passed' stop='1655315224695'>
+                    <name>I see response code is client error </name>
+                    <title>I see response code is client error </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224695' status='passed' stop='1655315224696'>
+                    <name>I see response code is 400</name>
+                    <title>I see response code is 400</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224696' status='passed' stop='1655315224697'>
+                    <name>I see response contains keys ["error"]</name>
+                    <title>I see response contains keys ["error"]</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224697' status='passed' stop='1655315224698'>
+                    <name>I see response contains json {"error":"A namespace with that slug already exists."}</name>
+                    <title>I see response contains json {"error":"A namespace with that slug already exists."}</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315224698' status='passed' stop='1655315225179'>
+                    <name>I send delete request "/57dc8d21-dd96-4f44-a055-d8c50d444852"</name>
+                    <title>I send delete request "/57dc8d21-dd96-4f44-a055-d8c50d444852"</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315225179' status='passed' stop='1655315225180'>
+                    <name>I see response code is successful </name>
+                    <title>I see response code is successful </title>
+                    <attachments/>
+                    <steps/>
+                </step>
+                <step start='1655315225180' status='passed' stop='1655315225180'>
+                    <name>I see response code is 200</name>
+                    <title>I see response code is 200</title>
+                    <attachments/>
+                    <steps/>
+                </step>
+            </steps>
+            <attachments/>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

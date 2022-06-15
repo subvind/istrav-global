@@ -14,8 +14,11 @@
         "@codeceptjs/configure": "^0.8.0",
         "@codeceptjs/examples": "^1.2.1",
         "@codeceptjs/ui": "^0.4.6",
+        "@faker-js/faker": "latest",
         "codeceptjs": "^3.3.3",
-        "playwright": "^1.22.2",
-        "@faker-js/faker": "latest"
+        "playwright": "^1.22.2"
+    },
+    "dependencies": {
+        "jsonwebtoken": "^8.5.1"
     }
 }
