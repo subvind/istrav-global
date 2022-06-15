@@ -87,6 +87,9 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
   await download(`tenants:${content.tenantId}`, tenants)
 
   // create
+  // content.email
+  // content.firebaseAuthRef
+  // content.tenantId
   content.id = uuidv4()
 
   // check foreign keys

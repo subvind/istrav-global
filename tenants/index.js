@@ -85,6 +85,9 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
   // create
   content.id = uuidv4()
+  // content.slug
+  // content.levelId
+  // content.stripeCustomerRef
   console.log('create', content)
   
   // check requirements
@@ -126,6 +129,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   // update
   record.slug = content.slug || record.slug
   record.levelId = content.levelId || record.levelId
+  record.stripeCustomerRef = content.stripeCustomerRef || record.stripeCustomerRef
   console.log('update', record)
   
   // check requirements

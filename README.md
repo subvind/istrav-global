@@ -1,6 +1,6 @@
 istrav-global
 ========
-let folders = [community, json, charge]
+let folders = [community, json, charge] // ai
 
 ### Storage Locations
 - namespaces/id
@@ -11,7 +11,6 @@ let folders = [community, json, charge]
 - levels/namespace/id
 - license-keys/namespace/id
 - reports/namespace/id
-- stripe/namespace/id
 - websites/namespace/id
 - bins/namespace/version/id
 - collections/namespace/id
@@ -33,7 +32,7 @@ let folders = [community, json, charge]
 - collections
 - schema-validators
 
-### KV Database Tables
+### Key Value Locations
 - namespaces
 - access-keys
 - tenants
@@ -56,7 +55,7 @@ let folders = [community, json, charge]
 - licenseKeys: {id, mac, expiry}
 - levels: {id, tenants, amount, number, activeUsersPerHour, requestsPerDay, requestsPerMonth, name, description, stripeProductRef, stripePriceRef}
 - reports: {id, platformId, activeUsersPastHour, requestsPastDay, requestsPastMonth, createdAt}
-- stripe: [id, customers, products, prices, invoices, subscriptions, paymentIntents, paymentMethods]
+- stripe: [customers, products, prices, invoices, subscriptions, paymentIntents, paymentMethods]
 - websites: {id, platformId, frontendDomainName}
 - bins: {id, collectionId, data}
 - collections: {id, bins, schemaValidatorId}
