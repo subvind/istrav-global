@@ -89,8 +89,8 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
   // content.requestsPerMonth
   // content.name
   // content.description
-  // content.stripeProductId
-  // content.stripePriceId
+  // content.stripeProductRef
+  // content.stripePriceRef
   console.log('create', content)
   
   // submit
@@ -119,6 +119,14 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
 
   // update
   record.token = content.token || record.token
+  record.number = content.number || record.number
+  record.activeUsersPerHour = content.activeUsersPerHour || record.activeUsersPerHour
+  record.requestsPerDay = content.requestsPerDay || record.requestsPerDay
+  record.requestsPerMonth = content.requestsPerMonth || record.requestsPerMonth
+  record.name = content.name || record.name
+  record.description = content.description || record.description
+  record.stripeProductRef = content.token || record.stripeProductRef
+  record.stripePriceRef = content.stripePriceRef || record.stripePriceRef
   console.log('update', record)
   
   // submit

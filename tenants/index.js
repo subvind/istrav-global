@@ -11,6 +11,7 @@ import {
 import loki from 'lokijs'
 let db = new loki('istrav');
 let collection = db.addCollection('tenants', { indices: ['id', 'slug'] });
+let levels = db.addCollection('levels', { indices: ['id'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
@@ -80,6 +81,7 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
   // database
   await download(key)
+  await download(`levels:${params.namespace}`, levels)
 
   // create
   content.id = uuidv4()
@@ -89,6 +91,12 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
   let tenant = await collection.findOne({ slug: content.slug })
   if (tenant) {
     return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 404 });
+  }
+
+  // check foreign keys
+  let level = await levels.findOne({ id: content.levelId })
+  if (!level) {
+    return handleRequest({ error: 'The provided level id does not exist.' }, { status: 404 });
   }
 
   // submit
@@ -106,6 +114,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
 
   // database
   await download(key)
+  await download(`levels:${params.namespace}`, levels)
 
   // fetch
   let record = collection.findOne({ id: params.id })
@@ -116,6 +125,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
 
   // update
   record.slug = content.slug || record.slug
+  record.levelId = content.levelId || record.levelId
   console.log('update', record)
   
   // check requirements
@@ -126,7 +136,13 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
       return handleRequest({ error: 'A tenant with that slug already exists.' }, { status: 400 });
     }
   }
-  
+
+  // check foreign keys
+  let level = await levels.findOne({ id: record.levelId })
+  if (!level) {
+    return handleRequest({ error: 'The provided level id does not exist.' }, { status: 404 });
+  }
+
   // submit
   collection.update(record)
 

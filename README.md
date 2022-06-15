@@ -48,13 +48,13 @@ let folders = [community, json, charge]
 - schema-validators
 
 ### Table Fields & Relations
-- namespaces: {id, name, accessKeys}
-- accessKeys: {id, namespaceId, token}
-- tenants: {id, levelId, clients, platforms, namespaces, stripeCustomerId}
-- clients: {id, firebaseAuthId, apiKey, tenantId}
-- platforms: {id, tenantId, backendDomainName, licenseKeyId, websites, reports, stripeSubscriptionId}
-- licenseKeys: {id, platforms, validate, mac, expiry}
-- levels: {id, tenants, amount, number, activeUsersPerHour, requestsPerDay, requestsPerMonth, name, description, stripeProductId, stripePriceId}
+- namespaces: {id, slug, accessKeys}
+- accessKeys: {id, token}
+- tenants: {id, levelId, clients, platforms, stripeCustomerRef}
+- clients: {id, email, firebaseAuthRef, tenantId}
+- platforms: {id, tenantId, backendDomainName, licenseKey: {id, mac, expiry}, websites, reports, stripeSubscriptionRef}
+- licenseKeys: {id, mac, expiry}
+- levels: {id, tenants, amount, number, activeUsersPerHour, requestsPerDay, requestsPerMonth, name, description, stripeProductRef, stripePriceRef}
 - reports: {id, platformId, activeUsersPastHour, requestsPastDay, requestsPastMonth, createdAt }
 - stripe: [id, customers, products, prices, invoices, subscriptions, paymentIntents, paymentMethods]
 - websites: {id, platformId, frontendDomainName}
@@ -66,7 +66,6 @@ let folders = [community, json, charge]
 - namespaces:{id}:accessKeys:{accessKeyId}
 - tenants:{id}:clients:{clientId}
 - tenants:{id}:platforms:{platformId}
-- tenants:{id}:namespaces:{namespaceId}
 - platforms:{id}:websites:{websiteId}
 - platforms:{id}:reports:{reportId}
 - licenseKeys:{id}:platforms:{platformId}

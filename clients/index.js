@@ -13,7 +13,8 @@ import jsonwebtoken from 'jsonwebtoken';
 // database collection
 import loki from 'lokijs'
 let db = new loki('istrav');
-let collection = db.addCollection('clients', { indices: ['id', 'firebaseAuthId'] });
+let collection = db.addCollection('clients', { indices: ['id', 'firebaseAuthRef'] });
+let tenants = db.addCollection('tenants', { indices: ['id', 'slug'] });
 
 // for signing and verifying API keys
 const secret = API_KEYS_SECRET || 'between workers'
@@ -83,9 +84,16 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
   
   // database
   await download(key)
+  await download(`tenants:${content.tenantId}`, tenants)
 
   // create
   content.id = uuidv4()
+
+  // check foreign keys
+  let tenant = await tenants.findOne({ id: content.tenantId })
+  if (!tenant) {
+    return handleRequest({ error: 'The provided tenent id does not exist.' }, { status: 404 });
+  }
 
   // submit
   let record = collection.insert(content)
@@ -102,11 +110,19 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   
   // database
   await download(key)
+  await download(`tenants:${content.tenantId}`, tenants)
 
   // update
   let record = collection.findOne({ id: params.id })
   record.email = content.email || record.email
-  record.firebaseAuthId = content.firebaseAuthId || record.firebaseAuthId
+  record.firebaseAuthRef = content.firebaseAuthRef || record.firebaseAuthRef
+  record.tenantId = content.tenantId || record.tenantId
+
+  // check foreign keys
+  let tenant = await tenants.findOne({ id: record.tenantId })
+  if (!tenant) {
+    return handleRequest({ error: 'The provided tenent id does not exist.' }, { status: 404 });
+  }
 
   // submit
   collection.update(client)
@@ -177,20 +193,20 @@ router.post('/:namespace/register', withContent, async ({ params, content }) => 
     return handleRequest({ reason: verified.message }, { status: 400 });
   }
   if (!verified.user_id) {
-    return handleRequest({ reason: 'Token data does not have a firebaseAuthId.' }, { status: 404 });
+    return handleRequest({ reason: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
   }
 
   // check if user already exists
-  let clientCheck = collection.findOne({ firebaseAuthId: verified.user_id })
+  let clientCheck = collection.findOne({ firebaseAuthRef: verified.user_id })
   if (clientCheck) {
-    return handleRequest({ reason: 'A client with that firebaseAuthId already exists.' }, { status: 400 });
+    return handleRequest({ reason: 'A client with that firebaseAuthRef already exists.' }, { status: 400 });
   }
 
   // register: user is valid and new so create one here
   let record = {
     id: uuidv4(),
     email: verified.email,
-    firebaseAuthId: verified.user_id
+    firebaseAuthRef: verified.user_id
   }
   console.log('record', record)
   let client = collection.insert(record)
@@ -223,14 +239,14 @@ router.post('/:namespace/login', withContent, async ({ params, content }) => {
     return handleRequest({ reason: verified.message }, { status: 400 });
   }
   if (!verified.user_id) {
-    return handleRequest({ reason: 'Token data does not have a firebaseAuthId.' }, { status: 404 });
+    return handleRequest({ reason: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
   }
 
   // grab user by firebase auth id
-  let client = collection.findOne({ firebaseAuthId: verified.user_id })
+  let client = collection.findOne({ firebaseAuthRef: verified.user_id })
   console.log('client', client)
   if (!client) {
-    return handleRequest({ reason: 'No client exists exist with that firebaseAuthId.' }, { status: 404 });
+    return handleRequest({ reason: 'No client exists exist with that firebaseAuthRef.' }, { status: 404 });
   }
 
   // user is valid so return api key

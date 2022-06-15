@@ -44,17 +44,6 @@ async function save(key, store) {
   return memoryData
 }
 
-// create X length random string
-function randomString(len) {
-  let charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var randomString = '';
-  for (var i = 0; i < len; i++) {
-    var randomPoz = Math.floor(Math.random() * charSet.length);
-    randomString += charSet.substring(randomPoz,randomPoz+1);
-  }
-  return randomString;
-}
-
 // now let's create a router (note the lack of "new")
 const router = Router()
 
@@ -91,17 +80,23 @@ router.post('/:namespace', withContent, async ({ params, content}) => {
 
   // database
   await download(key)
-  await download('tenants', tenants)
+  await download(`tenants:${params.namespace}`, tenants)
 
   // create
   content.id = uuidv4()
-  // content.tenantId
   // content.backendDomainName 
-  // content.licenseKeyData
-  // content.licenseKeyMac
-  // content.licenseKeyExpiry
-  // content.stripeSubscriptionId
+  // content.tenantId
+  // content.licenseKey.id
+  // content.licenseKey.mac
+  // content.licenseKey.expiry
+  // content.stripeSubscriptionRef
   console.log('create', content)
+
+  // check foreign keys
+  let tenant = await tenants.findOne({ id: content.tenantId })
+  if (!tenant) {
+    return handleRequest({ error: 'The provided tenant id does not exist.' }, { status: 404 });
+  }
   
   // submit
   let record = collection.insert(content)
@@ -118,7 +113,7 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
 
   // database
   await download(key, collection)
-  await download('namespaces', namespaces)
+  await download(`tenants:${params.namespace}`, tenants)
 
   // fetch
   let record = collection.findOne({ id: params.id })
@@ -128,8 +123,17 @@ router.put('/:namespace/:id', withContent, async ({ params, content}) => {
   }
 
   // update
-  record.token = content.token || record.token
+  record.backendDomainName = content.backendDomainName || record.backendDomainName
+  record.tenantId = content.tenantId || record.tenantId
+  record.licenseKey = content.licenseKey || record.licenseKey
+  record.stripeSubscriptionRef = content.stripeSubscriptionRef || record.stripeSubscriptionRef
   console.log('update', record)
+
+  // check foreign keys
+  let tenant = await tenants.findOne({ id: record.tenantId })
+  if (!tenant) {
+    return handleRequest({ error: 'The provided tenant id does not exist.' }, { status: 404 });
+  }
   
   // submit
   collection.update(record)
