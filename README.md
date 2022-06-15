@@ -55,7 +55,7 @@ let folders = [community, json, charge]
 - platforms: {id, tenantId, backendDomainName, licenseKey: {id, mac, expiry}, websites, reports, stripeSubscriptionRef}
 - licenseKeys: {id, mac, expiry}
 - levels: {id, tenants, amount, number, activeUsersPerHour, requestsPerDay, requestsPerMonth, name, description, stripeProductRef, stripePriceRef}
-- reports: {id, platformId, activeUsersPastHour, requestsPastDay, requestsPastMonth, createdAt }
+- reports: {id, platformId, activeUsersPastHour, requestsPastDay, requestsPastMonth, createdAt}
 - stripe: [id, customers, products, prices, invoices, subscriptions, paymentIntents, paymentMethods]
 - websites: {id, platformId, frontendDomainName}
 - bins: {id, collectionId, data}
