@@ -263,7 +263,7 @@ router.post('/:namespace/login', withContent, async ({ params, content }) => {
 })
 
 // for everything else
-router.all('*', () => new Response('https://global.trabur.workers.dev'))
+router.all('*', () => handleRequest('https://global.trabur.workers.dev'))
 
 // attach the router "handle" to the event handler
 addEventListener('fetch', event => {
