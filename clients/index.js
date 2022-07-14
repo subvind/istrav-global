@@ -164,9 +164,10 @@ async function verifyFirebaseToken (token) {
   console.log('cert', cert)
 
   // confirm user token is valid with firebase cert using 3rd party jwt library
-  let isValid = jsonwebtoken.verify(token, cert, { algorithms: ['RS256'] })
+  let isValid = jsonwebtoken.verify(token, cert)
+  console.log('isValid', isValid)
+
   if (isValid) {
-    console.log('isValid', isValid)
     return jsonwebtoken.decode(token)
   } else {
     return { error: true, message: 'Unable to verify token from firebase.' }
