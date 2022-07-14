@@ -178,6 +178,9 @@ router.post('/:namespace/verifyIdToken', withContent, async ({ params, content }
   let key = `clients:${params.namespace}`
   
   // check requirements
+  if (!content || !content.token) {
+    return handleRequest({ error: 'A firebase token is required: { "token": "3r874ohs..." }.' }, { status: 400 });
+  }
   let verified = await verifyFirebaseToken(content.token)
 
   return handleRequest(verified)
@@ -191,6 +194,9 @@ router.post('/:namespace/register', withContent, async ({ params, content }) => 
   await download(key)
 
   // check requirements
+  if (!content || !content.token) {
+    return handleRequest({ error: 'A firebase token is required: { "token": "3r874ohs..." }.' }, { status: 400 });
+  }
   let verified = await verifyFirebaseToken(content.token)
   console.log('verified', verified)
   if (verified === null) {
@@ -240,6 +246,9 @@ router.post('/:namespace/login', withContent, async ({ params, content }) => {
   await download(key)
 
   // check requirements
+  if (!content || !content.token) {
+    return handleRequest({ error: 'A firebase token is required: { "token": "3r874ohs..." }.' }, { status: 400 });
+  }
   let verified = await verifyFirebaseToken(content.token)
   console.log('verified', verified)
   if (verified === null) {
