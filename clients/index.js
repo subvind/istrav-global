@@ -154,7 +154,7 @@ router.delete('/:namespace/:id', async ({ params }) => {
 
 // true: If your backend is in a language not supported by the Firebase Admin SDK, you can still verify ID tokens...
 // https://firebase.google.com/docs/auth/admin/verify-id-tokens#verify_id_tokens_using_a_third-party_jwt_library
-async function verifyToken (content) {
+async function verifyFirebaseToken (token) {
   // grab firebase's official public cert from the internet
   let cert = await fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com')
     .then(response => response.json())
@@ -164,9 +164,10 @@ async function verifyToken (content) {
   console.log('cert', cert)
 
   // confirm user token is valid with firebase cert using 3rd party jwt library
-  let isValid = jwt.verify(content, cert, { algorithm: 'RS256' })
+  let isValid = jsonwebtoken.verify(token, cert, { algorithms: ['RS256'] })
   if (isValid) {
-    return jsonwebtoken.decode(content)
+    console.log('isValid', isValid)
+    return jsonwebtoken.decode(token)
   } else {
     return { error: true, message: 'Unable to verify token from firebase.' }
   }
@@ -177,7 +178,7 @@ router.post('/:namespace/verifyIdToken', withContent, async ({ params, content }
   let key = `clients:${params.namespace}`
   
   // check requirements
-  let verified = await verifyToken(content)
+  let verified = await verifyFirebaseToken(content.token)
 
   return handleRequest(verified)
 })
@@ -190,8 +191,11 @@ router.post('/:namespace/register', withContent, async ({ params, content }) => 
   await download(key)
 
   // check requirements
-  let verified = await verifyToken(content)
+  let verified = await verifyFirebaseToken(content.token)
   console.log('verified', verified)
+  if (verified === null) {
+    return handleRequest({ error: content }, { status: 400 });
+  }
   if (verified.error) {
     return handleRequest({ error: verified.message }, { status: 400 });
   }
@@ -236,8 +240,11 @@ router.post('/:namespace/login', withContent, async ({ params, content }) => {
   await download(key)
 
   // check requirements
-  let verified = await verifyToken(content)
+  let verified = await verifyFirebaseToken(content.token)
   console.log('verified', verified)
+  if (verified === null) {
+    return handleRequest({ error: content }, { status: 400 });
+  }
   if (verified.error) {
     return handleRequest({ error: verified.message }, { status: 400 });
   }
