@@ -7,8 +7,8 @@ import {
 } from 'itty-router-extras'
 
 // authentication
+import { verifyTokenId } from "@codehelios/verify-tokenid";
 import jwt from '@tsndr/cloudflare-worker-jwt' // needed for libraries
-import jsonwebtoken from 'jsonwebtoken';
 
 // database collection
 import loki from 'lokijs'
@@ -152,25 +152,15 @@ router.delete('/:namespace/:id', async ({ params }) => {
   return handleRequest(null)
 })
 
-// true: If your backend is in a language not supported by the Firebase Admin SDK, you can still verify ID tokens...
-// https://firebase.google.com/docs/auth/admin/verify-id-tokens#verify_id_tokens_using_a_third-party_jwt_library
+// https://github.com/codehelios/verify-tokenid
 async function verifyFirebaseToken (token) {
-  // grab firebase's official public cert from the internet
-  let cert = await fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com')
-    .then(response => response.json())
-    .then((data) => {
-      return data[Object.keys(data)[0]]
-    })
-  console.log('cert', cert)
-
-  // confirm user token is valid with firebase cert using 3rd party jwt library
-  let isValid = jsonwebtoken.verify(token, cert)
+  const { isValid, decoded, error } = await verifyTokenId(token, "https://securetoken.google.com/istrav", "istrav");
   console.log('isValid', isValid)
 
   if (isValid) {
-    return jsonwebtoken.decode(token)
+    return decoded
   } else {
-    return { error: true, message: 'Unable to verify token from firebase.' }
+    return { error: true, message: error }
   }
 }
 
