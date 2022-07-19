@@ -196,12 +196,12 @@ router.post('/:namespace/register', withContent, async ({ params, content }) => 
   if (verified.error) {
     return handleRequest({ error: verified.message }, { status: 400 });
   }
-  if (!verified.user_id) {
+  if (!verified.payload.user_id) {
     return handleRequest({ error: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
   }
 
   // check if user already exists
-  let clientCheck = collection.findOne({ firebaseAuthRef: verified.user_id })
+  let clientCheck = collection.findOne({ firebaseAuthRef: verified.payload.user_id })
   if (clientCheck) {
     return handleRequest({ error: 'A client with that firebaseAuthRef already exists.' }, { status: 400 });
   }
@@ -210,7 +210,7 @@ router.post('/:namespace/register', withContent, async ({ params, content }) => 
   let record = {
     id: uuidv4(),
     email: verified.email,
-    firebaseAuthRef: verified.user_id
+    firebaseAuthRef: verified.payload.user_id
   }
   console.log('record', record)
   let client = collection.insert(record)
@@ -248,12 +248,12 @@ router.post('/:namespace/login', withContent, async ({ params, content }) => {
   if (verified.error) {
     return handleRequest({ error: verified.message }, { status: 400 });
   }
-  if (!verified.user_id) {
+  if (!verified.payload.user_id) {
     return handleRequest({ error: 'Token data does not have a firebaseAuthRef.' }, { status: 404 });
   }
 
   // grab user by firebase auth id
-  let client = collection.findOne({ firebaseAuthRef: verified.user_id })
+  let client = collection.findOne({ firebaseAuthRef: verified.payload.user_id })
   console.log('client', client)
   if (!client) {
     return handleRequest({ error: 'No client exists exist with that firebaseAuthRef.' }, { status: 404 });
